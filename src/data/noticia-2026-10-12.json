@@ -6,7 +6,7 @@
   "scenes": [
     {
       "type": "hook",
-      "dur": 4.4,
+      "dur": 4.0,
       "tag": "Noticia",
       "kicker": "Inversionistas · 2026",
       "title": "¿Sigues con un PDF y un grupo de",
@@ -17,62 +17,78 @@
     },
     {
       "type": "roast",
-      "dur": 2.75,
+      "dur": 2.3,
       "tag": "Realidad",
       "lines": [
         "El 2010 te manda saludos"
       ],
       "punch": "Archivo_final_v3.pdf",
       "cues": {
-        "line0": 0.2,
-        "punch": 1.4
+        "line0": 0.15,
+        "punch": 1.1
       }
     },
     {
       "type": "news",
-      "dur": 7.45,
+      "dur": 11.15,
       "tag": "Noticia",
       "source": "Cointelegraph",
       "date": "8 oct 2026",
-      "headline": "Fidelity: “no hay vuelta atrás” para las instituciones que tokenizan",
+      "headline": "Fidelity ya tiene su fondo tokenizado en Ethereum: “no hay vuelta atrás”",
       "articleShot": "media/noticia-2026-10-12/nota.png",
       "siteUrl": "fidelitydigitalassets.com",
       "siteShot": "media/noticia-2026-10-12/web-empresa.png",
       "chip": "Fidelity Digital Assets"
     },
     {
+      "type": "stat",
+      "dur": 5.1,
+      "tag": "Resultados",
+      "value": 41,
+      "prefix": "+",
+      "suffix": "%",
+      "label": "demanda de activos tokenizados en 30 días",
+      "note": "Fuente: RWA.xyz vía Cointelegraph"
+    },
+    {
+      "type": "stat",
+      "dur": 2.95,
+      "tag": "Resultados",
+      "value": 493,
+      "suffix": " mil",
+      "label": "inversionistas ya tienen activos tokenizados",
+      "note": "+US$1.200 M movidos onchain en un mes · Fuente: OnchainBenchmark vía Cointelegraph"
+    },
+    {
       "type": "ey",
-      "dur": 0.9
+      "dur": 0.8
     },
     {
       "type": "pivot",
-      "dur": 4.8,
-      "lead": "Si los gigantes ya tokenizan, tú también con",
+      "dur": 3.0,
+      "lead": "Si los gigantes ya están ahí, tú también con",
       "words": [
         "tu edificio",
-        "tu lote",
         "tu negocio"
       ],
       "wordsAt": [
-        1.0,
-        2.0,
-        3.3
+        1.3,
+        2.1
       ],
       "icons": [
         "edificio",
-        "lote",
         "proyecto"
       ]
     },
     {
       "type": "solution",
-      "dur": 4.3,
+      "dur": 3.7,
       "tag": "Key Lab",
       "title": "En Key Lab construimos",
       "items": [
         "Tu tokenizadora con tu marca",
-        "Inversionistas y pagos",
-        "Trazabilidad por hitos"
+        "Inversionistas desde el celular",
+        "Pagos y trazabilidad por hitos"
       ]
     },
     {
@@ -82,7 +98,7 @@
   ],
   "gags": [
     {
-      "at": 5.0,
+      "at": 4.4,
       "dur": 1.6,
       "image": "memes/zorro/zorro-sobrado.png",
       "style": "cutout",
@@ -93,7 +109,7 @@
       "sfx": "sfx/scratch.mp3"
     },
     {
-      "at": 9.2,
+      "at": 12.75,
       "dur": 1.6,
       "image": "memes/zorro/zorro-asustado-fondo.jpg",
       "style": "sticker",
@@ -101,40 +117,55 @@
       "y": 0.44,
       "size": 0.36,
       "rotate": 6,
-      "caption": "¿Fidelity? 😱",
+      "caption": "¡No hay vuelta atrás! 😱",
       "sfx": "sfx/boing.mp3"
     }
   ],
   "subtitles": [
     {
       "from": 0.05,
-      "to": 4.0,
+      "to": 3.79,
       "text": "¿Sigues buscando inversionistas con un PDF y un grupo de WhatsApp?"
     },
     {
-      "from": 4.55,
-      "to": 6.8,
-      "text": "Tranquilo, el 2010 te manda saludos."
+      "from": 4.24,
+      "to": 6.06,
+      "text": "El 2010 te manda saludos."
     },
     {
-      "from": 7.25,
-      "to": 10.88,
-      "text": "Mientras tanto, Fidelity, el gigante de las inversiones,"
+      "from": 6.54,
+      "to": 10.69,
+      "text": "Mientras tanto, Fidelity ya tiene su propio fondo tokenizado en Ethereum,"
     },
     {
-      "from": 11.24,
-      "to": 14.39,
-      "text": "dijo que con la tokenización ya no hay vuelta atrás."
+      "from": 11.05,
+      "to": 15.61,
+      "text": "y dice que con la tokenización no hay vuelta atrás, porque le abre mercados nuevos."
     },
     {
-      "from": 15.64,
-      "to": 20.08,
-      "text": "Si los gigantes ya pasaron sus activos a blockchain, tú también puedes."
+      "from": 15.99,
+      "to": 18.49,
+      "text": "Y los números lo respaldan: en solo un mes,"
     },
     {
-      "from": 20.44,
-      "to": 24.41,
-      "text": "En Key Lab construimos tu plataforma de tokenización, con tu marca."
+      "from": 18.84,
+      "to": 22.31,
+      "text": "la demanda de activos tokenizados subió 41%,"
+    },
+    {
+      "from": 22.66,
+      "to": 25.24,
+      "text": "y ya hay casi medio millón de inversionistas."
+    },
+    {
+      "from": 26.47,
+      "to": 29.13,
+      "text": "Si los gigantes ya están ahí, tú también puedes."
+    },
+    {
+      "from": 29.45,
+      "to": 32.9,
+      "text": "En Key Lab construimos tu tokenizadora, con tu marca."
     }
   ]
 }
