@@ -1,0 +1,180 @@
+{
+  "voice": "media/voz.mp3",
+  "soundtrack": "media/banda.mp3",
+  "musicVolume": 0.22,
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 3.6,
+      "tag": "Tokenización",
+      "kicker": "Tokenización white label",
+      "title": "Tu edificio",
+      "highlight": "en tokens",
+      "asset": "building3d",
+      "cues": {
+        "building": 0.1,
+        "tokens": 1.45
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 5.9,
+      "tag": "Realidad",
+      "lines": [
+        "¿Sigues vendiendo apartamentos por Excel",
+        "y WhatsApp a las 11 p. m.?",
+        "Eso es 2010."
+      ],
+      "punch": "Ya no",
+      "asset": "excel-chat",
+      "cues": {
+        "line0": 0.15,
+        "line1": 2.1,
+        "line2": 4.15,
+        "punch": 4.9,
+        "excel": 1.75,
+        "chat": 2.15,
+        "night": 2.95
+      }
+    },
+    {
+      "type": "stat",
+      "dur": 4.6,
+      "tag": "El cambio",
+      "value": 100,
+      "prefix": "",
+      "suffix": " USD",
+      "label": "para entrar a tu proyecto desde el celular",
+      "note": "Ejemplo ilustrativo",
+      "asset": "phone3d",
+      "project": "Torre Laureles",
+      "cues": {
+        "invest": 3.15
+      }
+    },
+    {
+      "type": "ey",
+      "dur": 0.8,
+      "word": "Ey."
+    },
+    {
+      "type": "pivot",
+      "dur": 4.6,
+      "lead": "Si se puede tokenizar un edificio, se puede con",
+      "words": [
+        "tu lote",
+        "tu hotel",
+        "tu proyecto"
+      ],
+      "wordsAt": [
+        2.65,
+        3.12,
+        3.71
+      ],
+      "icons": [
+        "lote",
+        "hotel",
+        "proyecto"
+      ],
+      "cues": {
+        "edificio": 1.4
+      }
+    },
+    {
+      "type": "solution",
+      "dur": 4.3,
+      "tag": "Key Lab",
+      "title": "Te la construimos",
+      "items": [
+        "Tu plataforma tokenizadora",
+        "Con tu marca",
+        "Inversión desde el celular"
+      ],
+      "clip": "clips/demo-plataforma.mp4",
+      "cues": {
+        "sketch": 0.25,
+        "materialize": 1.4,
+        "phone": 1.75,
+        "tap": 2.3,
+        "brand": 2.95
+      }
+    },
+    {
+      "type": "close",
+      "dur": 3.7,
+      "cta": "Agenda una reunión",
+      "url": "keylab.tech"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 2.1,
+      "text": "¿Tu edificio, convertido en tokens?"
+    },
+    {
+      "from": 2.5,
+      "to": 3.5,
+      "text": "Sí, en serio."
+    },
+    {
+      "from": 3.75,
+      "to": 7.4,
+      "text": "¿Sigues vendiendo apartamentos por Excel y WhatsApp a las 11 de la noche?"
+    },
+    {
+      "from": 7.77,
+      "to": 9.2,
+      "text": "Eso es 2010."
+    },
+    {
+      "from": 9.69,
+      "to": 13.8,
+      "text": "Hoy un inversionista entra a tu proyecto desde el celular, con 100 dólares."
+    },
+    {
+      "from": 14.99,
+      "to": 19.3,
+      "text": "Si se puede tokenizar un edificio, se puede con tu lote, tu hotel o tu proyecto."
+    },
+    {
+      "from": 19.66,
+      "to": 23.7,
+      "text": "En Key Lab te construimos la plataforma tokenizadora, con tu marca."
+    },
+    {
+      "from": 23.97,
+      "to": 25.5,
+      "text": "Agenda una reunión."
+    }
+  ],
+  "gags": [
+    {
+      "at": 2.4,
+      "dur": 1.15,
+      "image": "memes/zorro-de-reojo.jpg",
+      "style": "sticker",
+      "x": 0.72,
+      "y": 0.56,
+      "size": 0.44,
+      "rotate": 7,
+      "caption": "Sí, en serio",
+      "sfx": "sfx/boing.mp3",
+      "sfxGain": 0.6
+    },
+    {
+      "at": 7.75,
+      "dur": 1.45,
+      "image": "memes/zorro-grunon.jpg",
+      "style": "sticker",
+      "x": 0.68,
+      "y": 0.52,
+      "size": 0.48,
+      "rotate": 5,
+      "caption": "2010",
+      "sfx": "sfx/scratch.mp3",
+      "sfxGain": 0.8
+    }
+  ]
+}

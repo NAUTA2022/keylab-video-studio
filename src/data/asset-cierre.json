@@ -1,0 +1,6 @@
+{
+  "soundtrack": "media/banda-cierre.mp3",
+  "background": "none",
+  "scenes": [{ "type": "close", "dur": 3.7, "cta": "Agenda una reunión", "url": "keylab.tech" }],
+  "subtitles": []
+}

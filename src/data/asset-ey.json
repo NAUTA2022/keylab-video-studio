@@ -1,0 +1,6 @@
+{
+  "soundtrack": "media/banda-ey.mp3",
+  "background": "none",
+  "scenes": [{ "type": "ey", "dur": 1.2, "word": "Ey." }],
+  "subtitles": []
+}

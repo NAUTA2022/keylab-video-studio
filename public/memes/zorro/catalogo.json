@@ -1,0 +1,16 @@
+{
+  "nota": "Memes del zorro (Fokey). <nombre>.png = sin fondo (para poner sobre escenas); <nombre>-fondo.jpg = con fondo (pantalla completa o tarjeta).",
+  "memes": [
+    { "id": "zorro-galan", "sinFondo": true, "conFondo": true, "hace": "Con sombrero de bruja y una rosa, mirada de galán", "uso": "Conquistar al cliente o inversionista, seducción, “mirá lo que te traje”" },
+    { "id": "zorro-asustado", "sinFondo": true, "conFondo": true, "hace": "Grita del susto, ojos enormes, salta hacia atrás", "uso": "Sorpresa o pánico: “¿perdiste toda la plata?”, una cifra que asusta" },
+    { "id": "zorro-triste", "sinFondo": true, "conFondo": true, "hace": "Sentado abrazando las rodillas, cabizbajo en un rincón", "uso": "El inversionista estafado, el proyecto que nunca se entregó" },
+    { "id": "zorro-pensando", "sinFondo": true, "conFondo": true, "hace": "Mano en el mentón, lengua afuera, mirada dudosa", "uso": "Duda o sospecha: “mmm… ¿y esto es confiable?”" },
+    { "id": "zorro-escopeta", "sinFondo": true, "conFondo": true, "hace": "Apunta una escopeta de doble cañón a cámara, ojos estrella", "uso": "Amenaza cómica: “repetí eso”, defender la plata del inversionista" },
+    { "id": "zorro-nervioso", "sinFondo": true, "conFondo": true, "hace": "Sentado, ojos saltones, boca apretada", "uso": "Incomodidad o silencio incómodo: “cuando te preguntan por el avance de obra”" },
+    { "id": "zorro-sobrado", "sinFondo": true, "conFondo": true, "hace": "De pie, sonrisa burlona y cejas arriba", "uso": "Seguridad, “ya lo sabíamos”, cuando Key Lab tiene la solución" },
+    { "id": "zorro-serio", "sinFondo": true, "conFondo": true, "hace": "De pie, cara de pocos amigos, ojos estrella entrecerrados", "uso": "Seriedad o desaprobación: “no me vengas con excusas”" },
+    { "id": "zorro-cuchillo", "sinFondo": true, "conFondo": true, "hace": "Agachado, mirada asesina, cuchillo en la mano", "uso": "Amenaza cómica al villano o al que incumple" },
+    { "id": "zorro-punetazo", "sinFondo": false, "conFondo": true, "hace": "Primer plano lanzando un puñetazo con el cuchillo en la otra mano", "uso": "Golpe final, acción, “¡toma!” (solo con fondo)" },
+    { "id": "zorro-cama-laptop", "sinFondo": false, "conFondo": true, "hace": "Acostado en la cama con el laptop, cara de cansancio", "uso": "Trasnocho, lunes, trabajar desde la cama (solo con fondo)" }
+  ]
+}

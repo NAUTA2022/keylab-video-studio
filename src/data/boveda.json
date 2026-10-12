@@ -1,0 +1,225 @@
+{
+  "bakeKey": "boveda",
+  "voice": "media/boveda/voz-v2.mp3",
+  "soundtrack": "media/boveda/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "boveda-hook",
+      "dur": 7.45,
+      "tag": "Ojo",
+      "cues": {
+        "hilux": 2.9,
+        "gono": 3.65,
+        "lot": 4.85,
+        "lote": 5.6
+      }
+    },
+    {
+      "type": "boveda-story",
+      "dur": 16.95,
+      "tag": "La historia",
+      "cues": {
+        "don": 0.13,
+        "plata": 1.97,
+        "doscientas": 2.83,
+        "edificio": 4.21,
+        "a1": 5.21,
+        "ex1": 6.43,
+        "a2": 7.27,
+        "ex2": 8.79,
+        "a3": 9.81,
+        "ex3": 11.31,
+        "evidencia": 12.19,
+        "render": 13.87,
+        "rabia": 14.7
+      }
+    },
+    {
+      "type": "ey",
+      "dur": 0.8,
+      "word": "Ey."
+    },
+    {
+      "type": "clip",
+      "dur": 9.2,
+      "tag": "Key Lab",
+      "clip": "clips/boveda-hitos.mp4",
+      "from": 0,
+      "cues": {
+        "sketch": 0.7,
+        "materialize": 1.38,
+        "trace": 2.78,
+        "coins": 4.02,
+        "gps": 5.2,
+        "phone": 6.96,
+        "receipt": 8.42
+      }
+    },
+    {
+      "type": "boveda-vault",
+      "mode": "store",
+      "dur": 2.7,
+      "tag": "Key Lab",
+      "cues": {
+        "title": 0.15,
+        "slam": 1.06,
+        "hitos": 1.5,
+        "release": 2.12
+      }
+    },
+    {
+      "type": "clip",
+      "dur": 5.8,
+      "tag": "Key Lab",
+      "clip": "clips/boveda-hitos.mp4",
+      "from": 9.2,
+      "cues": {
+        "cumple": 0.2,
+        "cobra": 1.2,
+        "atrasa": 1.96,
+        "votan": 3.78,
+        "congelan": 4.26,
+        "termine": 5.12
+      }
+    },
+    {
+      "type": "boveda-vault",
+      "mode": "run",
+      "dur": 4.05,
+      "tag": "Key Lab",
+      "cues": {
+        "title": 0.32,
+        "run": 1.0,
+        "slam": 3.16
+      }
+    },
+    {
+      "type": "statement",
+      "dur": 4.05,
+      "lines": [
+        {
+          "text": "Seguridad para el inversionista",
+          "at": 0.19,
+          "icon": "escudo"
+        },
+        {
+          "text": "Credibilidad para el constructor",
+          "at": 2.01,
+          "icon": "constructor"
+        }
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 5.8,
+      "cta": "Agenda hoy →",
+      "url": "keylab.tech"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 1.92,
+      "text": "Le diste plata a un constructor…"
+    },
+    {
+      "from": 1.95,
+      "to": 3.62,
+      "text": "y ahora él tiene tremenda Hilux."
+    },
+    {
+      "from": 4.85,
+      "to": 7.1,
+      "text": "Y tú, tienes un lote con maleza."
+    },
+    {
+      "from": 7.58,
+      "to": 9.3,
+      "text": "Este es Don Excusas."
+    },
+    {
+      "from": 9.42,
+      "to": 12.2,
+      "text": "Le recogió plata a 200 personas para un edificio."
+    },
+    {
+      "from": 12.66,
+      "to": 14.6,
+      "text": "Primer año: «es que llovió»."
+    },
+    {
+      "from": 14.72,
+      "to": 17.0,
+      "text": "Segundo año: «es que la licencia»."
+    },
+    {
+      "from": 17.26,
+      "to": 19.4,
+      "text": "Tercer año: «es que mi primo»."
+    },
+    {
+      "from": 19.64,
+      "to": 22.0,
+      "text": "Y de evidencia te manda… un render."
+    },
+    {
+      "from": 25.18,
+      "to": 29.0,
+      "text": "En Key Lab construimos tu plataforma de inversión con trazabilidad:"
+    },
+    {
+      "from": 29.22,
+      "to": 31.6,
+      "text": "cada peso tiene GPS,"
+    },
+    {
+      "from": 31.96,
+      "to": 34.2,
+      "text": "y todos ven en qué se gastó."
+    },
+    {
+      "from": 34.6,
+      "to": 37.1,
+      "text": "La plata queda en una bóveda y se libera por hitos."
+    },
+    {
+      "from": 37.3,
+      "to": 38.95,
+      "text": "Si cumple el hito, cobra."
+    },
+    {
+      "from": 39.06,
+      "to": 42.8,
+      "text": "Si se atrasa, los inversionistas votan y la congelan hasta que termine."
+    },
+    {
+      "from": 43.22,
+      "to": 46.05,
+      "text": "¿Y si intenta salir corriendo con la plata?"
+    },
+    {
+      "from": 46.12,
+      "to": 46.9,
+      "text": "Pues no."
+    },
+    {
+      "from": 47.14,
+      "to": 50.9,
+      "text": "Seguridad para el inversionista, credibilidad para el constructor."
+    }
+  ],
+  "gags": [
+    {
+      "at": 38.3,
+      "dur": 1.4,
+      "image": "memes/zorro-pulgar.png",
+      "style": "cutout",
+      "x": 0.2,
+      "y": 0.74,
+      "size": 0.34,
+      "from": "left",
+      "caption": "¡Así sí, mor!"
+    }
+  ]
+}

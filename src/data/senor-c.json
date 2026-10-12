@@ -1,0 +1,290 @@
+{
+  "bakeKey": "senor-c",
+  "voice": "media/senor-c/voz-v2.mp3",
+  "soundtrack": "media/senor-c/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 7.88,
+      "tag": "Caso real",
+      "kicker": "Caso real · Argentina",
+      "title": "La sanguijuela argentina",
+      "highlight": "Ya va por el #8",
+      "asset": "taxi-leech",
+      "cues": {
+        "turn": 0.1,
+        "title": 2.24,
+        "pega": 4.37,
+        "boom": 5.6
+      },
+      "quotes": [
+        {
+          "text": "¿Qué mirás, bobo?",
+          "at": 0.15,
+          "to": 1.06
+        },
+        {
+          "text": "Andá p'allá",
+          "at": 1.21,
+          "to": 1.89
+        }
+      ]
+    },
+    {
+      "type": "story",
+      "dur": 20.45,
+      "tag": "La historia",
+      "cues": {
+        "senor": 0.2,
+        "car": 2.9,
+        "plata": 4.6,
+        "split": 5.55,
+        "people": 7.5,
+        "dolar": 9.0,
+        "drive": 9.8,
+        "monthly": 11.6,
+        "tired": 14.3,
+        "vende": 15.9,
+        "sigue": 16.42,
+        "count": 18.2,
+        "ocho": 19.72
+      }
+    },
+    {
+      "type": "ey",
+      "dur": 0.8,
+      "word": "Ey."
+    },
+    {
+      "type": "clip",
+      "dur": 6.15,
+      "tag": "Tú",
+      "clip": "clips/notas-celular.mp4",
+      "cues": {
+        "title": 0.09,
+        "phone": 1.0,
+        "idea": 2.0,
+        "notas": 3.19,
+        "lista": 4.91,
+        "rip": 5.45
+      }
+    },
+    {
+      "type": "pivot",
+      "dur": 3.4,
+      "lead": "Eso mismo, o lo que se te ocurra:",
+      "words": [
+        "carros",
+        "casas",
+        "café",
+        "ganado"
+      ],
+      "wordsAt": [
+        1.0,
+        1.5,
+        2.0,
+        2.5
+      ],
+      "icons": [
+        "carro",
+        "casa",
+        "cafe",
+        "ganado"
+      ]
+    },
+    {
+      "type": "clip",
+      "dur": 4.65,
+      "tag": "Key Lab",
+      "clip": "clips/plataforma-marca.mp4",
+      "cues": {
+        "sketch": 0.2,
+        "materialize": 1.5,
+        "phone": 1.85,
+        "tap": 2.25,
+        "brand": 2.6,
+        "brand2": 3.4,
+        "brand3": 4.0
+      }
+    },
+    {
+      "type": "statement",
+      "dur": 3.9,
+      "lines": [
+        {
+          "text": "No te soltamos",
+          "at": 0.25,
+          "icon": "manos"
+        },
+        {
+          "text": "Te queremos ver",
+          "at": 2.09
+        },
+        {
+          "text": "gigante 🚀",
+          "at": 3.07,
+          "big": true
+        }
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 3.75,
+      "cta": "Agenda hoy →",
+      "url": "keylab.tech"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 2.29,
+      "to": 4.1,
+      "text": "Le dicen la sanguijuela argentina."
+    },
+    {
+      "from": 4.37,
+      "to": 5.4,
+      "text": "Se pegó a Uber…"
+    },
+    {
+      "from": 5.57,
+      "to": 7.75,
+      "text": "y ya va por el carro número ocho."
+    },
+    {
+      "from": 8.08,
+      "to": 9.78,
+      "text": "Le vamos a decir el Señor C."
+    },
+    {
+      "from": 9.98,
+      "to": 11.32,
+      "text": "El man compra un carro"
+    },
+    {
+      "from": 11.46,
+      "to": 13.28,
+      "text": "y en vez de poner toda la plata él,"
+    },
+    {
+      "from": 13.3,
+      "to": 15.3,
+      "text": "lo parte en pedacitos digitales."
+    },
+    {
+      "from": 15.4,
+      "to": 17.58,
+      "text": "La gente entra desde 1 dólar."
+    },
+    {
+      "from": 17.68,
+      "to": 19.46,
+      "text": "El carro sale a trabajar en Uber"
+    },
+    {
+      "from": 19.48,
+      "to": 22.18,
+      "text": "y lo que produce se reparte cada mes entre todos."
+    },
+    {
+      "from": 22.22,
+      "to": 23.66,
+      "text": "Y cuando el carro ya está cansado,"
+    },
+    {
+      "from": 23.68,
+      "to": 25.94,
+      "text": "lo vende o lo sigue poniendo a camellar."
+    },
+    {
+      "from": 26.14,
+      "to": 28.3,
+      "text": "Ya va por el carro número 8."
+    },
+    {
+      "from": 29.22,
+      "to": 30.14,
+      "text": "¿Y tú qué?"
+    },
+    {
+      "from": 30.4,
+      "to": 31.7,
+      "text": "¿Sigues con la idea del negocio"
+    },
+    {
+      "from": 31.72,
+      "to": 33.44,
+      "text": "guardada en las notas del celular,"
+    },
+    {
+      "from": 33.48,
+      "to": 35.16,
+      "text": "al lado de la lista del mercado?"
+    },
+    {
+      "from": 35.42,
+      "to": 36.26,
+      "text": "Eso mismo."
+    },
+    {
+      "from": 36.28,
+      "to": 37.34,
+      "text": "O lo que se te ocurra,"
+    },
+    {
+      "from": 37.36,
+      "to": 38.8,
+      "text": "lo armamos contigo."
+    },
+    {
+      "from": 38.82,
+      "to": 40.18,
+      "text": "En Key Lab te hacemos"
+    },
+    {
+      "from": 40.2,
+      "to": 40.92,
+      "text": "tu propia plataforma,"
+    },
+    {
+      "from": 40.94,
+      "to": 42.04,
+      "text": "con tu marca"
+    },
+    {
+      "from": 42.06,
+      "to": 43.52,
+      "text": "y a la medida de tu negocio."
+    },
+    {
+      "from": 43.58,
+      "to": 45.4,
+      "text": "Y no te soltamos en ningún momento,"
+    },
+    {
+      "from": 45.42,
+      "to": 47.32,
+      "text": "porque te queremos ver gigante."
+    },
+    {
+      "from": 47.46,
+      "to": 48.94,
+      "text": "Agenda tu reunión hoy."
+    }
+  ],
+  "gags": [
+    {
+      "at": 34.63,
+      "dur": 1.3,
+      "image": "memes/zorro-de-reojo.jpg",
+      "style": "sticker",
+      "x": 0.74,
+      "y": 0.62,
+      "size": 0.38,
+      "rotate": 7,
+      "caption": "🦗🦗🦗",
+      "sfx": "sfx/grillos-corto.mp3",
+      "sfxGain": 0.9
+    }
+  ]
+}

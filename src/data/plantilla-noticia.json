@@ -1,0 +1,67 @@
+{
+  "bakeKey": "CAMBIA-noticia-AAAA-MM-DD",
+  "voice": "media/voz.mp3",
+  "music": "media/musica.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 3,
+      "tag": "Noticia",
+      "kicker": "CAMBIA: tema corto",
+      "title": "CAMBIA: gancho",
+      "highlight": "CAMBIA"
+    },
+    {
+      "type": "roast",
+      "dur": 4,
+      "tag": "Realidad",
+      "lines": [
+        "CAMBIA: línea 1",
+        "CAMBIA: línea 2"
+      ],
+      "punch": "CAMBIA"
+    },
+    {
+      "type": "news",
+      "dur": 6,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "CAMBIA: 11 oct 2026",
+      "headline": "CAMBIA: titular real de la nota",
+      "articleShot": "media/nota.png",
+      "siteUrl": "CAMBIA.com",
+      "siteShot": "media/web-empresa.png",
+      "chip": "CAMBIA: producto"
+    },
+    {
+      "type": "ey",
+      "dur": 1
+    },
+    {
+      "type": "pivot",
+      "dur": 4,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tu activo",
+        "tu negocio"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 5,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "CAMBIA",
+        "CAMBIA",
+        "CAMBIA"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4
+    }
+  ],
+  "subtitles": []
+}

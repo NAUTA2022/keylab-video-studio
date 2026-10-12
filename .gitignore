@@ -1,0 +1,8 @@
+node_modules/
+out/
+_kit/
+public/baked/*/
+explicaciones/*/out/
+explicaciones/*/frames/
+explicaciones/*/node_modules/
+.DS_Store
