@@ -3,7 +3,7 @@ import { AbsoluteFill, Audio, Sequence, interpolate, useCurrentFrame, useVideoCo
 import { C, layout } from './brand/brand';
 import { ensureFonts } from './brand/fonts';
 import { optionalAsset } from './brand/assets';
-import { FPS, totalFrames, type Scene, type VideoProps } from './schema';
+import { FPS, totalFrames, videoSchema, type Scene, type VideoProps } from './schema';
 import { Aurora, DotGrid, Silk } from './bits/backgrounds';
 import { Chrome, CutFlash, Subtitles } from './components/ui';
 import { ClockDriver } from './clock/ClockDriver';
@@ -63,7 +63,9 @@ const LightBackground: React.FC<{ kind: VideoProps['background'] }> = ({ kind })
   return null;
 };
 
-export const KeyLabVideo: React.FC<VideoProps> = (p) => {
+export const KeyLabVideo: React.FC<VideoProps> = (raw) => {
+  // aplica los valores por defecto del esquema también a los JSON pasados con --props
+  const p = React.useMemo(() => videoSchema.parse(raw) as VideoProps, [raw]);
   const f = useCurrentFrame();
   const { durationInFrames } = useVideoConfig();
   const voice = p.voice ? optionalAsset(p.voice) : null;

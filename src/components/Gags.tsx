@@ -1,3 +1,4 @@
+import { withEmojis } from './LottieEmoji';
 import React from 'react';
 import { AbsoluteFill, Easing, Img, interpolate, spring, useCurrentFrame, useVideoConfig } from 'remotion';
 import { FONT } from '../brand/brand';
@@ -25,7 +26,7 @@ const Caption: React.FC<{ text: string; size: number }> = ({ text, size }) => (
       marginTop: 10,
     }}
   >
-    {text}
+    {withEmojis(text, size * 1.1)}
   </div>
 );
 

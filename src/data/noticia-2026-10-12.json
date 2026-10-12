@@ -1,0 +1,140 @@
+{
+  "bakeKey": "noticia-2026-10-12",
+  "voice": "media/noticia-2026-10-12/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-12/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 4.4,
+      "tag": "Noticia",
+      "kicker": "Inversionistas · 2026",
+      "title": "¿Sigues con un PDF y un grupo de",
+      "highlight": "WhatsApp?",
+      "cues": {
+        "title": 0.1
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 2.75,
+      "tag": "Realidad",
+      "lines": [
+        "El 2010 te manda saludos"
+      ],
+      "punch": "Archivo_final_v3.pdf",
+      "cues": {
+        "line0": 0.2,
+        "punch": 1.4
+      }
+    },
+    {
+      "type": "news",
+      "dur": 7.45,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "8 oct 2026",
+      "headline": "Fidelity: “no hay vuelta atrás” para las instituciones que tokenizan",
+      "articleShot": "media/noticia-2026-10-12/nota.png",
+      "siteUrl": "fidelitydigitalassets.com",
+      "siteShot": "media/noticia-2026-10-12/web-empresa.png",
+      "chip": "Fidelity Digital Assets"
+    },
+    {
+      "type": "ey",
+      "dur": 0.9
+    },
+    {
+      "type": "pivot",
+      "dur": 4.8,
+      "lead": "Si los gigantes ya tokenizan, tú también con",
+      "words": [
+        "tu edificio",
+        "tu lote",
+        "tu negocio"
+      ],
+      "wordsAt": [
+        1.0,
+        2.0,
+        3.3
+      ],
+      "icons": [
+        "edificio",
+        "lote",
+        "proyecto"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.3,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu tokenizadora con tu marca",
+        "Inversionistas y pagos",
+        "Trazabilidad por hitos"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.0
+    }
+  ],
+  "gags": [
+    {
+      "at": 5.0,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-sobrado.png",
+      "style": "cutout",
+      "x": 0.8,
+      "y": 0.555,
+      "size": 0.3,
+      "caption": "2010 😎",
+      "sfx": "sfx/scratch.mp3"
+    },
+    {
+      "at": 9.2,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-asustado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.74,
+      "y": 0.44,
+      "size": 0.36,
+      "rotate": 6,
+      "caption": "¿Fidelity? 😱",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.05,
+      "to": 4.0,
+      "text": "¿Sigues buscando inversionistas con un PDF y un grupo de WhatsApp?"
+    },
+    {
+      "from": 4.55,
+      "to": 6.8,
+      "text": "Tranquilo, el 2010 te manda saludos."
+    },
+    {
+      "from": 7.25,
+      "to": 10.88,
+      "text": "Mientras tanto, Fidelity, el gigante de las inversiones,"
+    },
+    {
+      "from": 11.24,
+      "to": 14.39,
+      "text": "dijo que con la tokenización ya no hay vuelta atrás."
+    },
+    {
+      "from": 15.64,
+      "to": 20.08,
+      "text": "Si los gigantes ya pasaron sus activos a blockchain, tú también puedes."
+    },
+    {
+      "from": 20.44,
+      "to": 24.41,
+      "text": "En Key Lab construimos tu plataforma de tokenización, con tu marca."
+    }
+  ]
+}
