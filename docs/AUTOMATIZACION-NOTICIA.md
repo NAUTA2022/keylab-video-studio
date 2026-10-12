@@ -1,10 +1,7 @@
 # Automatización "Key Lab · Noticia RWA → LinkedIn + video 30s" (método por escenas)
 
 Corre lunes, miércoles y viernes a las 7:45 a. m. (Bogotá) en el MacBook Air.
-Para que use este método, el Mac necesita el kit del proyecto en:
-`/Users/nauta/Documents/KeyLab Automatizaciones/kit/kit-1.zip` y `kit-2.zip`
-(se generan con `bash scripts/empaquetar-kit.sh` y quedan en `keylab-video-studio/_kit/`).
-Cada vez que el proyecto cambie, vuelve a empaquetar y copia los dos zips al Mac.
+El proyecto vive en GitHub (repositorio privado NAUTA2022/keylab-video-studio): cada ejecución lo clona, así siempre usa la última versión. Ya no hace falta copiar zips.
 
 ## Instrucción de la tarea (pegar en la tarea programada)
 
@@ -22,7 +19,7 @@ Eres el equipo de contenido de Key Lab (keylab.tech), estudio de software de Med
 
 5) VOZ: ElevenLabs creative_generate_speech, voice_id D7dkYvH17OKLgp4SLulf (Martin Osborne 5), model_id eleven_multilingual_v2, generations_count 1. NO uses la transcripción de ElevenLabs (gasta muchos créditos). La nube NO puede descargar storage.googleapis.com: abre el content_url en el navegador de la app (Claude_Browser navigate) y con javascript_tool haz fetch(location.href) → blob → <a download="keylab-voz-AAAA-MM-DD.mp3"> click; antes de descargar pide confirmación (AskUserQuestion) con archivo, origen y tamaño. Luego device_stage_files desde /Users/nauta/Downloads/ y guárdala en public/media/<clave>/voz.mp3. Mide las frases con ffmpeg silencedetect; recorta pausas largas y usa atempo ≤1.04 si hace falta para que el video quede ≤30 s.
 
-6) PROYECTO EN LA NUBE: con device_stage_files trae /Users/nauta/Documents/KeyLab Automatizaciones/kit/kit-1.zip y kit-2.zip, descomprímelos los dos en /home/claude/keylab-video-studio y corre npm ci. Navegador para render: --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell. Lee README.md, GUIA-MARCA.md, docs/FLUJO-RENDER.md, docs/ANIMACION-PERSONAJES.md y public/memes/zorro/catalogo.json antes de armar. Si el kit no está, dilo en el resumen y usa animation-studio como respaldo con el mismo estilo.
+6) PROYECTO EN LA NUBE: llama add_repo con owner NAUTA2022, repo keylab-video-studio, access push, y clónalo como te indique (git clone --depth 1 https://github.com/NAUTA2022/keylab-video-studio /home/claude/keylab-video-studio, con timeout largo). Luego npm ci. Navegador para render: --browser-executable=/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell. Lee README.md, GUIA-MARCA.md, docs/FLUJO-RENDER.md, docs/ANIMACION-PERSONAJES.md y public/memes/zorro/catalogo.json antes de armar. Si el repositorio no está disponible, dilo en el resumen y usa animation-studio como respaldo con el mismo estilo.
 
 7) VIDEO (método por escenas), con <clave> = noticia-AAAA-MM-DD:
  a) Copia src/data/plantilla-noticia.json a src/data/<clave>.json, pon "bakeKey": "<clave>" y cambia cada CAMBIA: hook, roast, news (source, date, headline real, articleShot, siteUrl, siteShot, chip), ey, pivot, solution, close. Ajusta cada "dur" y los "cues" a los tiempos reales de la voz y escribe los subtitles (segundos absolutos). El "Ey." y el cierre van siempre igual (zorro ceja + vine boom; zorro muejeje + risa).
@@ -34,4 +31,4 @@ Eres el equipo de contenido de Key Lab (keylab.tech), estudio de software de Med
  g) Vista previa: node scripts/vista-previa.mjs KeyLabReel src/data/<clave>.json. Súbela a la Sala de Revisión (https://claude.ai/artifact/BxPp3DC1oKAJdbBGeRS9T3): primero Artifact action "read" de esa URL, luego Artifact publish con url, file_path de la previa y asset:true; después ArtifactData "set" en la colección "versiones", documento <clave>-v1 = {label: "Noticia · <tema> · previa 1", assetId, creada: <ms actuales>, video: "<clave>"}.
  h) Render final: npx remotion render KeyLabReel out/<clave>.mp4 --props=src/data/<clave>.json --browser-executable=... --concurrency=2. Verifica duración y audio con ffprobe.
 
-8) ENTREGA: con device_commit_files guarda en /Users/nauta/Documents/KeyLab Automatizaciones/AAAA-MM-DD-<tema-corto>/: video.mp4, voz.mp3, copy-linkedin.md (copy + link de la noticia + guion + voz usada + memes usados) y el JSON del video. Envía el video y el copy con SendUserFile y un resumen de 2 líneas que diga que la previa está en la Sala de Revisión para dejar notas. NO publiques nada en LinkedIn ni en ninguna red.
+8) ENTREGA: sube al repositorio (git add src/data/<clave>.json public/media/<clave>/, sin renders ni 3D horneado; commit "Noticia AAAA-MM-DD: <tema>" y git push a main). Después, con device_commit_files guarda en /Users/nauta/Documents/KeyLab Automatizaciones/AAAA-MM-DD-<tema-corto>/: video.mp4, voz.mp3, copy-linkedin.md (copy + link de la noticia + guion + voz usada + memes usados) y el JSON del video. Envía el video y el copy con SendUserFile y un resumen de 2 líneas que diga que la previa está en la Sala de Revisión para dejar notas. NO publiques nada en LinkedIn ni en ninguna red.
