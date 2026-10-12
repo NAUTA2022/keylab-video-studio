@@ -8,9 +8,9 @@
       "type": "hook",
       "dur": 3,
       "tag": "Noticia",
-      "kicker": "CAMBIA: tema corto",
-      "title": "CAMBIA: gancho",
-      "highlight": "CAMBIA"
+      "kicker": "Noticia del día",
+      "title": "CAMBIA: titular de la noticia en español",
+      "highlight": "CAMBIA: palabra clave del titular"
     },
     {
       "type": "roast",
@@ -33,6 +33,16 @@
       "siteUrl": "CAMBIA.com",
       "siteShot": "media/web-empresa.png",
       "chip": "CAMBIA: producto"
+    },
+    {
+      "type": "stat",
+      "dur": 4,
+      "tag": "Resultados",
+      "value": 0,
+      "prefix": "",
+      "suffix": "CAMBIA: % / mil / M",
+      "label": "CAMBIA: qué mide la cifra",
+      "note": "Fuente: CAMBIA"
     },
     {
       "type": "ey",

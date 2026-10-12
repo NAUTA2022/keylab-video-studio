@@ -32,6 +32,8 @@ Si alguno falta, el video deja ese espacio vacío. Nunca dibuja un logo de reemp
 ## Hacer un video nuevo
 
 1. Duplica `src/data/plantilla-noticia.json` y cambia cada `CAMBIA`.
+   - El hook arranca con "Noticia del día" + el titular de la noticia.
+   - La noticia nunca se queda en la premisa: explica qué está haciendo la empresa (producto concreto) y sus resultados con cifras y fuente, en escenas `stat`.
 2. Pon la voz, la música y las capturas en `public/media/`.
 3. En `src/Root.tsx`, importa tu JSON en lugar de `demo-tokenizacion.json`.
    También puedes pasarlo al renderizar sin tocar código:
