@@ -1,0 +1,160 @@
+{
+  "bakeKey": "noticia-2026-10-13",
+  "voice": "media/noticia-2026-10-13/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-13/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 5.0,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Un banco coreano ya presta plata con Bitcoin de",
+      "highlight": "garantía",
+      "cues": {
+        "title": 1.45
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 3.2,
+      "tag": "Realidad",
+      "lines": [
+        "A ti te piden 3 codeudores…"
+      ],
+      "punch": "Y la partida de bautismo",
+      "cues": {
+        "line0": 0.1,
+        "punch": 1.75
+      }
+    },
+    {
+      "type": "news",
+      "dur": 8.2,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "12 oct 2026",
+      "headline": "Banco de Corea del Sur lanza préstamos a empresas con Bitcoin de garantía",
+      "articleShot": "media/noticia-2026-10-13/nota.png",
+      "siteUrl": "jbbank.co.kr",
+      "siteShot": "media/noticia-2026-10-13/web-empresa.png",
+      "chip": "Jeonbuk Bank · JB Financial"
+    },
+    {
+      "type": "stat",
+      "dur": 2.3,
+      "tag": "Resultados",
+      "value": 84,
+      "prefix": "",
+      "suffix": " mil",
+      "label": "dólares vale cada Bitcoin que respalda el crédito",
+      "note": "Fuente: Cointelegraph, 13 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 1.95,
+      "tag": "Resultados",
+      "value": 1,
+      "suffix": ".er",
+      "label": "préstamo ya desembolsado: el primero de un banco coreano",
+      "note": "Custodio externo + venta por orden judicial · Fuente: EDaily vía Cointelegraph"
+    },
+    {
+      "type": "ey",
+      "dur": 0.9
+    },
+    {
+      "type": "pivot",
+      "dur": 4.55,
+      "lead": "Si se puede con Bitcoin, se puede con",
+      "words": [
+        "tu inventario",
+        "tu finca"
+      ],
+      "wordsAt": [
+        2.4,
+        3.9
+      ],
+      "icons": [
+        "bodega",
+        "finca"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 3.9,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Préstamos con garantía tokenizada",
+        "Custodia y valoración en tiempo real",
+        "Alertas de riesgo con IA"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.5
+    }
+  ],
+  "gags": [
+    {
+      "at": 6.6,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-nervioso-fondo.jpg",
+      "style": "sticker",
+      "x": 0.8,
+      "y": 0.27,
+      "size": 0.25,
+      "rotate": -6,
+      "caption": "¿La partida de qué? 😬",
+      "sfx": "sfx/bruh.mp3"
+    },
+    {
+      "at": 14.7,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-escopeta.png",
+      "style": "cutout",
+      "x": 0.83,
+      "y": 0.35,
+      "size": 0.24,
+      "sfx": "sfx/scratch.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.05,
+      "to": 4.7,
+      "text": "Noticia del día: un banco coreano ya presta plata con Bitcoin de garantía."
+    },
+    {
+      "from": 5.12,
+      "to": 7.94,
+      "text": "Y a ti te piden 3 codeudores y la partida de bautismo."
+    },
+    {
+      "from": 8.45,
+      "to": 11.42,
+      "text": "Jeonbuk Bank es el primer banco de Corea en hacerlo:"
+    },
+    {
+      "from": 11.78,
+      "to": 16.12,
+      "text": "un custodio guarda los bitcoins y, si no pagan, un juez los vende."
+    },
+    {
+      "from": 16.59,
+      "to": 20.39,
+      "text": "Con el Bitcoin en US$84 mil, ya hizo su primer préstamo."
+    },
+    {
+      "from": 21.73,
+      "to": 25.99,
+      "text": "Si se puede con Bitcoin, se puede con tu inventario o tu finca."
+    },
+    {
+      "from": 26.26,
+      "to": 29.66,
+      "text": "En Key Lab construimos tu plataforma de préstamos con garantía tokenizada."
+    }
+  ]
+}
