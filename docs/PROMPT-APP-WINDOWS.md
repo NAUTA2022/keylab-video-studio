@@ -9,6 +9,10 @@
 
 Eres un ingeniero senior full-stack. Construye **Key Lab Video Studio Desktop**: una app de escritorio para Windows (instalador `.exe`) que corre en local y produce los videos de marca de Key Lab (keylab.tech) usando a Claude como cerebro creativo. La app hace el trabajo pesado en la máquina (render, audio, capturas, archivos), y Claude decide y escribe (noticia, guion, copy, escenas, memes, revisión), llamando a las herramientas de la app de forma ordenada a través de **MCP**.
 
+**Claude vive dentro de la app**: hay un panel de chat donde Ulises le pide cosas en lenguaje natural ("hazme la noticia del día", "cambia el meme del segundo 12", "guarda este sonido") y Claude trabaja con las herramientas de la app. Además, la app publica su servidor MCP para que Claude desde fuera (Claude Desktop, Claude Code o una tarea programada) se conecte a ella y use la misma biblioteca e historial.
+
+La app **recuerda lo que funcionó**: una biblioteca de assets aprobados (memes, sonidos, estilos, logos, imágenes, personajes, escenas, presets) y un historial de todo lo producido, para que cada video nuevo arranque desde lo que ya quedó bien y nada se repita sin querer.
+
 El resultado de cada corrida es: `video.mp4` 1080×1920 (9:16), `voz.mp3`, `copy-linkedin.md`, el JSON del video y una vista previa revisable antes del render final. **Nunca publica nada en redes.**
 
 Trabaja por fases, con commits pequeños, pruebas y una demo que funcione de punta a punta antes de pulir.
@@ -17,7 +21,9 @@ Trabaja por fases, con commits pequeños, pruebas y una demo que funcione de pun
 
 ```
 ┌──────────────────────── App de escritorio (Electron + React o Tauri + React) ────────────────────────┐
-│  UI: Brief · Cola de trabajos · Progreso por pasos · Sala de Revisión · Biblioteca · Ajustes        │
+│  UI: Chat con Claude · Brief · Trabajos · Sala de Revisión · Biblioteca · Historial · Ajustes        │
+│                                                                                                      │
+│  Biblioteca + Historial (SQLite + carpeta de assets con miniaturas, búsqueda por etiquetas)          │
 │                                                                                                      │
 │  Orquestador (máquina de estados por trabajo, persistida en SQLite)                                  │
 │      └─ lanza una sesión de Claude (Claude Agent SDK / `claude -p` en modo headless) con:            │
@@ -31,6 +37,9 @@ Trabaja por fases, con commits pequeños, pruebas y una demo que funcione de pun
 └──────────────────────────────────────────────────────────────────────────────────────────────────────┘
 ```
 
+- **Dos formas de conectar a Claude, mismo servidor MCP**:
+  1. *Dentro de la app*: el panel de chat usa el Claude Agent SDK con el MCP keylab-studio conectado; Claude ve la biblioteca, el historial y el trabajo abierto.
+  2. *Desde fuera*: la app instala su servidor MCP en la configuración de Claude Desktop/Claude Code (`claude_desktop_config.json` / `claude mcp add keylab-studio`) por stdio, y opcionalmente por HTTP local (`127.0.0.1`, con token) para que una tarea programada lo use. Así cualquier sesión de Claude trabaja con la misma biblioteca e historial.
 - **Claude nunca toca la máquina directamente**: todo pasa por herramientas MCP con entradas validadas (zod) y salidas JSON pequeñas (rutas de archivos, no blobs).
 - **Orden garantizado**: el orquestador expone en cada paso solo las herramientas de ese paso (o valida en el servidor que el trabajo esté en el estado correcto) y avanza el estado cuando la herramienta devuelve OK.
 - **Puertas humanas** (configurables): aprobar noticia/guion, aprobar vista previa. En modo programado sin humano: decide, deja la previa en la Sala y hace el render final igual.
@@ -53,7 +62,15 @@ Cada una devuelve `{ ok, ... }` o `{ ok:false, error, hint }`. Todas registran e
 | `audio_silences` | `{file}` | `ffmpeg silencedetect=noise=-35dB:d=0.2` → lista de frases con inicio/fin |
 | `audio_trim` | `{file, keep:[[a,b],...], tempo≤1.04}` | Recorta pausas largas y acelera; devuelve duración final |
 | `lipsync_curve` | `{voice}` | `scripts/lipsync.py` → `<voz>.labios.json` |
-| `memes_catalog` | — | Lee `public/memes/zorro/catalogo.json` + sonidos de `public/sfx/` |
+| `library_search` | `{kind?, tags?, text?, approvedOnly:true}` | Busca en la biblioteca: memes, sonidos, estilos, logos, imágenes, personajes, escenas, presets, clips. Devuelve id, ruta, miniatura, descripción, uso sugerido y cuántas veces/cuándo se usó |
+| `library_get` | `{id}` | Ficha completa de un asset (licencia, fuente, variantes con/sin fondo, reglas de uso) |
+| `library_save` | `{file \| fromJob, kind, name, tags, description, usage, license, source}` | Guarda un asset aprobado (también desde un trabajo: "guarda este meme/sonido/escena/estilo") con miniatura |
+| `library_update` / `library_archive` | `{id, ...}` | Edita etiquetas/descripción o archiva (nunca borra) |
+| `style_get` / `style_save` | `{name}` | Estilos guardados: tokens de color, tipografías, layout, efectos, ritmo (p. ej. "Key Lab noticia", "Key Lab historia") |
+| `preset_save` / `preset_list` | `{name, brief}` | Combinaciones aprobadas (hook + memes + escenas + estilo + voz) para repetir |
+| `history_list` | `{type?, since?, text?}` | Historial: videos hechos, noticia usada, guion, memes y sonidos usados, versiones, notas de revisión, decisiones y resultado |
+| `history_get` | `{jobId}` | Detalle de un trabajo con sus archivos y versiones |
+| `history_note` | `{jobId, text}` | Anota aprendizajes ("este meme funcionó", "no repetir este hook") |
 | `video_write_json` | `{json}` | Valida contra `src/schema.ts` (zod) y guarda `src/data/<clave>.json` |
 | `soundtrack_build` | — | `python scripts/sonorizar.py` → `banda.mp3`; devuelve avisos (p. ej. memes muy juntos) |
 | `bake_3d` | `{force?, scene?, reuse?}` | `node scripts/hornear3d.mjs KeyLabReel <json>` |
@@ -72,7 +89,7 @@ Recursos MCP de solo lectura: `brand://guia` (GUIA-MARCA.md), `docs://flujo-rend
 `INIT → RESEARCH → CAPTURE → SCRIPT → VOICE → TIMING → SCENES → SOUND → BAKE → QA_STILLS → PREVIEW → (REVIEW) → FINAL → DELIVER → DONE`
 Cualquier paso puede ir a `FAILED` con motivo y reintento manual desde ese paso.
 
-1. **RESEARCH**: noticias de los últimos 3 días sobre tokenización RWA o IA aplicada a finanzas/blockchain (Cointelegraph `https://cointelegraph.com/tags/rwa-tokenization` + búsqueda). Elige LA mejor para vender algo que Key Lab puede construir. No repetir noticias ya usadas (`deliveries_list`). Investiga más allá de la nota: qué hace la empresa en concreto, con qué producto, y qué resultados o cifras tiene, con fuente.
+1. **RESEARCH**: noticias de los últimos 3 días sobre tokenización RWA o IA aplicada a finanzas/blockchain (Cointelegraph `https://cointelegraph.com/tags/rwa-tokenization` + búsqueda). Elige LA mejor para vender algo que Key Lab puede construir. No repetir noticias ya usadas (`history_list`). Investiga más allá de la nota: qué hace la empresa en concreto, con qué producto, y qué resultados o cifras tiene, con fuente.
 2. **CAPTURE**: captura de la nota (titular + fecha + imagen) y de la web oficial de la empresa/producto, idealmente donde anuncia lo de la noticia → `nota.png`, `web-empresa.png`. Nunca logos de terceros sueltos como si fueran socios.
 3. **SCRIPT** (guion de voz, 75-90 palabras, ≤36 s, español neutro con tú):
    hook **"Noticia del día:" + titular en español simple** → roast cómico → **la noticia explicada con contexto** (qué hace, producto, cifras, fuente; nunca solo la premisa) → **"Ey."** → "si se puede con eso, se puede con lo tuyo" → "En Key Lab construimos…" → "Agenda una reunión."
@@ -86,14 +103,15 @@ Cualquier paso puede ir a `FAILED` con motivo y reintento manual desde ese paso.
    - `news` (source, date, headline, articleShot, siteUrl, siteShot, chip)
    - 1–2 `stat` con las cifras (value, prefix/suffix, label, fuente en note)
    - `ey` → `pivot` (palabras + íconos react-icons) → `solution` (3 ítems) → `close`
-   - `gags`: 1 a 3 memes del zorro (ver reglas) y `subtitles`.
+   - `gags`: 1 a 3 memes del zorro elegidos con `library_search` (aprobados, que no se hayan usado en el video anterior según `history_list`) y `subtitles`.
+   - Estilo: el guardado con `style_get("Key Lab noticia")`; logos e imágenes solo de la biblioteca.
 7. **SOUND**: `sonorizar.py` arma música (120 BPM, silencio real en el Ey, drop en el pivote), ducking bajo la voz, efectos sincronizados y master −14 LUFS. Si avisa memes muy juntos, Claude los mueve.
 8. **BAKE**: 3D horneado una sola vez como PNG con transparencia; solo se rehace si cambió la escena o `src/three/`.
 9. **QA_STILLS**: stills de cada escena en una hoja de contacto; Claude revisa con la checklist (sección 7) y corrige el JSON hasta que pase.
 10. **PREVIEW**: previa 540×960 a la Sala de Revisión.
 11. **REVIEW**: si hay humano, espera notas; Claude las lee, corrige y sube previa N+1. Sin humano: continúa.
 12. **FINAL**: render 1080×1920 + ffprobe.
-13. **DELIVER**: copy LinkedIn corto (hook primera línea, noticia simple con fuente y link, giro, cómo lo hace Key Lab, CTA "Agenda una reunión" + keylab.tech/es/agendar, 3–5 hashtags, atribución de emojis si se usaron) + carpeta de entrega + commit/push + notificación de Windows con el video.
+13. **DELIVER**: registra todo en el historial (noticia, guion, memes, sonidos, versiones, notas, duración) y ofrece "Guardar en biblioteca" para lo que quedó bien; copy LinkedIn corto (hook primera línea, noticia simple con fuente y link, giro, cómo lo hace Key Lab, CTA "Agenda una reunión" + keylab.tech/es/agendar, 3–5 hashtags, atribución de emojis si se usaron) + carpeta de entrega + commit/push + notificación de Windows con el video.
 
 ### Trabajo "historia" (videos de concepto como "La bóveda")
 Estructura: **Hook** (meme/3D llamativo) → **mini historia** con personaje → **Ey.** (corta un momento de rabia o clímax) → **nuestra solución** explicada (animación de plataforma) → **cierre** con remate. Mismas puertas, mismas reglas de marca.
@@ -147,19 +165,31 @@ Estructura: **Hook** (meme/3D llamativo) → **mini historia** con personaje →
 
 ## 9. Interfaz (UI)
 
+- **Chat con Claude** (panel lateral siempre disponible): pide, corrige y aprueba en lenguaje natural; Claude responde con lo que hizo y enlaces a los archivos; arrastra un archivo al chat para que lo use o lo guarde en la biblioteca.
 - **Inicio**: botón "Noticia del día ahora", próximas corridas programadas, últimas entregas con miniatura.
 - **Brief**: catálogo marcable (ganchos, memes, sonidos con preescucha, escenas, explicaciones, modelos 3D, efectos, voces, cierre) + idea o guion libre; presets guardados.
 - **Trabajo en curso**: línea de pasos con estado, log legible, hoja de stills, botón para reintentar desde un paso.
 - **Sala de Revisión**: reproductor vertical, notas en el segundo exacto con marcador en la línea de tiempo, estados pendiente/resuelta y respuesta de Claude; versiones previa 1, 2, …
-- **Biblioteca**: memes (con/sin fondo), emojis animados, sonidos, personajes y rigs, modelos 3D.
+- **Biblioteca** (lo aprobado y guardado): memes del zorro (con/sin fondo), sonidos virales con preescucha, logos e isotipos oficiales, imágenes, personajes y rigs, modelos 3D, escenas y clips que quedaron bien, estilos y presets. Cada ficha: miniatura, etiquetas, descripción, uso sugerido, licencia/fuente, veces usado y último uso. Botones: guardar, etiquetar, archivar, "usar en el próximo video".
+- **Historial**: lista de todos los videos con miniatura, fecha, tema, noticia/fuente, guion, memes y sonidos usados, versiones y notas de revisión; filtros y búsqueda; abrir cualquier trabajo para duplicarlo o rehacer desde un paso.
 - **Ajustes**: claves (credenciales de Windows), carpeta de entregas, horario, puertas humanas sí/no, modelo de Claude.
 - Estilo de la app: oscuro moderno con el cobalto de la marca, tipografías Anton/Figtree.
 
-## 10. Entregables del desarrollo
+## 10. Biblioteca e historial (la memoria de la app)
+
+- **Importación inicial** desde el repo keylab-video-studio: `public/memes/zorro/` + `catalogo.json` (11 memes: galán, asustado, triste, pensando, escopeta, nervioso, sobrado, serio, cuchillo, puñetazo, cama-laptop; más zorro-ceja y zorro-muejeje marcados como **fijos** del Ey. y del cierre), memes anteriores de `public/memes/`, `public/sfx/` (boom, scratch, boing, trombón, bruh, grillos, muejeje), `public/brand/` (logos oficiales), `public/lottie/emoji/` (29 emojis animados), `public/personajes/` (Don Excusas, inversionista, rigs), `public/3d/` (Kenney), `public/clips/`, y los estilos de `GUIA-MARCA.md` como estilo "Key Lab".
+- **Tipos de asset**: meme, sonido, logo, imagen, personaje, rig, modelo 3D, clip, escena (fragmento de JSON reutilizable), estilo, preset, voz.
+- **Estados**: borrador → aprobado → archivado. Claude solo usa los aprobados salvo que se le pida otra cosa. Los fijos (Ey., cierre) no se pueden cambiar desde un video.
+- **Guardar lo que quedó bien**: desde la Sala de Revisión o el chat ("guarda este meme / este sonido / esta escena / este estilo") → `library_save` con miniatura, etiquetas y uso sugerido.
+- **Historial completo**: cada trabajo guarda insumos, decisiones de Claude (con el porqué), versiones, notas y resultado. Claude lo consulta antes de producir para no repetir noticias, hooks ni memes, y para reutilizar lo que mejor funcionó.
+- **Respaldo**: la biblioteca vive en una carpeta sincronizable (y su índice SQLite) y se puede exportar/importar como `.zip`; los assets aprobados también se suben al repo cuando su licencia lo permite.
+
+## 11. Entregables del desarrollo
 
 1. Monorepo `keylab-studio-desktop/` con `apps/desktop` (Electron o Tauri + React), `packages/mcp-server` (servidor MCP keylab-studio) y `packages/orchestrator`.
 2. Instalador `.exe` (electron-builder NSIS o Tauri bundler) que instala app, Node runtime, Python embebido y descarga Chrome Headless Shell en el primer arranque.
 3. Pruebas: unitarias del servidor MCP (validación de entradas, rutas), prueba de punta a punta con una noticia fija que produzca un video de 10 s.
-4. README con instalación, configuración de claves y cómo agregar memes, personajes y escenas.
+4. Integración con Claude: panel de chat dentro de la app (Agent SDK) y registro automático del servidor MCP en Claude Desktop/Claude Code, con una prueba que demuestre que una sesión externa de Claude ve la biblioteca y el historial.
+5. README con instalación, configuración de claves y cómo agregar memes, personajes y escenas.
 
 Empieza por el servidor MCP y una corrida de punta a punta desde la línea de comandos; luego la UI.
