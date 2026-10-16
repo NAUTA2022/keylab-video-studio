@@ -86,13 +86,13 @@
     },
     {
       "type": "solution",
-      "dur": 3.85,
+      "dur": 4.5,
       "tag": "Key Lab",
       "title": "En Key Lab construimos",
       "items": [
         "Tu tokenizadora, con tu marca",
         "Mercado para comprar y revender",
-        "IA que te trae inversionistas"
+        "Invertir desde el celular"
       ]
     },
     {
@@ -171,9 +171,9 @@
       "text": "Si se puede con eso, se puede con lo tuyo."
     },
     {
-      "from": 26.95,
-      "to": 30.65,
-      "text": "En Key Lab construimos tu tokenizadora con compradores incluidos."
+      "from": 27.0,
+      "to": 31.2,
+      "text": "En Key Lab construimos tu tokenizadora, con mercado para comprar y revender."
     }
   ]
 }
