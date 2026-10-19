@@ -1,0 +1,180 @@
+{
+  "bakeKey": "noticia-2026-10-19",
+  "voice": "media/noticia-2026-10-19/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-19/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 5.75,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "9 gigantes: no tokenicen mis acciones sin",
+      "highlight": "permiso",
+      "cues": {
+        "title": 1.37,
+        "boom": 4.6
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 2.7,
+      "tag": "Realidad",
+      "lines": [
+        "Como el vecino que alquila",
+        "tu carro sin preguntarte"
+      ],
+      "punch": "¿Y el permiso?",
+      "cues": {
+        "line0": 0.15,
+        "line1": 1.0,
+        "punch": 1.75
+      }
+    },
+    {
+      "type": "news",
+      "dur": 7.85,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "19 oct 2026",
+      "headline": "Empresas que cotizan en bolsa se oponen al plan de acciones tokenizadas de OKX e ICE",
+      "articleShot": "media/noticia-2026-10-19/nota.png",
+      "siteUrl": "okx.com",
+      "siteShot": "media/noticia-2026-10-19/web-empresa.png",
+      "chip": "OKXICE · acciones tokenizadas 24/7"
+    },
+    {
+      "type": "stat",
+      "dur": 2.8,
+      "tag": "Resultados",
+      "value": 9,
+      "prefix": "",
+      "suffix": "",
+      "label": "de 63 empresas dijeron no: Broadcom, Verizon, CoreWeave, UnitedHealth…",
+      "note": "Objeciones bajo la exención de innovación de la SEC · Fuente: The Block, 17 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 5.9,
+      "tag": "Resultados",
+      "value": 3.5,
+      "decimals": 1,
+      "prefix": "US$",
+      "suffix": "",
+      "label": "mil millones ya valen las acciones tokenizadas: 5 veces más que en enero",
+      "note": "Desde ≈ US$680 M a inicio de 2026, al 15 oct · Fuente: The Block"
+    },
+    {
+      "type": "ey",
+      "dur": 0.8
+    },
+    {
+      "type": "pivot",
+      "dur": 2.7,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tu empresa",
+        "lo tuyo"
+      ],
+      "wordsAt": [
+        0.5,
+        1.6
+      ],
+      "icons": [
+        "fabrica",
+        "tokens"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 3.4,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu tokenizadora, con tu marca",
+        "Tú eres el emisor: tus reglas",
+        "KYC y permisos por inversionista"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.5
+    }
+  ],
+  "gags": [
+    {
+      "at": 6.5,
+      "dur": 1.7,
+      "image": "memes/zorro/zorro-cuchillo.png",
+      "style": "cutout",
+      "x": 0.8,
+      "y": 0.5,
+      "size": 0.24,
+      "sfx": "sfx/scratch.mp3"
+    },
+    {
+      "at": 16.9,
+      "dur": 1.7,
+      "image": "memes/zorro/zorro-punetazo-fondo.jpg",
+      "style": "sticker",
+      "x": 0.76,
+      "y": 0.22,
+      "size": 0.23,
+      "rotate": 6,
+      "caption": "¡NO! 👊",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 1.2,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.37,
+      "to": 5.52,
+      "text": "nueve gigantes dijeron: no tokenicen mis acciones sin permiso."
+    },
+    {
+      "from": 5.94,
+      "to": 8.26,
+      "text": "Como el vecino que alquila tu carro sin preguntarte."
+    },
+    {
+      "from": 8.59,
+      "to": 12.5,
+      "text": "Según Cointelegraph, OKX y el dueño de la Bolsa de Nueva York"
+    },
+    {
+      "from": 12.82,
+      "to": 16.15,
+      "text": "quieren negociar 63 acciones tokenizadas día y noche,"
+    },
+    {
+      "from": 16.47,
+      "to": 18.86,
+      "text": "y Broadcom y Verizon se opusieron."
+    },
+    {
+      "from": 19.28,
+      "to": 22.37,
+      "text": "Ese mercado ya vale US$3.500 millones:"
+    },
+    {
+      "from": 22.73,
+      "to": 24.66,
+      "text": "cinco veces más que en enero."
+    },
+    {
+      "from": 25.74,
+      "to": 28.18,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 28.6,
+      "to": 31.54,
+      "text": "En Key Lab construimos tu tokenizadora, con tus reglas."
+    }
+  ]
+}
