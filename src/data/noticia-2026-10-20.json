@@ -1,0 +1,103 @@
+{
+  "bakeKey": "noticia-2026-10-20",
+  "voice": "media/noticia-2026-10-20/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-20/banda.mp3",
+  "background": "dots",
+  "pendiente": "BORRADOR: tiempos estimados. Falta la voz (ElevenLabs sin créditos). Al tenerla, medir con silencedetect y ajustar dur, cues, gags y subtitles.",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 5.3,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Una tokenizadora sacó su propio",
+      "highlight": "dólar",
+      "cues": { "title": 1.3, "boom": 4.4 }
+    },
+    {
+      "type": "roast",
+      "dur": 2.8,
+      "tag": "Realidad",
+      "lines": ["Como el casino que te", "cambia todo a fichas"],
+      "punch": "¿Y el efectivo?",
+      "cues": { "line0": 0.15, "line1": 1.0, "punch": 1.8 }
+    },
+    {
+      "type": "news",
+      "dur": 6.8,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "20 oct 2026",
+      "headline": "Tx lanza la stablecoin USTX para atraer la liquidez de los RWA a su propia red",
+      "articleShot": "media/noticia-2026-10-20/nota.png",
+      "siteUrl": "tx.org",
+      "siteShot": "media/noticia-2026-10-20/web-empresa.png",
+      "chip": "USTX · dólar digital emitido por Brale"
+    },
+    {
+      "type": "stat",
+      "dur": 3.3,
+      "tag": "Resultados",
+      "value": 1,
+      "prefix": "US$",
+      "suffix": "",
+      "label": "por cada USTX: efectivo, depósitos y letras del Tesoro",
+      "note": "Respaldo 1:1, atestación mensual de un contador · Fuente: Cointelegraph y Crypto Briefing, 20 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 3.8,
+      "tag": "Resultados",
+      "value": 8,
+      "prefix": "",
+      "suffix": "",
+      "label": "blockchains para acuñarlo con USDC (Ethereum, Solana, Base…) y pagar acciones en tx",
+      "note": "Se redime de vuelta a USDC · Fuente: Cointelegraph, 20 oct 2026"
+    },
+    { "type": "ey", "dur": 0.8 },
+    {
+      "type": "pivot",
+      "dur": 2.7,
+      "lead": "Si se puede con eso, se puede con",
+      "words": ["tu plataforma", "lo tuyo"],
+      "wordsAt": [0.5, 1.6],
+      "icons": ["tokens", "manos"]
+    },
+    {
+      "type": "solution",
+      "dur": 4.0,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu plataforma de activos tokenizados",
+        "Billetera con KYC y tu marca",
+        "Pagos en stablecoin con emisor regulado"
+      ]
+    },
+    { "type": "close", "dur": 4.5 }
+  ],
+  "gags": [
+    {
+      "at": 6.2, "dur": 1.6,
+      "image": "memes/zorro/zorro-nervioso.png", "style": "cutout",
+      "x": 0.8, "y": 0.5, "size": 0.24, "sfx": "sfx/bruh.mp3"
+    },
+    {
+      "at": 15.6, "dur": 1.7,
+      "image": "memes/zorro/zorro-escopeta-fondo.jpg", "style": "sticker",
+      "x": 0.76, "y": 0.22, "size": 0.23, "rotate": 6,
+      "caption": "1 a 1 o nada 😤", "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    { "from": 0.0, "to": 1.2, "text": "Noticia del día:" },
+    { "from": 1.3, "to": 5.1, "text": "una tokenizadora sacó su propio dólar para que la plata no se le vaya." },
+    { "from": 5.4, "to": 7.9, "text": "Como el casino que te cambia todo a fichas." },
+    { "from": 8.2, "to": 11.3, "text": "Según Cointelegraph, tx, plataforma de acciones tokenizadas," },
+    { "from": 11.4, "to": 14.8, "text": "lanzó USTX: un dólar digital emitido por Brale," },
+    { "from": 15.0, "to": 18.1, "text": "respaldado 1 a 1 con efectivo y letras del Tesoro," },
+    { "from": 18.3, "to": 21.9, "text": "que se acuña desde 8 blockchains para pagar acciones en su red." },
+    { "from": 23.0, "to": 25.5, "text": "Si se puede con eso, se puede con lo tuyo." },
+    { "from": 25.8, "to": 29.6, "text": "En Key Lab construimos tu plataforma, tu billetera y tu moneda de pagos." }
+  ]
+}
