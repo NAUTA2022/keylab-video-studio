@@ -6,22 +6,22 @@
   "scenes": [
     {
       "type": "hook",
-      "dur": 6.55,
+      "dur": 7.0,
       "tag": "Noticia",
       "kicker": "Noticia del día · Brasil",
       "title": "El 75% de lo tokenizado fue",
       "highlight": "finca raíz",
       "cues": {
-        "title": 2.1,
+        "title": 1.57,
         "building": 0.3,
-        "tokens": 4.6,
-        "boom": 5.6
+        "tokens": 4.8,
+        "boom": 6.0
       },
       "asset": "building3d"
     },
     {
       "type": "roast",
-      "dur": 6.5,
+      "dur": 6.65,
       "tag": "Realidad",
       "lines": [
         "¿Y tú? Vendiendo sobre planos",
@@ -31,18 +31,18 @@
       "punch": "Modo 2010",
       "cues": {
         "line0": 0.15,
-        "line1": 3.6,
-        "line2": 5.75,
-        "punch": 6.05,
-        "excel": 3.65,
-        "chat": 4.5,
-        "night": 5.2
+        "line1": 4.1,
+        "line2": 6.0,
+        "punch": 6.3,
+        "excel": 4.1,
+        "chat": 5.55,
+        "night": 5.9
       },
       "asset": "excel-chat"
     },
     {
       "type": "news",
-      "dur": 4.75,
+      "dur": 5.15,
       "tag": "Noticia",
       "source": "Exame",
       "date": "13 oct 2026",
@@ -54,7 +54,7 @@
     },
     {
       "type": "stat",
-      "dur": 2.58,
+      "dur": 2.5,
       "tag": "Resultados",
       "value": 75,
       "prefix": "",
@@ -64,27 +64,22 @@
     },
     {
       "type": "stat",
-      "dur": 3.92,
+      "dur": 3.4,
       "tag": "Resultados",
       "value": 7.3,
       "prefix": "R$",
       "suffix": "",
       "label": "mil millones emitidos en tokens en Brasil en 2026",
       "note": "R$7.344 M, con 271.641 inversionistas · Fuente: RWA Monitor, 21 oct 2026",
-      "decimals": 1,
-      "asset": "phone3d",
-      "project": "Tu proyecto",
-      "cues": {
-        "invest": 2.6
-      }
+      "decimals": 1
     },
     {
       "type": "ey",
-      "dur": 0.8
+      "dur": 0.75
     },
     {
       "type": "pivot",
-      "dur": 2.75,
+      "dur": 3.1,
       "lead": "Si se puede con eso, se puede con",
       "words": [
         "tu edificio",
@@ -92,7 +87,7 @@
       ],
       "wordsAt": [
         0.3,
-        1.9
+        2.1
       ],
       "icons": [
         "edificio",
@@ -104,7 +99,7 @@
     },
     {
       "type": "solution",
-      "dur": 4.75,
+      "dur": 3.65,
       "tag": "Key Lab",
       "title": "Te la construimos",
       "items": [
@@ -128,24 +123,24 @@
   ],
   "gags": [
     {
-      "at": 13.3,
+      "at": 13.8,
       "dur": 1.6,
       "image": "memes/zorro/zorro-pensando-fondo.jpg",
       "style": "sticker",
       "x": 0.84,
-      "y": 0.178,
+      "y": 0.19,
       "size": 0.17,
       "rotate": -6,
       "caption": "¿Con tokens? 🤔",
       "sfx": "sfx/bruh.mp3"
     },
     {
-      "at": 18.0,
+      "at": 19.0,
       "dur": 1.7,
       "image": "memes/zorro/zorro-asustado-fondo.jpg",
       "style": "sticker",
       "x": 0.84,
-      "y": 0.178,
+      "y": 0.19,
       "size": 0.17,
       "rotate": 6,
       "caption": "¡75%! 😱",
@@ -155,47 +150,47 @@
   "subtitles": [
     {
       "from": 0.0,
-      "to": 1.98,
-      "text": "¡Noticia del día:"
+      "to": 1.23,
+      "text": "Noticia del día:"
     },
     {
-      "from": 2.1,
-      "to": 6.45,
-      "text": "en Brasil, 3 de cada 4 reales tokenizados en septiembre fueron de finca raíz!"
+      "from": 1.57,
+      "to": 6.86,
+      "text": "¡en Brasil, 3 de cada 4 reales tokenizados en septiembre fueron de finca raíz!"
     },
     {
-      "from": 6.67,
-      "to": 10.1,
+      "from": 7.16,
+      "to": 11.0,
       "text": "Mientras tanto tú, vendiendo apartamentos sobre planos"
     },
     {
-      "from": 10.15,
-      "to": 12.95,
+      "from": 11.12,
+      "to": 13.49,
       "text": "con un Excel, un grupo de WhatsApp y una vaca."
     },
     {
-      "from": 13.2,
-      "to": 17.77,
+      "from": 13.79,
+      "to": 18.75,
       "text": "Según Exame, las tokenizadoras captaron R$71 millones en un mes,"
     },
     {
-      "from": 17.89,
-      "to": 20.28,
+      "from": 18.89,
+      "to": 21.0,
       "text": "¡y 54 fueron inmobiliarios!"
     },
     {
-      "from": 20.45,
-      "to": 23.93,
-      "text": "¡Y en lo que va del año ya van más de R$7.000 millones!"
+      "from": 21.42,
+      "to": 24.31,
+      "text": "Y en lo que va del año, ya van más de R$7.000 millones."
     },
     {
-      "from": 25.09,
-      "to": 27.73,
-      "text": "¡Si se puede con eso, se puede con tu proyecto!"
+      "from": 25.48,
+      "to": 28.37,
+      "text": "Si se puede con eso, se puede con tu proyecto."
     },
     {
-      "from": 27.95,
-      "to": 32.4,
+      "from": 28.67,
+      "to": 32.02,
       "text": "En Key Lab construimos tu plataforma de tokenización inmobiliaria."
     }
   ]
