@@ -271,6 +271,32 @@ for i, s in enumerate(scenes):
             put(sfx, whoosh(0.5, up=False), inv - 0.55, 0.3)  # token cayendo
             put(sfx, pop(700), inv, 0.5)  # botón
             put(sfx, cha_ching(), inv + 0.12, 0.55)
+    elif typ == 'mg':
+        # motion graphics sobre foto: un sonido por capa en su momento exacto
+        for l in s.get('layers', []):
+            t0 = st + l['at']; k = l['k']
+            if k == 'text':
+                if l.get('anim') == 'slam': put(sfx, impact(0.6), t0, 0.55); put(sfx, thud(), t0, 0.6)
+                else: put(sfx, swish(), t0, 0.32, rng.uniform(-0.3, 0.3))
+            elif k == 'count':
+                d = l.get('dur', 1.1); last = -1
+                for fr in range(int(d * FPS) + 1):
+                    step = int((1 - 2 ** (-10 * fr / (d * FPS))) * 22)
+                    if step != last: put(sfx, tick(1800 + step * 45, 0.02), t0 + fr / FPS, 0.15); last = step
+                put(sfx, impact(0.4), t0 + d, 0.35)
+            elif k == 'donut': put(sfx, whoosh(0.9), t0, 0.35, -0.2)
+            elif k == 'bar': put(sfx, whoosh(0.6), t0 + 0.05, 0.25, 0.2)
+            elif k in ('chip', 'pin'): put(sfx, pop(900), t0, 0.4, rng.uniform(-0.4, 0.4))
+            elif k == 'emoji': put(sfx, pop(1300), t0, 0.35, rng.uniform(-0.5, 0.5))
+            elif k == 'bubble': put(sfx, pop(1100), t0, 0.45, 0.35); put(sfx, ding(), t0, 0.18, 0.35)
+            elif k == 'coins':
+                for j in range(12): put(sfx, coin_ring(2000 + rng.integers(0, 1800)), t0 + j * 0.05 + rng.uniform(0, 0.03), 0.15, rng.uniform(-0.7, 0.7))
+            elif k == 'excel':
+                put(sfx, whoosh(0.3), t0 - 0.1, 0.35, -0.3)
+                for j in range(8): put(sfx, tick(1500 + j * 90, 0.02), t0 + (8 + j * 3) / FPS, 0.1, -0.3)
+            elif k == 'don': put(sfx, whoosh(0.5), t0, 0.4, -0.4)
+            elif k == 'meme': put(sfx, thud(), t0, 0.5)
+        for sh in s.get('shake', []): put(sfx, impact(0.5), st + sh, 0.4)
     elif typ == 'ey':
         put(sfx, impact(1.2), st, 0.5)
         FIXED.append(('sfx/boom.mp3', st, 1.0, False))  # asset fijo: zorro de la ceja + vine boom

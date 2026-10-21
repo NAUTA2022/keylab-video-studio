@@ -437,7 +437,7 @@ export const Close: React.FC<Extract<Scene, { type: 'close' }>> = ({ cta, url, d
   );
 };
 
-export const DARK_SCENES = new Set(['hook', 'ey', 'pivot', 'close', 'statement', 'boveda-hook', 'boveda-vault']);
+export const DARK_SCENES = new Set(['hook', 'ey', 'pivot', 'close', 'statement', 'boveda-hook', 'boveda-vault', 'mg']);
 
 /* Clip a cuadro completo (explicaciones de animation-studio) */
 export const ClipScene: React.FC<Extract<Scene, { type: 'clip' }>> = ({ clip, from }) => {

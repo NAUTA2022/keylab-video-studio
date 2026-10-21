@@ -5,40 +5,169 @@
   "background": "dots",
   "scenes": [
     {
-      "type": "hook",
+      "type": "mg",
       "dur": 7.0,
-      "tag": "Noticia",
-      "kicker": "Noticia del día · Brasil",
-      "title": "El 75% de lo tokenizado fue",
-      "highlight": "finca raíz",
-      "cues": {
-        "title": 1.57,
-        "building": 0.3,
-        "tokens": 4.8,
-        "boom": 6.0
+      "photo": "media/noticia-2026-10-21-latam/fotos/hook.jpg",
+      "credit": "Foto: ProtoplasmaKid, CC BY-SA 4.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.25,
+          -6,
+          2
+        ],
+        "to": [
+          1.45,
+          6,
+          -2
+        ]
       },
-      "asset": "building3d"
+      "tint": "dark",
+      "shake": [
+        2.55,
+        5.59
+      ],
+      "layers": [
+        {
+          "k": "chip",
+          "at": 0.05,
+          "text": "Noticia del día",
+          "y": 300,
+          "tone": "cobalt",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "pin",
+          "at": 1.57,
+          "text": "BRASIL",
+          "x": 200,
+          "y": 500
+        },
+        {
+          "k": "donut",
+          "at": 2.55,
+          "value": 75,
+          "x": 540,
+          "y": 800,
+          "r": 230
+        },
+        {
+          "k": "count",
+          "at": 2.55,
+          "to": 75,
+          "suffix": "%",
+          "y": 700,
+          "size": 200,
+          "align": "center",
+          "dur": 1.0
+        },
+        {
+          "k": "text",
+          "at": 3.6,
+          "text": "de lo tokenizado fue",
+          "y": 1035,
+          "size": 70,
+          "align": "center"
+        },
+        {
+          "k": "text",
+          "at": 5.59,
+          "text": "FINCA RAÍZ",
+          "y": 1180,
+          "size": 130,
+          "align": "center",
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "coins",
+          "at": 5.6,
+          "x": 540,
+          "y": 800
+        },
+        {
+          "k": "emoji",
+          "at": 5.9,
+          "name": "cabeza-explota",
+          "x": 880,
+          "y": 560,
+          "size": 170
+        }
+      ]
     },
     {
-      "type": "roast",
+      "type": "mg",
       "dur": 6.65,
-      "tag": "Realidad",
-      "lines": [
-        "¿Y tú? Vendiendo sobre planos",
-        "con Excel y WhatsApp",
-        "y una vaca"
-      ],
-      "punch": "Modo 2010",
-      "cues": {
-        "line0": 0.15,
-        "line1": 4.1,
-        "line2": 6.0,
-        "punch": 6.3,
-        "excel": 4.1,
-        "chat": 5.55,
-        "night": 5.9
+      "photo": "media/noticia-2026-10-21-latam/fotos/alpujarra.jpg",
+      "credit": "Foto: I.D. R.J., CC BY-SA 2.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.15,
+          0,
+          0
+        ],
+        "to": [
+          1.25,
+          -3,
+          0
+        ]
       },
-      "asset": "excel-chat"
+      "tint": "dark",
+      "blur": 3,
+      "shake": [
+        0.16
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.16,
+          "text": "¿Y TÚ?",
+          "y": 290,
+          "size": 150,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 1.42,
+          "text": "vendiendo sobre planos",
+          "y": 460,
+          "size": 76
+        },
+        {
+          "k": "don",
+          "at": 0.1,
+          "x": 60,
+          "y": 1320,
+          "h": 760,
+          "gestures": [
+            1.5,
+            4.15,
+            5.6
+          ],
+          "sweat": [
+            4.2
+          ],
+          "from": "left"
+        },
+        {
+          "k": "excel",
+          "at": 4.12,
+          "x": 500,
+          "y": 620,
+          "width": 500,
+          "chat": 1.45,
+          "night": 2.0,
+          "rotate": 4
+        },
+        {
+          "k": "meme",
+          "at": 6.0,
+          "text": "+ una vaca 💸",
+          "y": 1150,
+          "size": 96,
+          "color": "#FFD43B"
+        }
+      ]
     },
     {
       "type": "news",
@@ -53,49 +182,232 @@
       "chip": "RWA Monitor · tokenización en Brasil"
     },
     {
-      "type": "stat",
+      "type": "mg",
       "dur": 2.5,
-      "tag": "Resultados",
-      "value": 75,
-      "prefix": "",
-      "suffix": "%",
-      "label": "de lo captado con tokens en septiembre fue finca raíz: R$54 M de R$71,5 M",
-      "note": "49 activos de 5 tokenizadoras · Fuente: RWA Monitor vía Exame, 13 oct 2026"
+      "photo": "media/noticia-2026-10-21-latam/fotos/obra.jpg",
+      "credit": "Foto: Gaf.arq, CC BY-SA 3.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.2,
+          0,
+          0
+        ],
+        "to": [
+          1.32,
+          -2,
+          1
+        ]
+      },
+      "tint": "cobalt",
+      "layers": [
+        {
+          "k": "chip",
+          "at": 0.05,
+          "text": "Brasil · septiembre 2026",
+          "y": 300,
+          "tone": "white",
+          "caps": true,
+          "size": 28
+        },
+        {
+          "k": "count",
+          "at": 0.1,
+          "to": 54,
+          "prefix": "R$",
+          "suffix": " M",
+          "y": 420,
+          "size": 230,
+          "dur": 0.9
+        },
+        {
+          "k": "text",
+          "at": 0.5,
+          "text": "de R$71,5 M captados con tokens",
+          "y": 700,
+          "size": 62
+        },
+        {
+          "k": "bar",
+          "at": 0.9,
+          "label": "Total tokenizado",
+          "value": 100,
+          "valueLabel": "R$71,5 M",
+          "y": 900,
+          "color": "white"
+        },
+        {
+          "k": "bar",
+          "at": 1.2,
+          "label": "Finca raíz",
+          "value": 75.6,
+          "valueLabel": "75%",
+          "y": 1040
+        },
+        {
+          "k": "chip",
+          "at": 1.4,
+          "text": "Fuente: RWA Monitor vía Exame, 13 oct 2026",
+          "y": 1200,
+          "tone": "ink",
+          "size": 24
+        }
+      ]
     },
     {
-      "type": "stat",
+      "type": "mg",
       "dur": 3.4,
-      "tag": "Resultados",
-      "value": 7.3,
-      "prefix": "R$",
-      "suffix": "",
-      "label": "mil millones emitidos en tokens en Brasil en 2026",
-      "note": "R$7.344 M, con 271.641 inversionistas · Fuente: RWA Monitor, 21 oct 2026",
-      "decimals": 1
+      "photo": "media/noticia-2026-10-21-latam/fotos/noche.jpg",
+      "credit": "Foto: Andre Deak, CC BY 2.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.15,
+          3,
+          0
+        ],
+        "to": [
+          1.35,
+          -3,
+          -1
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        1.0
+      ],
+      "layers": [
+        {
+          "k": "count",
+          "at": 0.3,
+          "to": 7.3,
+          "decimals": 1,
+          "prefix": "R$",
+          "y": 360,
+          "size": 300,
+          "dur": 0.8
+        },
+        {
+          "k": "text",
+          "at": 1.0,
+          "text": "MIL MILLONES",
+          "y": 690,
+          "size": 140,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 1.3,
+          "text": "en tokens en Brasil en 2026",
+          "y": 870,
+          "size": 62
+        },
+        {
+          "k": "chip",
+          "at": 1.9,
+          "text": "271.641 inversionistas",
+          "y": 990,
+          "tone": "white",
+          "size": 38
+        },
+        {
+          "k": "emoji",
+          "at": 1.0,
+          "name": "sube",
+          "x": 900,
+          "y": 440,
+          "size": 160
+        },
+        {
+          "k": "emoji",
+          "at": 2.3,
+          "name": "codicioso",
+          "x": 880,
+          "y": 1130,
+          "size": 150
+        },
+        {
+          "k": "chip",
+          "at": 2.0,
+          "text": "Fuente: RWA Monitor, 21 oct 2026",
+          "y": 1220,
+          "tone": "ink",
+          "size": 24
+        }
+      ]
     },
     {
       "type": "ey",
       "dur": 0.75
     },
     {
-      "type": "pivot",
+      "type": "mg",
       "dur": 3.1,
-      "lead": "Si se puede con eso, se puede con",
-      "words": [
-        "tu edificio",
-        "tu proyecto"
-      ],
-      "wordsAt": [
-        0.3,
+      "photo": "media/noticia-2026-10-21-latam/fotos/medellin.jpg",
+      "credit": "Foto: Valley of Medellín, dominio público (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.3,
+          4,
+          0
+        ],
+        "to": [
+          1.15,
+          -2,
+          0
+        ]
+      },
+      "tint": "cobalt",
+      "shake": [
         2.1
       ],
-      "icons": [
-        "edificio",
-        "proyecto"
-      ],
-      "cues": {
-        "edificio": 0.3
-      }
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.03,
+          "text": "Si se puede con eso,",
+          "y": 420,
+          "size": 96
+        },
+        {
+          "k": "text",
+          "at": 1.3,
+          "text": "se puede con",
+          "y": 600,
+          "size": 96
+        },
+        {
+          "k": "text",
+          "at": 2.1,
+          "text": "TU PROYECTO",
+          "y": 800,
+          "size": 130,
+          "anim": "slam",
+          "bg": "white",
+          "rotate": -2,
+          "align": "center"
+        },
+        {
+          "k": "coins",
+          "at": 2.15,
+          "x": 540,
+          "y": 880
+        },
+        {
+          "k": "pin",
+          "at": 2.3,
+          "text": "TU CIUDAD",
+          "x": 200,
+          "y": 1150
+        },
+        {
+          "k": "emoji",
+          "at": 2.4,
+          "name": "fuego",
+          "x": 900,
+          "y": 1090,
+          "size": 160
+        }
+      ]
     },
     {
       "type": "solution",
@@ -136,7 +448,7 @@
     },
     {
       "at": 19.0,
-      "dur": 1.7,
+      "dur": 1.6,
       "image": "memes/zorro/zorro-asustado-fondo.jpg",
       "style": "sticker",
       "x": 0.84,

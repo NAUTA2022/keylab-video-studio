@@ -10,6 +10,22 @@ const sceneBase = {
   cues: z.record(z.string(), z.number()).optional(),
 };
 
+const mgBase = { at: z.number(), until: z.number().optional() };
+const mgLayer = z.discriminatedUnion('k', [
+  z.object({ k: z.literal('text'), ...mgBase, text: z.string(), y: z.number(), x: z.number().optional(), size: z.number().optional(), font: z.enum(['display', 'body']).optional(), align: z.enum(['left', 'center', 'right']).optional(), anim: z.enum(['words', 'slam']).optional(), bg: z.enum(['cobalt', 'white', 'ink']).optional(), color: z.string().optional(), rotate: z.number().optional(), stagger: z.number().optional() }),
+  z.object({ k: z.literal('count'), ...mgBase, to: z.number(), from: z.number().optional(), decimals: z.number().optional(), prefix: z.string().optional(), suffix: z.string().optional(), y: z.number(), size: z.number().optional(), dur: z.number().optional(), align: z.enum(['left', 'center']).optional(), color: z.enum(['white', 'cobalt', 'soft']).optional() }),
+  z.object({ k: z.literal('donut'), ...mgBase, value: z.number(), x: z.number(), y: z.number(), r: z.number().optional() }),
+  z.object({ k: z.literal('bar'), ...mgBase, label: z.string(), value: z.number(), max: z.number().optional(), valueLabel: z.string().optional(), y: z.number(), color: z.enum(['cobalt', 'white']).optional() }),
+  z.object({ k: z.literal('chip'), ...mgBase, text: z.string(), y: z.number(), x: z.number().optional(), tone: z.enum(['white', 'cobalt', 'ink']).optional(), size: z.number().optional(), caps: z.boolean().optional(), pin: z.boolean().optional(), rotate: z.number().optional() }),
+  z.object({ k: z.literal('emoji'), ...mgBase, name: z.string(), x: z.number(), y: z.number(), size: z.number().optional(), rotate: z.number().optional() }),
+  z.object({ k: z.literal('coins'), ...mgBase, x: z.number().optional(), y: z.number().optional(), n: z.number().optional() }),
+  z.object({ k: z.literal('bubble'), ...mgBase, text: z.string(), x: z.number(), y: z.number(), me: z.boolean().optional(), time: z.string().optional(), rotate: z.number().optional() }),
+  z.object({ k: z.literal('pin'), ...mgBase, text: z.string(), x: z.number(), y: z.number() }),
+  z.object({ k: z.literal('excel'), ...mgBase, x: z.number(), y: z.number(), width: z.number().optional(), chat: z.number().optional(), night: z.number().optional(), rotate: z.number().optional() }),
+  z.object({ k: z.literal('don'), ...mgBase, x: z.number(), y: z.number().describe('línea de los pies'), h: z.number().optional(), gestures: z.array(z.number()).optional(), sweat: z.array(z.number()).optional(), from: z.enum(['left', 'right']).optional(), flip: z.boolean().optional(), seed: z.number().optional() }),
+  z.object({ k: z.literal('meme'), ...mgBase, text: z.string(), y: z.number(), size: z.number().optional(), color: z.string().optional(), rotate: z.number().optional() }),
+]);
+
 export const sceneSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('hook'), ...sceneBase, kicker: z.string(), title: z.string(), highlight: z.string().optional(), asset: z.enum(['building3d', 'city-car3d', 'taxi-leech']).optional(), quotes: z.array(z.object({ text: z.string(), at: z.number(), to: z.number() })).optional().describe('frases de personaje en letra de meme (segundos dentro de la escena)') }),
   z.object({ type: z.literal('roast'), ...sceneBase, lines: z.array(z.string()).min(1).max(4), punch: z.string().optional(), asset: z.enum(['excel-chat']).optional() }),
@@ -37,6 +53,17 @@ export const sceneSchema = z.discriminatedUnion('type', [
     type: z.literal('statement'),
     ...sceneBase,
     lines: z.array(z.object({ text: z.string(), at: z.number(), icon: z.string().optional(), big: z.boolean().optional() })),
+  }),
+  z.object({
+    type: z.literal('mg'),
+    ...sceneBase,
+    photo: z.string().optional().describe('foto real en public/ (con licencia), fondo con Ken Burns'),
+    credit: z.string().optional().describe('crédito de la foto (autor, licencia)'),
+    kb: z.object({ from: z.tuple([z.number(), z.number(), z.number()]), to: z.tuple([z.number(), z.number(), z.number()]) }).optional().describe('Ken Burns: [escala, x%, y%] inicio y fin'),
+    tint: z.enum(['dark', 'cobalt']).default('dark'),
+    blur: z.number().optional(),
+    shake: z.array(z.number()).optional().describe('segundos con sacudida de cámara'),
+    layers: z.array(mgLayer).default([]),
   }),
   z.object({ type: z.literal('close'), ...sceneBase, cta: z.string().default('Agenda una reunión'), url: z.string().default('keylab.tech') }),
 ]);

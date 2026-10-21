@@ -10,6 +10,7 @@ import { ClockDriver } from './clock/ClockDriver';
 import { Gags } from './components/Gags';
 import { ClipScene, Close, DARK_SCENES, Ey, Hook, News, Pivot, Roast, Solution, Stat, Statement } from './scenes/scenes';
 import { Story } from './scenes/Story';
+import { MotionScene } from './scenes/Motion';
 import { BovedaHook, BovedaStory, BovedaVault } from './scenes/Boveda';
 import { BakeContext, BakeOnly3DStyle } from './three/bake';
 import baked from '../public/baked/manifest.json';
@@ -46,6 +47,8 @@ const renderScene = (s: Scene) => {
       return <BovedaStory {...s} />;
     case 'boveda-vault':
       return <BovedaVault {...s} />;
+    case 'mg':
+      return <MotionScene {...s} />;
   }
 };
 
