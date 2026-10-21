@@ -6,19 +6,19 @@
   "scenes": [
     {
       "type": "hook",
-      "dur": 6.05,
+      "dur": 5.99,
       "tag": "Noticia",
       "kicker": "Noticia del día",
       "title": "Corea quiere tokenizar en wones, no en",
       "highlight": "dólares",
       "cues": {
-        "title": 1.55,
-        "boom": 4.9
+        "title": 1.53,
+        "boom": 4.85
       }
     },
     {
       "type": "roast",
-      "dur": 4.55,
+      "dur": 4.51,
       "tag": "Realidad",
       "lines": [
         "Perdiendo plata en cada cambio,",
@@ -27,13 +27,13 @@
       "punch": "¿Y la comisión?",
       "cues": {
         "line0": 0.15,
-        "line1": 2.05,
-        "punch": 3.5
+        "line1": 2.03,
+        "punch": 3.47
       }
     },
     {
       "type": "news",
-      "dur": 8.85,
+      "dur": 8.76,
       "tag": "Noticia",
       "source": "Cointelegraph",
       "date": "20 oct 2026",
@@ -45,7 +45,7 @@
     },
     {
       "type": "stat",
-      "dur": 5.65,
+      "dur": 5.6,
       "tag": "Resultados",
       "value": 7.5,
       "decimals": 1,
@@ -56,7 +56,7 @@
     },
     {
       "type": "ey",
-      "dur": 1.4
+      "dur": 1.39
     },
     {
       "type": "pivot",
@@ -77,12 +77,12 @@
     },
     {
       "type": "solution",
-      "dur": 4.2,
+      "dur": 5.1,
       "tag": "Key Lab",
       "title": "En Key Lab construimos",
       "items": [
         "Tu tokenizadora, con tu marca",
-        "Cobros en tu moneda local",
+        "Pagos en stablecoin",
         "KYC e inversión desde el celular"
       ]
     },
@@ -93,7 +93,7 @@
   ],
   "gags": [
     {
-      "at": 8.3,
+      "at": 8.22,
       "dur": 1.7,
       "image": "memes/zorro/zorro-triste-fondo.jpg",
       "style": "sticker",
@@ -105,7 +105,7 @@
       "sfx": "sfx/trombon.mp3"
     },
     {
-      "at": 20.4,
+      "at": 20.2,
       "dur": 1.8,
       "image": "memes/zorro/zorro-sobrado.png",
       "style": "cutout",
@@ -118,73 +118,73 @@
   "subtitles": [
     {
       "from": 0.0,
-      "to": 1.15,
+      "to": 1.14,
       "text": "Noticia del día:"
     },
     {
-      "from": 1.55,
-      "to": 4.6,
+      "from": 1.54,
+      "to": 4.56,
       "text": "Corea quiere pagar sus activos tokenizados en wones,"
     },
     {
-      "from": 4.9,
-      "to": 5.9,
+      "from": 4.85,
+      "to": 5.84,
       "text": "no en dólares."
     },
     {
-      "from": 6.19,
-      "to": 8.05,
+      "from": 6.13,
+      "to": 7.97,
       "text": "Y tú, perdiendo plata en cada cambio,"
     },
     {
-      "from": 8.1,
-      "to": 10.44,
+      "from": 8.02,
+      "to": 10.34,
       "text": "como en la casa de cambio del aeropuerto."
     },
     {
-      "from": 10.73,
-      "to": 11.61,
+      "from": 10.63,
+      "to": 11.5,
       "text": "Según Cointelegraph,"
     },
     {
-      "from": 11.99,
-      "to": 14.7,
+      "from": 11.87,
+      "to": 14.56,
       "text": "la blockchain Injective firmó con el custodio BDACS"
     },
     {
-      "from": 14.7,
-      "to": 17.26,
+      "from": 14.56,
+      "to": 17.09,
       "text": "para liquidar activos tokenizados con un won digital,"
     },
     {
-      "from": 17.55,
-      "to": 18.72,
+      "from": 17.38,
+      "to": 18.54,
       "text": "respaldado 1 a 1."
     },
     {
-      "from": 19.56,
-      "to": 22.1,
+      "from": 19.37,
+      "to": 21.89,
       "text": "Injective ya movió más de US$7.500 millones"
     },
     {
-      "from": 22.1,
-      "to": 24.7,
+      "from": 21.89,
+      "to": 24.46,
       "text": "en activos reales."
     },
     {
-      "from": 26.67,
-      "to": 28.89,
+      "from": 26.41,
+      "to": 28.61,
       "text": "Si se puede con eso, se puede con lo tuyo."
     },
     {
-      "from": 29.13,
-      "to": 31.33,
+      "from": 28.85,
+      "to": 31.2,
       "text": "En Key Lab construimos tu tokenizadora,"
     },
     {
-      "from": 31.63,
-      "to": 32.59,
-      "text": "cobrando en tu moneda."
+      "from": 31.42,
+      "to": 33.73,
+      "text": "con tu marca y pagos en stablecoin."
     }
   ]
 }
