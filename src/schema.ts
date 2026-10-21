@@ -23,6 +23,7 @@ const mgLayer = z.discriminatedUnion('k', [
   z.object({ k: z.literal('pin'), ...mgBase, text: z.string(), x: z.number(), y: z.number() }),
   z.object({ k: z.literal('excel'), ...mgBase, x: z.number(), y: z.number(), width: z.number().optional(), chat: z.number().optional(), night: z.number().optional(), rotate: z.number().optional() }),
   z.object({ k: z.literal('don'), ...mgBase, x: z.number(), y: z.number().describe('línea de los pies'), h: z.number().optional(), gestures: z.array(z.number()).optional(), sweat: z.array(z.number()).optional(), from: z.enum(['left', 'right']).optional(), flip: z.boolean().optional(), seed: z.number().optional() }),
+  z.object({ k: z.literal('dancer'), ...mgBase, x: z.number().describe('centro'), y: z.number().describe('línea de los pies'), h: z.number().optional(), move: z.object({ at: z.number(), x: z.number(), y: z.number(), h: z.number() }).optional().describe('se mueve/encoge a esta posición'), dog: z.boolean().optional() }),
   z.object({ k: z.literal('meme'), ...mgBase, text: z.string(), y: z.number(), size: z.number().optional(), color: z.string().optional(), rotate: z.number().optional() }),
 ]);
 

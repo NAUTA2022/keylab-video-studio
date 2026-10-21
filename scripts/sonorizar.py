@@ -296,6 +296,7 @@ for i, s in enumerate(scenes):
                 for j in range(8): put(sfx, tick(1500 + j * 90, 0.02), t0 + (8 + j * 3) / FPS, 0.1, -0.3)
             elif k == 'don': put(sfx, whoosh(0.5), t0, 0.4, -0.4)
             elif k == 'meme': put(sfx, thud(), t0, 0.5)
+            elif k == 'dancer': put(sfx, whoosh(0.4), t0 - 0.1, 0.4); put(sfx, pop(1500), t0 + 0.05, 0.35)
         for sh in s.get('shake', []): put(sfx, impact(0.5), st + sh, 0.4)
     elif typ == 'ey':
         put(sfx, impact(1.2), st, 0.5)

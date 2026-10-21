@@ -8,6 +8,7 @@ import { LottieEmoji, withEmojis, type EmojiName } from '../components/LottieEmo
 import { DonRig } from '../svg/DonRig';
 import { ExcelChaos } from '../svg/assets';
 import { bob, gesture } from '../motion/primitives';
+import { Bailarin } from '../svg/Bailarin';
 
 /*
  * Escena "mg" (motion graphics sobre foto real).
@@ -383,6 +384,28 @@ const MemeLayer: React.FC<{ l: Extract<Layer, { k: 'meme' }> }> = ({ l }) => {
   );
 };
 
+const DancerLayer: React.FC<{ l: Extract<Layer, { k: 'dancer' }> }> = ({ l }) => {
+  const { vis, out, pin, local, fps, f } = useWin(l.at, l.until);
+  if (!vis) return null;
+  let x = l.x;
+  let y = l.y;
+  let h = l.h ?? 600;
+  if (l.move) {
+    const m = interpolate(f, [l.move.at * fps, l.move.at * fps + 10], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+    x += (l.move.x - x) * m;
+    y += (l.move.y - y) * m;
+    h += (l.move.h - h) * m;
+  }
+  const dog = l.dog ?? true;
+  const w = h * ((dog ? 420 : 260) / 420);
+  const enter = interpolate(local, [0, 8], [0, 1], { ...clamp, easing: backOut(1.8) });
+  return (
+    <div style={{ position: 'absolute', left: x - w / 2, top: y - h, opacity: out, transform: `scale(${enter * pin})`, transformOrigin: '50% 100%' }}>
+      <Bailarin height={h} frame={f} dog={dog} />
+    </div>
+  );
+};
+
 const renderLayer = (l: Layer, i: number) => {
   switch (l.k) {
     case 'text':
@@ -409,6 +432,8 @@ const renderLayer = (l: Layer, i: number) => {
       return <DonLayer key={i} l={l} />;
     case 'meme':
       return <MemeLayer key={i} l={l} />;
+    case 'dancer':
+      return <DancerLayer key={i} l={l} />;
   }
 };
 
