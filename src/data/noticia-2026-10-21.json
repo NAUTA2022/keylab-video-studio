@@ -1,0 +1,190 @@
+{
+  "bakeKey": "noticia-2026-10-21",
+  "voice": "media/noticia-2026-10-21/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-21/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 6.05,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Corea quiere tokenizar en wones, no en",
+      "highlight": "dólares",
+      "cues": {
+        "title": 1.55,
+        "boom": 4.9
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 4.55,
+      "tag": "Realidad",
+      "lines": [
+        "Perdiendo plata en cada cambio,",
+        "como en la casa de cambio del aeropuerto"
+      ],
+      "punch": "¿Y la comisión?",
+      "cues": {
+        "line0": 0.15,
+        "line1": 2.05,
+        "punch": 3.5
+      }
+    },
+    {
+      "type": "news",
+      "dur": 8.85,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "20 oct 2026",
+      "headline": "Injective y BDACS planean liquidar activos tokenizados con una stablecoin en wones",
+      "articleShot": "media/noticia-2026-10-21/nota.png",
+      "siteUrl": "injective.com",
+      "siteShot": "media/noticia-2026-10-21/web-empresa.png",
+      "chip": "KRW1 · won digital 1 a 1 para RWA"
+    },
+    {
+      "type": "stat",
+      "dur": 5.65,
+      "tag": "Resultados",
+      "value": 7.5,
+      "decimals": 1,
+      "prefix": "US$",
+      "suffix": "",
+      "label": "mil millones en activos reales (RWA) ya movió Injective",
+      "note": "Y más de US$1.000 M emitidos en activos tokenizados · Fuente: Injective, vía Cryptopolitan, 20 oct 2026"
+    },
+    {
+      "type": "ey",
+      "dur": 1.4
+    },
+    {
+      "type": "pivot",
+      "dur": 2.5,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tu negocio",
+        "lo tuyo"
+      ],
+      "wordsAt": [
+        0.9,
+        1.8
+      ],
+      "icons": [
+        "local",
+        "tokens"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.2,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu tokenizadora, con tu marca",
+        "Cobros en tu moneda local",
+        "KYC e inversión desde el celular"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.0
+    }
+  ],
+  "gags": [
+    {
+      "at": 8.3,
+      "dur": 1.7,
+      "image": "memes/zorro/zorro-triste-fondo.jpg",
+      "style": "sticker",
+      "x": 0.76,
+      "y": 0.24,
+      "size": 0.23,
+      "rotate": -6,
+      "caption": "-3% 💸",
+      "sfx": "sfx/trombon.mp3"
+    },
+    {
+      "at": 20.4,
+      "dur": 1.8,
+      "image": "memes/zorro/zorro-sobrado.png",
+      "style": "cutout",
+      "x": 0.8,
+      "y": 0.625,
+      "size": 0.19,
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 1.15,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.55,
+      "to": 4.6,
+      "text": "Corea quiere pagar sus activos tokenizados en wones,"
+    },
+    {
+      "from": 4.9,
+      "to": 5.9,
+      "text": "no en dólares."
+    },
+    {
+      "from": 6.19,
+      "to": 8.05,
+      "text": "Y tú, perdiendo plata en cada cambio,"
+    },
+    {
+      "from": 8.1,
+      "to": 10.44,
+      "text": "como en la casa de cambio del aeropuerto."
+    },
+    {
+      "from": 10.73,
+      "to": 11.61,
+      "text": "Según Cointelegraph,"
+    },
+    {
+      "from": 11.99,
+      "to": 14.7,
+      "text": "la blockchain Injective firmó con el custodio BDACS"
+    },
+    {
+      "from": 14.7,
+      "to": 17.26,
+      "text": "para liquidar activos tokenizados con un won digital,"
+    },
+    {
+      "from": 17.55,
+      "to": 18.72,
+      "text": "respaldado 1 a 1."
+    },
+    {
+      "from": 19.56,
+      "to": 22.1,
+      "text": "Injective ya movió más de US$7.500 millones"
+    },
+    {
+      "from": 22.1,
+      "to": 24.7,
+      "text": "en activos reales."
+    },
+    {
+      "from": 26.67,
+      "to": 28.89,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 29.13,
+      "to": 31.33,
+      "text": "En Key Lab construimos tu tokenizadora,"
+    },
+    {
+      "from": 31.63,
+      "to": 32.59,
+      "text": "cobrando en tu moneda."
+    }
+  ]
+}
