@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Easing, Img, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Easing, Img, OffthreadVideo, Sequence, interpolate, random, spring, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { PiCoinFill, PiMapPinFill } from 'react-icons/pi';
 import { C, FONT } from '../brand/brand';
 import type { Scene } from '../schema';
@@ -406,6 +406,50 @@ const DancerLayer: React.FC<{ l: Extract<Layer, { k: 'dancer' }> }> = ({ l }) =>
   );
 };
 
+const VideoLayer: React.FC<{ l: Extract<Layer, { k: 'video' }> }> = ({ l }) => {
+  const { vis, out, local, fps, f, a } = useWin(l.at, l.until);
+  if (!vis) return null;
+  let x = l.x;
+  let y = l.y;
+  let w = l.w;
+  if (l.move) {
+    const m = interpolate(f, [l.move.at * fps, l.move.at * fps + 10], [0, 1], { ...clamp, easing: Easing.inOut(Easing.cubic) });
+    x += (l.move.x - x) * m;
+    y += (l.move.y - y) * m;
+    w += (l.move.w - w) * m;
+  }
+  const h = w / l.aspect;
+  const enter = interpolate(local, [0, 8], [0, 1], { ...clamp, easing: backOut(1.8) });
+  const bw = Math.max(6, w * 0.022);
+  return (
+    <div
+      style={{
+        position: 'absolute',
+        left: x - w / 2,
+        top: y - h / 2,
+        width: w,
+        height: h,
+        borderRadius: w * 0.06,
+        border: `${bw}px solid ${C.white}`,
+        overflow: 'hidden',
+        background: '#000',
+        boxShadow: '0 24px 60px rgba(0,0,0,0.55)',
+        opacity: out,
+        transform: `scale(${enter}) rotate(${(l.rotate ?? 0) * enter}deg)`,
+      }}
+    >
+      <Sequence from={a} layout="none">
+        <OffthreadVideo src={staticFile(l.src)} muted startFrom={Math.round((l.from ?? 0) * fps)} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+      </Sequence>
+      {l.label ? (
+        <div style={{ position: 'absolute', left: 0, right: 0, bottom: w * 0.04, textAlign: 'center', fontFamily: FONT.display, fontSize: w * 0.12, color: C.white, WebkitTextStroke: `${w * 0.009}px #000`, paintOrder: 'stroke fill' }}>
+          {withEmojis(l.label, w * 0.13)}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 const renderLayer = (l: Layer, i: number) => {
   switch (l.k) {
     case 'text':
@@ -434,6 +478,8 @@ const renderLayer = (l: Layer, i: number) => {
       return <MemeLayer key={i} l={l} />;
     case 'dancer':
       return <DancerLayer key={i} l={l} />;
+    case 'video':
+      return <VideoLayer key={i} l={l} />;
   }
 };
 
