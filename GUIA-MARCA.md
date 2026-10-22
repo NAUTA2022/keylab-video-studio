@@ -38,6 +38,7 @@ Cada corte lleva zoom-punch y flash. Los datos inventados se marcan "Ejemplo ilu
   - Cada tanto, en videos de Argentina, alternar con el cordobés: "Franco - Argentino de Córdoba" (`kulszILr6ees0ArU8miO`)
 - Personajes femeninos (cuando una mujer habla en el video): "Marcela" (`86V9x9hrQds83qf7zaGn`, colombiana nativa), mismo modelo
 - Anuncios publicitarios (promos y publicidad pagada, no las noticias del día): "Yorman Zapata" (`VVBVYefvg7r5n2yHrobQ`, locutor comercial colombiano), mismo modelo
+- Relator de fútbol (cuando el chiste o la escena lo pide, p. ej. "¡GOOOL!"): "El Faraón 5 - Football commentator" (`QpDQJR3frbDwOhTIo8nW`, relator colombiano). Si es video argentino y aparece una voz argentina de relator, usar esa (aún no hay una en la biblioteca).
 - Español neutro con tú
 - En el texto que lee la voz: "inteligencia artificial" (nunca "IA"), "erre doble be a" (nunca "RWA") y los números en letras. En pantalla sí se escribe IA, RWA y 24.
 
