@@ -6,7 +6,7 @@
   "scenes": [
     {
       "type": "mg",
-      "dur": 4.35,
+      "dur": 5.29,
       "photo": "media/noticia-2026-10-22-colombia/fotos/hook.jpg",
       "credit": "Foto: Steffen Schmitz, CC BY-SA 4.0 (Wikimedia Commons)",
       "kb": {
@@ -23,13 +23,13 @@
       },
       "tint": "dark",
       "shake": [
-        2.4,
-        3.3
+        3.31,
+        4.36
       ],
       "layers": [
         {
           "k": "chip",
-          "at": 0.05,
+          "at": 0.07,
           "text": "Noticia del día",
           "y": 300,
           "tone": "cobalt",
@@ -38,21 +38,21 @@
         },
         {
           "k": "pin",
-          "at": 1.22,
+          "at": 1.94,
           "text": "COLOMBIA",
           "x": 200,
           "y": 500
         },
         {
           "k": "text",
-          "at": 1.9,
+          "at": 2.73,
           "text": "alista su",
           "y": 600,
           "size": 80
         },
         {
           "k": "text",
-          "at": 2.4,
+          "at": 3.31,
           "text": "PRIMER BONO SOBERANO",
           "y": 700,
           "size": 110,
@@ -60,7 +60,7 @@
         },
         {
           "k": "text",
-          "at": 3.3,
+          "at": 4.36,
           "text": "TOKENIZADO",
           "y": 990,
           "size": 150,
@@ -69,13 +69,13 @@
         },
         {
           "k": "coins",
-          "at": 3.35,
+          "at": 4.42,
           "x": 540,
           "y": 990
         },
         {
           "k": "emoji",
-          "at": 3.6,
+          "at": 4.71,
           "name": "cohete",
           "x": 900,
           "y": 470,
@@ -85,7 +85,7 @@
     },
     {
       "type": "mg",
-      "dur": 6.6,
+      "dur": 7.23,
       "photo": "media/noticia-2026-10-22-colombia/fotos/banrep.jpg",
       "credit": "Foto: Felipe Restrepo Acosta, CC BY-SA 4.0 (Wikimedia Commons)",
       "kb": {
@@ -103,12 +103,12 @@
       "tint": "dark",
       "blur": 2,
       "shake": [
-        2.5
+        2.83
       ],
       "layers": [
         {
           "k": "text",
-          "at": 0.1,
+          "at": 0.03,
           "text": "¿Y HOY?",
           "y": 290,
           "size": 140,
@@ -116,14 +116,14 @@
         },
         {
           "k": "text",
-          "at": 0.62,
+          "at": 0.63,
           "text": "para entrar a una subasta de TES necesitas",
           "y": 460,
           "size": 58
         },
         {
           "k": "count",
-          "at": 2.5,
+          "at": 2.83,
           "to": 500000000,
           "prefix": "$",
           "y": 630,
@@ -132,7 +132,7 @@
         },
         {
           "k": "chip",
-          "at": 3.4,
+          "at": 3.88,
           "text": "Pesos colombianos",
           "y": 800,
           "tone": "white",
@@ -142,22 +142,22 @@
         },
         {
           "k": "don",
-          "at": 0.2,
+          "at": 0.14,
           "x": 40,
           "y": 1320,
           "h": 560,
           "gestures": [
-            2.6,
-            5.1
+            2.95,
+            5.76
           ],
           "sweat": [
-            2.7
+            3.06
           ],
           "from": "left"
         },
         {
           "k": "emoji",
-          "at": 2.9,
+          "at": 3.3,
           "name": "cabeza-explota",
           "x": 870,
           "y": 960,
@@ -165,7 +165,7 @@
         },
         {
           "k": "meme",
-          "at": 5.04,
+          "at": 5.71,
           "text": "…o un tío en Wall Street 🤑",
           "y": 1150,
           "size": 78,
@@ -175,7 +175,7 @@
     },
     {
       "type": "news",
-      "dur": 3.65,
+      "dur": 3.66,
       "tag": "Noticia",
       "source": "Bloomberg Línea",
       "date": "10 sep 2026",
@@ -187,7 +187,7 @@
     },
     {
       "type": "mg",
-      "dur": 5.9,
+      "dur": 5.05,
       "photo": "media/noticia-2026-10-22-colombia/fotos/tequendama.jpg",
       "credit": "Foto: Seferaz, CC BY-SA 4.0 (Wikimedia Commons)",
       "kb": {
@@ -204,12 +204,12 @@
       },
       "tint": "cobalt",
       "shake": [
-        0.05
+        0.03
       ],
       "layers": [
         {
           "k": "chip",
-          "at": 0.0,
+          "at": 0,
           "text": "Deuda pública en blockchain",
           "y": 300,
           "tone": "white",
@@ -218,7 +218,7 @@
         },
         {
           "k": "text",
-          "at": 0.05,
+          "at": 0.03,
           "text": "24/7",
           "y": 400,
           "size": 260,
@@ -226,14 +226,14 @@
         },
         {
           "k": "text",
-          "at": 0.5,
+          "at": 0.46,
           "text": "se negocia todo el día",
           "y": 690,
           "size": 62
         },
         {
           "k": "chip",
-          "at": 2.17,
+          "at": 2.08,
           "text": "⚡ Liquidación casi instantánea",
           "y": 850,
           "tone": "white",
@@ -241,7 +241,7 @@
         },
         {
           "k": "chip",
-          "at": 4.04,
+          "at": 3.7,
           "text": "🧩 Compras en fracciones",
           "y": 960,
           "tone": "cobalt",
@@ -249,14 +249,14 @@
         },
         {
           "k": "coins",
-          "at": 4.1,
+          "at": 3.74,
           "x": 540,
           "y": 980,
           "n": 14
         },
         {
           "k": "chip",
-          "at": 4.6,
+          "at": 4.11,
           "text": "Fuente: Bloomberg Línea, 10 sep 2026",
           "y": 1200,
           "tone": "ink",
@@ -266,7 +266,7 @@
     },
     {
       "type": "mg",
-      "dur": 3.9,
+      "dur": 4.19,
       "photo": "media/noticia-2026-10-22-colombia/fotos/skyline.jpg",
       "credit": "Foto: Tijs Zwinkels, CC BY-SA 2.0 (Wikimedia Commons)",
       "kb": {
@@ -283,19 +283,19 @@
       },
       "tint": "dark",
       "shake": [
-        2.3
+        2.38
       ],
       "layers": [
         {
           "k": "text",
-          "at": 0.2,
+          "at": 0.11,
           "text": "En",
           "y": 300,
           "size": 80
         },
         {
           "k": "count",
-          "at": 0.6,
+          "at": 0.54,
           "to": 4,
           "y": 400,
           "size": 330,
@@ -303,7 +303,7 @@
         },
         {
           "k": "text",
-          "at": 1.0,
+          "at": 0.98,
           "text": "AÑOS",
           "y": 740,
           "size": 150,
@@ -312,21 +312,21 @@
         },
         {
           "k": "text",
-          "at": 1.6,
+          "at": 1.62,
           "text": "no habrá bonos físicos",
           "y": 930,
           "size": 66
         },
         {
           "k": "meme",
-          "at": 2.3,
+          "at": 2.38,
           "text": "Adiós, papel 💀",
           "y": 1100,
           "size": 96
         },
         {
           "k": "chip",
-          "at": 2.6,
+          "at": 2.7,
           "text": "César Arias, director de Crédito Público",
           "y": 1240,
           "tone": "ink",
@@ -336,11 +336,11 @@
     },
     {
       "type": "ey",
-      "dur": 0.75
+      "dur": 0.98
     },
     {
       "type": "mg",
-      "dur": 3.8,
+      "dur": 3.2,
       "photo": "media/noticia-2026-10-22-colombia/fotos/medellin.jpg",
       "credit": "Foto: Valley of Medellín, dominio público (Wikimedia Commons)",
       "kb": {
@@ -357,20 +357,20 @@
       },
       "tint": "cobalt",
       "shake": [
-        2.34,
-        2.6
+        2.0,
+        2.21
       ],
       "layers": [
         {
           "k": "text",
-          "at": 0.09,
+          "at": 0.13,
           "text": "Si el Gobierno puede tokenizar su deuda,",
           "y": 420,
           "size": 86
         },
         {
           "k": "text",
-          "at": 2.34,
+          "at": 2.0,
           "text": "TU EMPRESA",
           "y": 700,
           "size": 130,
@@ -380,7 +380,7 @@
         },
         {
           "k": "text",
-          "at": 2.6,
+          "at": 2.21,
           "text": "TAMBIÉN",
           "y": 870,
           "size": 130,
@@ -390,13 +390,13 @@
         },
         {
           "k": "coins",
-          "at": 2.4,
+          "at": 2.05,
           "x": 540,
           "y": 850
         },
         {
           "k": "emoji",
-          "at": 2.6,
+          "at": 2.21,
           "name": "fuego",
           "x": 880,
           "y": 1080,
@@ -406,7 +406,7 @@
     },
     {
       "type": "solution",
-      "dur": 3.5,
+      "dur": 3.96,
       "tag": "Key Lab",
       "title": "Te la construimos",
       "items": [
@@ -417,20 +417,20 @@
       "clip": "clips/demo-plataforma.mp4",
       "cues": {
         "sketch": 0.25,
-        "materialize": 1.4,
-        "phone": 1.75,
-        "tap": 2.3,
-        "brand": 2.95
+        "materialize": 1.65,
+        "phone": 2.07,
+        "tap": 2.74,
+        "brand": 3.53
       }
     },
     {
       "type": "close",
-      "dur": 4.4
+      "dur": 4.27
     }
   ],
   "gags": [
     {
-      "at": 11.3,
+      "at": 12.97,
       "dur": 1.6,
       "image": "memes/zorro/zorro-serio-fondo.jpg",
       "style": "sticker",
@@ -442,7 +442,7 @@
       "sfx": "sfx/bruh.mp3"
     },
     {
-      "at": 18.9,
+      "at": 20.07,
       "dur": 1.5,
       "image": "memes/zorro/zorro-galan-fondo.jpg",
       "style": "sticker",
@@ -457,52 +457,52 @@
   "subtitles": [
     {
       "from": 0.0,
-      "to": 1.02,
+      "to": 1.498,
       "text": "Noticia del día:"
     },
     {
-      "from": 1.22,
-      "to": 4.0,
+      "from": 1.939,
+      "to": 5.178,
       "text": "Colombia alista su primer bono soberano tokenizado."
     },
     {
-      "from": 4.46,
-      "to": 9.09,
+      "from": 5.329,
+      "to": 10.739,
       "text": "Hoy, para entrar a una subasta de TES necesitas 500 millones de pesos…"
     },
     {
-      "from": 9.39,
-      "to": 10.82,
+      "from": 11.0,
+      "to": 12.3,
       "text": "o un tío en Wall Street."
     },
     {
-      "from": 11.08,
-      "to": 14.28,
+      "from": 12.75,
+      "to": 16.001,
       "text": "Según Bloomberg Línea, Crédito Público lo quiere así:"
     },
     {
-      "from": 14.65,
-      "to": 18.41,
+      "from": 16.21,
+      "to": 19.855,
       "text": "deuda que se negocia todo el día, se liquida casi al instante"
     },
     {
-      "from": 18.64,
-      "to": 20.42,
+      "from": 19.878,
+      "to": 21.19,
       "text": "y se compra en fracciones."
     },
     {
-      "from": 20.67,
-      "to": 23.98,
+      "from": 21.306,
+      "to": 24.882,
       "text": "Y el director dice que en 4 años no habrá bonos físicos."
     },
     {
-      "from": 25.24,
-      "to": 28.85,
+      "from": 26.525,
+      "to": 29.52,
       "text": "Si el Gobierno puede tokenizar su deuda, tu empresa también."
     },
     {
-      "from": 29.06,
-      "to": 32.14,
+      "from": 29.671,
+      "to": 33.41,
       "text": "En Key Lab construimos tu plataforma de emisión tokenizada."
     }
   ]

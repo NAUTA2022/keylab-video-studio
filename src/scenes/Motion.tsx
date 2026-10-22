@@ -105,7 +105,8 @@ const CountLayer: React.FC<{ l: Extract<Layer, { k: 'count' }> }> = ({ l }) => {
   const { vis, local, out, fps } = useWin(l.at, l.until);
   if (!vis) return null;
   const dur = Math.round((l.dur ?? 1.1) * fps);
-  const v = interpolate(local, [0, dur], [l.from ?? 0, l.to], { ...clamp, easing: Easing.out(Easing.exp) });
+  // Easing.exp nunca llega a 1 (queda en 0,999): al terminar se fija el valor exacto
+  const v = local >= dur ? l.to : interpolate(local, [0, dur], [l.from ?? 0, l.to], { ...clamp, easing: Easing.out(Easing.exp) });
   const [int, dec] = v.toFixed(l.decimals ?? 0).split('.');
   const txt = `${l.prefix ?? ''}${int.replace(/\B(?=(\d{3})+(?!\d))/g, '.')}${dec ? ',' + dec : ''}${l.suffix ?? ''}`;
   const size = l.size ?? 300;
