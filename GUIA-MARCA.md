@@ -34,6 +34,8 @@ Cada corte lleva zoom-punch y flash. Los datos inventados se marcan "Ejemplo ilu
 
 ## Voz (ElevenLabs)
 - Voz: Martin Osborne 5 (`D7dkYvH17OKLgp4SLulf`), modelo `eleven_multilingual_v2`
+- Videos argentinos: "Carlos Pro - Argentinian Documentary" (`gBTPbHzRd0ZmV75Z5Zk4`, español argentino), mismo modelo
+  - Cada tanto, en videos de Argentina, alternar con el cordobés: "Franco - Argentino de Córdoba" (`kulszILr6ees0ArU8miO`)
 - Español neutro con tú
 - En el texto que lee la voz: "inteligencia artificial" (nunca "IA"), "erre doble be a" (nunca "RWA") y los números en letras. En pantalla sí se escribe IA, RWA y 24.
 
