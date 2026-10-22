@@ -14,6 +14,7 @@ export const EMOJI = {
   'ojos-blanco': '1f644', payaso: '1f921', facha: '1f60e', aplauso: '1f44f', cien: '1f4af',
   reloj: '23f0', candado: '1f512', sube: '1f4c8', codicioso: '1f911', diablito: '1f608',
   derretido: '1fae0', pensando: '1f914', porfa: '1f64f', fuerza: '1f4aa',
+  enamorada: '1f60d', beso: '1f618', silencio: '1f92b', mate: '1f9c9',
 } as const;
 export type EmojiName = keyof typeof EMOJI;
 
@@ -24,6 +25,7 @@ export const EMOJI_FROM_CHAR: Record<string, EmojiName> = {
   '🚀': 'cohete', '✅': 'check', '❌': 'equis', '🎉': 'fiesta', '🙄': 'ojos-blanco', '🤡': 'payaso',
   '😎': 'facha', '👏': 'aplauso', '💯': 'cien', '⏰': 'reloj', '🔒': 'candado', '📈': 'sube',
   '🤑': 'codicioso', '😈': 'diablito', '🫠': 'derretido', '🤔': 'pensando', '🙏': 'porfa', '💪': 'fuerza',
+  '😍': 'enamorada', '😘': 'beso', '🤫': 'silencio', '🧉': 'mate',
 };
 
 const cache = new Map<string, LottieAnimationData>();

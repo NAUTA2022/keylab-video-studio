@@ -1,0 +1,746 @@
+{
+  "bakeKey": "noticia-2026-10-23-el-salvador",
+  "voice": "media/noticia-2026-10-23-el-salvador/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-23-el-salvador/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 7.85,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/hook.jpg",
+      "credit": "Foto: Erickssonr, CC BY-SA 3.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.18,
+          -3,
+          0
+        ],
+        "to": [
+          1.36,
+          3,
+          -2
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        0.1,
+        0.95,
+        6.69
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.08,
+          "until": 1.9,
+          "text": "¡ATENCIÓN!",
+          "y": 560,
+          "size": 200,
+          "anim": "slam",
+          "bg": "cobalt",
+          "rotate": -3
+        },
+        {
+          "k": "emoji",
+          "at": 0.9,
+          "until": 1.9,
+          "name": "grito",
+          "x": 820,
+          "y": 330,
+          "size": 200
+        },
+        {
+          "k": "chip",
+          "at": 1.95,
+          "text": "Noticia del día",
+          "y": 300,
+          "tone": "cobalt",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "pin",
+          "at": 3.75,
+          "text": "EL SALVADOR 🇸🇻",
+          "x": 200,
+          "y": 480
+        },
+        {
+          "k": "text",
+          "at": 5.2,
+          "text": "ya regula la",
+          "y": 620,
+          "size": 90
+        },
+        {
+          "k": "text",
+          "at": 6.69,
+          "text": "TOKENIZACIÓN",
+          "y": 740,
+          "size": 140,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "coins",
+          "at": 6.72,
+          "x": 540,
+          "y": 760
+        },
+        {
+          "k": "emoji",
+          "at": 6.95,
+          "name": "cohete",
+          "x": 880,
+          "y": 980,
+          "size": 160
+        }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 6.3,
+      "tag": "Noticia",
+      "source": "Diario El Salvador",
+      "date": "22 sep 2026",
+      "headline": "El Salvador se consolida como «unicornio global» de la tokenización",
+      "articleShot": "media/noticia-2026-10-23-el-salvador/nota.png",
+      "siteUrl": "cnad.gob.sv",
+      "siteShot": "media/noticia-2026-10-23-el-salvador/web-empresa.png",
+      "chip": "CNAD · Comisión Nacional de Activos Digitales"
+    },
+    {
+      "type": "mg",
+      "dur": 5.3,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/medellin.jpg",
+      "credit": "Foto: Valley of Medellín, dominio público (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.25,
+          3,
+          0
+        ],
+        "to": [
+          1.12,
+          -2,
+          0
+        ]
+      },
+      "tint": "cobalt",
+      "blur": 3,
+      "shake": [
+        0.95
+      ],
+      "layers": [
+        {
+          "k": "speaker",
+          "at": 0.0,
+          "look": "paisa",
+          "name": "Marcela",
+          "place": "Medellín",
+          "flag": "🇨🇴",
+          "x": 540,
+          "y": 1290,
+          "h": 720,
+          "lips": "media/noticia-2026-10-23-el-salvador/voz.labios.json",
+          "t0": 14.15,
+          "talk": [
+            [
+              14.2,
+              16.54
+            ],
+            [
+              16.79,
+              19.36
+            ]
+          ],
+          "surprise": [
+            0.9
+          ],
+          "wink": [
+            4.62
+          ],
+          "from": "bottom"
+        },
+        {
+          "k": "text",
+          "at": 0.95,
+          "until": 4.4,
+          "text": "¿CADA TOKEN?",
+          "y": 280,
+          "size": 140,
+          "anim": "slam",
+          "align": "center"
+        },
+        {
+          "k": "meme",
+          "at": 4.55,
+          "text": "Eso sí me parece sexy 😍",
+          "y": 300,
+          "size": 84,
+          "color": "#FFD43B"
+        },
+        {
+          "k": "emoji",
+          "at": 4.62,
+          "name": "enamorada",
+          "x": 860,
+          "y": 520,
+          "size": 180
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 5.2,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/numeros.jpg",
+      "credit": "Foto: José Alejandro Álvarez Ramírez (JOSAL), CC BY 3.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.15,
+          0,
+          2
+        ],
+        "to": [
+          1.32,
+          0,
+          -2
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        0.6,
+        3.44
+      ],
+      "layers": [
+        {
+          "k": "chip",
+          "at": 0.0,
+          "text": "Supervisados por la CNAD",
+          "y": 260,
+          "tone": "white",
+          "caps": true,
+          "size": 28
+        },
+        {
+          "k": "count",
+          "at": 0.6,
+          "to": 294,
+          "y": 330,
+          "size": 290,
+          "dur": 0.9
+        },
+        {
+          "k": "text",
+          "at": 1.3,
+          "text": "activos tokenizados",
+          "y": 650,
+          "size": 70
+        },
+        {
+          "k": "count",
+          "at": 3.44,
+          "to": 76,
+          "y": 760,
+          "size": 200,
+          "dur": 0.6,
+          "color": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 3.9,
+          "text": "empresas",
+          "y": 980,
+          "size": 70
+        },
+        {
+          "k": "chip",
+          "at": 4.3,
+          "text": "🥇 N.º 1 del mundo en regulación · por encima de Suiza 🇨🇭",
+          "y": 1110,
+          "tone": "cobalt",
+          "size": 30
+        },
+        {
+          "k": "chip",
+          "at": 4.5,
+          "text": "Fuentes: CNAD vía Diario El Salvador · Coincub 2025",
+          "y": 1195,
+          "tone": "ink",
+          "size": 22
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 5.75,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/baires.jpg",
+      "credit": "Foto: Roberto Fiadone, CC BY-SA 4.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.15,
+          -3,
+          0
+        ],
+        "to": [
+          1.3,
+          3,
+          -1
+        ]
+      },
+      "tint": "dark",
+      "blur": 2,
+      "shake": [],
+      "layers": [
+        {
+          "k": "speaker",
+          "at": 0.0,
+          "look": "porteno",
+          "name": "Carlos",
+          "place": "Buenos Aires",
+          "flag": "🇦🇷",
+          "x": 540,
+          "y": 1290,
+          "h": 720,
+          "lips": "media/noticia-2026-10-23-el-salvador/voz.labios.json",
+          "t0": 24.65,
+          "talk": [
+            [
+              24.763,
+              30.313
+            ]
+          ],
+          "prop": "mate",
+          "surprise": [
+            4.4
+          ],
+          "from": "right"
+        },
+        {
+          "k": "chip",
+          "at": 2.3,
+          "text": "🇦🇷 CNV Argentina 🤝 CNAD El Salvador 🇸🇻",
+          "y": 270,
+          "tone": "white",
+          "size": 36
+        },
+        {
+          "k": "chip",
+          "at": 3.9,
+          "text": "Taller de tokenización · mayo 2026",
+          "y": 360,
+          "tone": "cobalt",
+          "size": 32
+        },
+        {
+          "k": "emoji",
+          "at": 4.6,
+          "name": "aplauso",
+          "x": 860,
+          "y": 470,
+          "size": 160
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 3.55,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/cordoba.jpg",
+      "credit": "Foto: Dinocba, CC BY 3.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.2,
+          2,
+          0
+        ],
+        "to": [
+          1.35,
+          -2,
+          -1
+        ]
+      },
+      "tint": "cobalt",
+      "blur": 2,
+      "shake": [
+        0.1,
+        2.4
+      ],
+      "layers": [
+        {
+          "k": "speaker",
+          "at": 0.0,
+          "look": "cordobes",
+          "name": "Franco",
+          "place": "Córdoba",
+          "flag": "🇦🇷",
+          "x": 330,
+          "y": 1290,
+          "h": 720,
+          "lips": "media/noticia-2026-10-23-el-salvador/voz.labios.json",
+          "t0": 30.4,
+          "talk": [
+            [
+              30.463,
+              33.563
+            ]
+          ],
+          "surprise": [
+            0.1
+          ],
+          "sweat": [
+            1.4
+          ],
+          "from": "left"
+        },
+        {
+          "k": "excel",
+          "at": 1.3,
+          "x": 560,
+          "y": 520,
+          "width": 440,
+          "rotate": 6
+        },
+        {
+          "k": "meme",
+          "at": 2.4,
+          "text": "¿Todavía en Excel? 💀",
+          "y": 290,
+          "size": 90,
+          "color": "#FFD43B"
+        }
+      ]
+    },
+    {
+      "type": "ey",
+      "dur": 1.0
+    },
+    {
+      "type": "mg",
+      "dur": 8.45,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/reglas.jpg",
+      "credit": "Foto: Sammiethedeadrat, dominio público (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.15,
+          0,
+          0
+        ],
+        "to": [
+          1.3,
+          0,
+          -3
+        ]
+      },
+      "tint": "dark",
+      "blur": 2,
+      "shake": [
+        0.75,
+        2.7,
+        7.1
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.75,
+          "text": "EN ALGUNOS PAÍSES",
+          "y": 250,
+          "size": 104,
+          "anim": "slam"
+        },
+        {
+          "k": "chip",
+          "at": 1.2,
+          "text": "🇸🇻 El Salvador · Ley de Emisión de Activos Digitales ✅",
+          "y": 410,
+          "tone": "white",
+          "size": 30
+        },
+        {
+          "k": "chip",
+          "at": 1.7,
+          "text": "🇦🇷 Argentina · régimen de tokenización de la CNV ✅",
+          "y": 490,
+          "tone": "white",
+          "size": 30
+        },
+        {
+          "k": "text",
+          "at": 2.7,
+          "text": "EN OTROS…",
+          "y": 600,
+          "size": 104,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "chip",
+          "at": 5.5,
+          "text": "🏦 Fiducia",
+          "y": 790,
+          "tone": "cobalt",
+          "size": 38
+        },
+        {
+          "k": "chip",
+          "at": 5.8,
+          "text": "👥 Crowdfunding regulado",
+          "y": 870,
+          "tone": "cobalt",
+          "size": 38
+        },
+        {
+          "k": "chip",
+          "at": 6.1,
+          "text": "📜 Emisor autorizado",
+          "y": 950,
+          "tone": "cobalt",
+          "size": 38
+        },
+        {
+          "k": "text",
+          "at": 7.1,
+          "text": "NO A LA CAPTACIÓN ILEGAL",
+          "y": 1060,
+          "size": 84,
+          "anim": "slam",
+          "bg": "white",
+          "rotate": -3
+        },
+        {
+          "k": "emoji",
+          "at": 7.15,
+          "name": "equis",
+          "x": 880,
+          "y": 1000,
+          "size": 140
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 4.55,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/bogota.jpg",
+      "credit": "Foto: Steffen Schmitz, CC BY-SA 4.0 (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.2,
+          -3,
+          0
+        ],
+        "to": [
+          1.35,
+          3,
+          -2
+        ]
+      },
+      "tint": "cobalt",
+      "blur": 3,
+      "shake": [],
+      "layers": [
+        {
+          "k": "speaker",
+          "at": 0.0,
+          "look": "paisa",
+          "name": "Marcela",
+          "place": "Colombia",
+          "flag": "🇨🇴",
+          "x": 540,
+          "y": 1290,
+          "h": 720,
+          "lips": "media/noticia-2026-10-23-el-salvador/voz.labios.json",
+          "t0": 43.4,
+          "talk": [
+            [
+              43.476,
+              47.796
+            ]
+          ],
+          "wink": [
+            3.9
+          ],
+          "from": "bottom"
+        },
+        {
+          "k": "chip",
+          "at": 0.7,
+          "text": "Así se hace en Colombia",
+          "y": 250,
+          "tone": "white",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "text",
+          "at": 1.72,
+          "text": "FIDUCIA + ASESORÍA LEGAL",
+          "y": 380,
+          "size": 80,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "emoji",
+          "at": 3.9,
+          "name": "beso",
+          "x": 860,
+          "y": 560,
+          "size": 170
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 1.6,
+      "photo": "media/noticia-2026-10-23-el-salvador/fotos/reglas.jpg",
+      "credit": "Foto: Sammiethedeadrat, dominio público (Wikimedia Commons)",
+      "kb": {
+        "from": [
+          1.4,
+          0,
+          0
+        ],
+        "to": [
+          1.5,
+          0,
+          0
+        ]
+      },
+      "tint": "dark",
+      "blur": 10,
+      "shake": [],
+      "layers": [
+        {
+          "k": "emoji",
+          "at": 0.0,
+          "name": "silencio",
+          "x": 540,
+          "y": 420,
+          "size": 240
+        },
+        {
+          "k": "text",
+          "at": 0.12,
+          "text": "…no es imposible",
+          "y": 720,
+          "size": 120,
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 6.05,
+      "tag": "Key Lab",
+      "title": "Te la construimos",
+      "items": [
+        "Tu plataforma de tokenización con tu marca",
+        "Lista para las reglas de tu país",
+        "KYC, panel y pagos a inversionistas"
+      ],
+      "clip": "clips/demo-plataforma.mp4",
+      "cues": {
+        "sketch": 0.25,
+        "materialize": 1.65,
+        "phone": 2.07,
+        "tap": 2.74,
+        "brand": 3.53
+      }
+    },
+    {
+      "type": "close",
+      "dur": 4.9
+    }
+  ],
+  "gags": [
+    {
+      "at": 22.95,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-asustado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.19,
+      "size": 0.17,
+      "rotate": -6,
+      "caption": "¿Primero del mundo? 😱",
+      "sfx": "sfx/boing.mp3"
+    },
+    {
+      "at": 38.2,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-pensando-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.19,
+      "size": 0.17,
+      "rotate": 6,
+      "caption": "¿Y en mi país? 🤔",
+      "sfx": "sfx/bruh.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0,
+      "to": 1.8,
+      "text": "¡ATENCIÓN, ATENCIÓN!"
+    },
+    {
+      "from": 1.95,
+      "to": 7.894,
+      "text": "Noticia del día: El Salvador ya tiene un sistema completo para regular la tokenización."
+    },
+    {
+      "from": 7.894,
+      "to": 14.1,
+      "text": "Su Comisión Nacional de Activos Digitales filtra y supervisa cada token antes de que llegue al inversionista."
+    },
+    {
+      "from": 14.2,
+      "to": 16.54,
+      "text": "¿Cómo así? ¿Revisan cada token?"
+    },
+    {
+      "from": 16.79,
+      "to": 19.36,
+      "text": "Ay… eso sí me parece sexy."
+    },
+    {
+      "from": 19.56,
+      "to": 24.513,
+      "text": "Ya van 294 activos tokenizados, de 76 empresas."
+    },
+    {
+      "from": 24.763,
+      "to": 30.313,
+      "text": "Che, son tan buenos que la Comisión Nacional de Valores de Argentina los llevó a dar un taller, ¿viste?"
+    },
+    {
+      "from": 30.463,
+      "to": 33.563,
+      "text": "¡Mirá vos, loco! ¿Y yo que todavía lo tenía en un Excel?"
+    },
+    {
+      "from": 35.304,
+      "to": 37.519,
+      "text": "En algunos países ya se regula."
+    },
+    {
+      "from": 37.519,
+      "to": 43.276,
+      "text": "En otros, que aún no están listos, se estructura por otras vías legales, para no caer en captación ilegal."
+    },
+    {
+      "from": 43.476,
+      "to": 47.796,
+      "text": "Como en Colombia: con fiducia y bien asesorados, mi amor."
+    },
+    {
+      "from": 48.046,
+      "to": 49.226,
+      "text": "…no es imposible."
+    },
+    {
+      "from": 49.676,
+      "to": 55.53,
+      "text": "En Key Lab construimos tu plataforma de tokenización, con tu marca y lista para las reglas de tu país."
+    }
+  ]
+}

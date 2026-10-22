@@ -25,6 +25,16 @@ const mgLayer = z.discriminatedUnion('k', [
   z.object({ k: z.literal('don'), ...mgBase, x: z.number(), y: z.number().describe('línea de los pies'), h: z.number().optional(), gestures: z.array(z.number()).optional(), sweat: z.array(z.number()).optional(), from: z.enum(['left', 'right']).optional(), flip: z.boolean().optional(), seed: z.number().optional() }),
   z.object({ k: z.literal('dancer'), ...mgBase, x: z.number().describe('centro'), y: z.number().describe('línea de los pies'), h: z.number().optional(), move: z.object({ at: z.number(), x: z.number(), y: z.number(), h: z.number() }).optional().describe('se mueve/encoge a esta posición'), dog: z.boolean().optional() }),
   z.object({ k: z.literal('video'), ...mgBase, src: z.string(), x: z.number().describe('centro'), y: z.number().describe('centro'), w: z.number(), aspect: z.number().default(0.5625), from: z.number().optional().describe('segundo del clip donde empieza'), move: z.object({ at: z.number(), x: z.number(), y: z.number(), w: z.number() }).optional(), rotate: z.number().optional(), label: z.string().optional() }),
+  z.object({
+    k: z.literal('speaker'), ...mgBase,
+    look: z.enum(['paisa', 'porteno', 'cordobes']), name: z.string(), place: z.string().optional(), flag: z.string().optional(),
+    x: z.number().describe('centro'), y: z.number().describe('base del busto'), h: z.number().optional(),
+    lips: z.string().optional().describe('curva <voz>.labios.json en public/ (scripts/lipsync.py)'),
+    t0: z.number().optional().describe('segundo de la voz en que empieza la escena'),
+    talk: z.array(z.tuple([z.number(), z.number()])).optional().describe('ventanas (segundos de la voz) en que habla este personaje'),
+    surprise: z.array(z.number()).optional(), wink: z.array(z.number()).optional(), sweat: z.array(z.number()).optional(),
+    prop: z.enum(['mate']).optional(), from: z.enum(['left', 'right', 'bottom']).optional(),
+  }),
   z.object({ k: z.literal('meme'), ...mgBase, text: z.string(), y: z.number(), size: z.number().optional(), color: z.string().optional(), rotate: z.number().optional() }),
 ]);
 

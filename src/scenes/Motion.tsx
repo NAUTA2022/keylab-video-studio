@@ -9,6 +9,9 @@ import { DonRig } from '../svg/DonRig';
 import { ExcelChaos } from '../svg/assets';
 import { bob, gesture } from '../motion/primitives';
 import { Bailarin } from '../svg/Bailarin';
+import { Hablante } from '../svg/Hablante';
+import { useEffect, useState } from 'react';
+import { continueRender, delayRender } from 'remotion';
 
 /*
  * Escena "mg" (motion graphics sobre foto real).
@@ -356,6 +359,75 @@ const DonLayer: React.FC<{ l: Extract<Layer, { k: 'don' }> }> = ({ l }) => {
   );
 };
 
+
+/* ---------- personaje que habla (busto con sincronía labial) ---------- */
+const curves = new Map<string, { fps: number; v: number[] }>();
+const useCurve = (src?: string) => {
+  const [c, setC] = useState(() => (src ? curves.get(src) ?? null : null));
+  const [h] = useState(() => (src && !curves.has(src) ? delayRender('labios ' + src) : null));
+  useEffect(() => {
+    if (!src || c) return;
+    fetch(staticFile(src))
+      .then((r) => r.json())
+      .then((j) => {
+        curves.set(src, j);
+        setC(j);
+        if (h !== null) continueRender(h);
+      });
+  }, [src, c, h]);
+  return c;
+};
+
+const SpeakerLayer: React.FC<{ l: Extract<Layer, { k: 'speaker' }> }> = ({ l }) => {
+  const curve = useCurve(l.lips);
+  const { vis, f, fps, local, out } = useWin(l.at, l.until);
+  if (!vis) return null;
+  const h = l.h ?? 760;
+  const abs = (l.t0 ?? 0) + f / fps;
+  const talking = (l.talk ?? []).some(([a, b]) => abs >= a && abs < b);
+  const raw = curve && talking ? curve.v[Math.round(abs * curve.fps)] ?? 0 : 0;
+  const pulse = (ts: number[] | undefined, len: number) =>
+    Math.max(0, ...(ts ?? []).map((t) => {
+      const d = (f - t * fps) / fps;
+      return d < 0 || d > len ? 0 : interpolate(d, [0, 0.12, len - 0.25, len], [0, 1, 1, 0], clamp);
+    }));
+  const surprise = pulse(l.surprise, 1.4);
+  const wink = pulse(l.wink, 0.5);
+  const sweat = (l.sweat ?? []).some((t) => f >= t * fps && f < t * fps + 45);
+  const enter = interpolate(local, [0, 12], [1, 0], { ...clamp, easing: Easing.out(Easing.back(1.5)) });
+  const dx = l.from === 'right' ? enter * 700 : l.from === 'left' ? -enter * 700 : 0;
+  const dy = l.from === 'bottom' || !l.from ? enter * 600 : 0;
+  const hop = -surprise * 18; // salta un poco del susto
+  const w = h * (400 / 480);
+  const tagIn = interpolate(local, [8, 16], [0, 1], { ...clamp, easing: backOut(2) });
+  return (
+    <div style={{ position: 'absolute', left: l.x - w / 2 + dx, top: l.y - h + dy + hop, width: w, height: h, opacity: out }}>
+      <Hablante look={l.look} height={h} frame={f} fps={fps} talk={raw} surprise={surprise} wink={wink} sweat={sweat} prop={l.prop} seed={l.look.length * 3} />
+      <div
+        style={{
+          position: 'absolute',
+          left: '50%',
+          bottom: h * 0.06,
+          transform: `translateX(-50%) scale(${tagIn})`,
+          background: C.white,
+          color: C.ink,
+          borderRadius: 999,
+          padding: '10px 26px',
+          whiteSpace: 'nowrap',
+          fontFamily: FONT.body,
+          fontWeight: 800,
+          fontSize: 34,
+          boxShadow: '0 10px 30px rgba(0,0,0,0.35)',
+        }}
+      >
+        {l.flag ? <span style={{ marginRight: 10 }}>{l.flag}</span> : null}
+        {l.name}
+        {l.place ? <span style={{ color: C.cobalt, marginLeft: 10 }}>· {l.place}</span> : null}
+      </div>
+    </div>
+  );
+};
+
 const MemeLayer: React.FC<{ l: Extract<Layer, { k: 'meme' }> }> = ({ l }) => {
   const { vis, out, local } = useWin(l.at, l.until);
   if (!vis) return null;
@@ -477,6 +549,8 @@ const renderLayer = (l: Layer, i: number) => {
       return <DonLayer key={i} l={l} />;
     case 'meme':
       return <MemeLayer key={i} l={l} />;
+    case 'speaker':
+      return <SpeakerLayer key={i} l={l} />;
     case 'dancer':
       return <DancerLayer key={i} l={l} />;
     case 'video':
