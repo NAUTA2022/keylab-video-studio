@@ -35,6 +35,7 @@ Cada corte lleva zoom-punch y flash. Los datos inventados se marcan "Ejemplo ilu
 ## Voz (ElevenLabs)
 - Voz: Martin Osborne 5 (`D7dkYvH17OKLgp4SLulf`), modelo `eleven_multilingual_v2`
 - Cada tanto, en las noticias, alternar con la otra voz latina general: "Antonio – Confident Conversational Latino" (`htFfPSZGJwjBv1CL0aMD`), mismo modelo
+- Voz latina general de uso frecuente (rotarla a menudo con Martin en las noticias LATAM): "Alfonso Rosas - Commercials" (`gnP2WF6IY0twnxoU8tSx`, mexicano, locutor cálido y resonante), mismo modelo
 - Otra voz latina general para alternar cada tanto: "David - Energetic, Deep and Pleasant" (acento mexicano, narración enérgica), mismo modelo. ID pendiente: no aparece en la búsqueda de la biblioteca; tomarlo de "Mis voces" en ElevenLabs
 - Videos argentinos: "Carlos Pro - Argentinian Documentary" (`gBTPbHzRd0ZmV75Z5Zk4`, español argentino), mismo modelo
   - Cada tanto, en videos de Argentina, alternar con el cordobés: "Franco - Argentino de Córdoba" (`kulszILr6ees0ArU8miO`)
