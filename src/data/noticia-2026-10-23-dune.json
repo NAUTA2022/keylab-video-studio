@@ -1,0 +1,175 @@
+{
+  "bakeKey": "noticia-2026-10-23-dune",
+  "voice": "media/noticia-2026-10-23-dune/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-23-dune/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 5.3,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Dune lanzó datos de 200 mercados en",
+      "highlight": "tiempo real",
+      "cues": {
+        "title": 1.44,
+        "boom": 3.4
+      }
+    },
+    {
+      "type": "roast",
+      "dur": 3.3,
+      "tag": "Realidad",
+      "lines": [
+        "Y tú esperando que el",
+        "contador te mande el Excel"
+      ],
+      "punch": "¿Del mes pasado?",
+      "cues": {
+        "line0": 0.2,
+        "line1": 1.25,
+        "punch": 2.3
+      }
+    },
+    {
+      "type": "news",
+      "dur": 8.0,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "22 oct 2026",
+      "headline": "Dune lanza feeds de datos en tiempo real de más de 200 mercados onchain",
+      "articleShot": "media/noticia-2026-10-23-dune/nota.png",
+      "siteUrl": "dune.com/feeds",
+      "siteShot": "media/noticia-2026-10-23-dune/web-empresa.png",
+      "chip": "Market Data Feeds · 12 blockchains · ~1 s"
+    },
+    {
+      "type": "stat",
+      "dur": 4.2,
+      "tag": "Resultados",
+      "value": 3.58,
+      "decimals": 2,
+      "prefix": "US$",
+      "suffix": "",
+      "label": "mil millones en acciones tokenizadas hoy",
+      "note": "Fuente: RWA.xyz, vía Cointelegraph, 22 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 3.15,
+      "tag": "Resultados",
+      "value": 470,
+      "prefix": "+",
+      "suffix": "%",
+      "label": "en un año: venían de US$627 millones",
+      "note": "Fuente: RWA.xyz, vía Cointelegraph, 22 oct 2026"
+    },
+    {
+      "type": "ey",
+      "dur": 0.9
+    },
+    {
+      "type": "pivot",
+      "dur": 2.9,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tus datos",
+        "lo tuyo"
+      ],
+      "wordsAt": [
+        0.35,
+        1.75
+      ],
+      "icons": [
+        "crecer",
+        "manos"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 5.1,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tableros en tiempo real con tus datos",
+        "IA que te avisa qué hacer y cuándo",
+        "Tu plataforma de activos tokenizados"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 3.6
+    }
+  ],
+  "gags": [
+    {
+      "at": 6.4,
+      "dur": 1.7,
+      "image": "memes/zorro/zorro-cama-laptop-fondo.jpg",
+      "style": "sticker",
+      "x": 0.72,
+      "y": 0.56,
+      "size": 0.25,
+      "rotate": -6,
+      "caption": "final_v7 🫠",
+      "sfx": "sfx/trombon.mp3"
+    },
+    {
+      "at": 17.6,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-sobrado.png",
+      "style": "cutout",
+      "x": 0.8,
+      "y": 0.62,
+      "size": 0.24,
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 0.94,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.44,
+      "to": 5.08,
+      "text": "Dune lanzó datos en tiempo real de 200 mercados en blockchain."
+    },
+    {
+      "from": 5.48,
+      "to": 8.28,
+      "text": "Y tú esperando que el contador te mande el reporte del mes."
+    },
+    {
+      "from": 8.89,
+      "to": 11.71,
+      "text": "Según Cointelegraph, con Market Data Feeds,"
+    },
+    {
+      "from": 12.09,
+      "to": 16.42,
+      "text": "Dune entrega operaciones de 12 blockchains al segundo, a fondos y bancos."
+    },
+    {
+      "from": 16.85,
+      "to": 20.59,
+      "text": "Las acciones tokenizadas suman US$3.580 millones:"
+    },
+    {
+      "from": 21.09,
+      "to": 23.58,
+      "text": "470% más en un año."
+    },
+    {
+      "from": 25.05,
+      "to": 27.45,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 28.02,
+      "to": 32.75,
+      "text": "En Key Lab construimos tus tableros en tiempo real, con IA."
+    }
+  ]
+}
