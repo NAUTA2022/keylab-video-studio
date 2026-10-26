@@ -1,0 +1,154 @@
+{
+  "bakeKey": "noticia-2026-10-30",
+  "voice": "media/noticia-2026-10-30/voz.mp3",
+  "score": "media/noticia-2026-10-30/partitura.wav",
+  "soundtrack": "media/noticia-2026-10-30/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 7.85,
+      "photo": "media/noticia-2026-10-30/obelisco.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.1, 0, 2], "to": [1.28, 0, -3] },
+      "tint": "dark",
+      "shake": [4.3, 5.2],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1180, "size": 48, "fall": 0.5, "rings": 4, "color": "white" },
+        { "k": "chip", "at": 0.1, "text": "Noticia del día", "y": 300, "tone": "cobalt", "caps": true, "size": 30 },
+        { "k": "pin", "at": 1.5, "text": "ARGENTINA 🇦🇷", "x": 200, "y": 450 },
+        { "k": "text", "at": 1.9, "text": "PROYECTO INMOBILIARIO", "y": 560, "size": 84 },
+        { "k": "text", "at": 4.3, "text": "CASI 1/3", "y": 680, "size": 200, "anim": "slam" },
+        { "k": "text", "at": 5.2, "text": "DE SUS FRAGMENTOS", "y": 920, "size": 96, "anim": "slam", "bg": "cobalt" },
+        { "k": "text", "at": 6.35, "text": "EN MENOS DE UN AÑO", "y": 1060, "size": 80, "anim": "slam", "bg": "white" },
+        { "k": "clock", "at": 6.3, "x": 540, "y": 1300, "size": 170 }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 3.35,
+      "photo": "media/noticia-2026-10-30/torre.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.2, 0, 0], "to": [1.35, 0, -2] },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [1.7],
+      "layers": [
+        { "k": "text", "at": 0.05, "text": "MIENTRAS OTROS…", "y": 300, "size": 110 },
+        { "k": "text", "at": 0.9, "text": "SIGUEN ESPERANDO", "y": 450, "size": 100, "anim": "slam" },
+        { "k": "text", "at": 1.7, "text": "QUE EL CUÑADO", "y": 620, "size": 110, "anim": "slam", "bg": "white" },
+        { "k": "text", "at": 2.2, "text": "SE DECIDA 🙄", "y": 770, "size": 110, "anim": "slam", "bg": "white", "rotate": -3 }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 4.2,
+      "tag": "Noticia",
+      "source": "iProUP",
+      "articleUrl": "iproup.com",
+      "date": "17 sep 2026",
+      "headline": "Inmuebles tokenizados: el mercado que crece y mueve más de u$s226 millones",
+      "articleShot": "media/noticia-2026-10-30/nota.png",
+      "chip": "Lena Buró · Grupo Transatlántica y Fundar"
+    },
+    {
+      "type": "mg",
+      "dur": 4.2,
+      "photo": "media/noticia-2026-10-30/ba.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.3, 3, 0], "to": [1.15, -3, 0] },
+      "tint": "dark",
+      "blur": 4,
+      "shake": [2.0, 3.0],
+      "layers": [
+        { "k": "pin", "at": 0.05, "text": "LENA BURÓ", "x": 200, "y": 330 },
+        { "k": "text", "at": 0.45, "text": "YA TIENE ASIGNADO", "y": 420, "size": 96 },
+        { "k": "count", "at": 2.0, "from": 0, "to": 32, "suffix": " %", "y": 530, "size": 260, "dur": 0.8 },
+        { "k": "text", "at": 3.0, "text": "DE SUS FRAGMENTOS", "y": 840, "size": 84, "anim": "slam", "bg": "cobalt" },
+        { "k": "drop", "at": 1.9, "x": 540, "y": 1150, "size": 50, "fall": 0.45, "rings": 5, "color": "white" }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 2.75,
+      "photo": "media/noticia-2026-10-30/torre.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.4, 0, 0], "to": [1.5, 0, 0] },
+      "tint": "cobalt",
+      "blur": 8,
+      "shake": [1.9],
+      "layers": [
+        { "k": "count", "at": 0.2, "from": 0, "to": 4, "suffix": " DE 10", "y": 300, "size": 200, "dur": 0.5 },
+        { "k": "text", "at": 1.0, "text": "CURIOSOS", "y": 560, "size": 110 },
+        { "k": "text", "at": 1.9, "text": "SE QUEDAN ✅", "y": 700, "size": 120, "anim": "slam", "bg": "white" }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 4.85,
+      "photo": "media/noticia-2026-10-30/ba.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.15, 0, 0], "to": [1.3, 0, -2] },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [2.5, 3.5],
+      "layers": [
+        { "k": "text", "at": 0.15, "text": "CADA MES", "y": 300, "size": 110 },
+        { "k": "text", "at": 1.2, "text": "LA PLATAFORMA CRECE", "y": 440, "size": 86 },
+        { "k": "count", "at": 2.5, "from": 0, "to": 20, "prefix": "+", "suffix": " %", "y": 550, "size": 240, "dur": 0.7, "color": "soft" },
+        { "k": "text", "at": 3.5, "text": "EN USUARIOS", "y": 850, "size": 110, "anim": "slam", "bg": "cobalt" }
+      ]
+    },
+    { "type": "ey", "dur": 0.8 },
+    {
+      "type": "mg",
+      "dur": 3.15,
+      "tint": "cobalt",
+      "shake": [1.6, 2.2],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1150, "size": 52, "fall": 0.45, "rings": 5, "color": "soft" },
+        { "k": "text", "at": 0.35, "text": "SI SE PUEDE", "y": 330, "size": 110 },
+        { "k": "text", "at": 0.8, "text": "CON ESO,", "y": 460, "size": 110 },
+        { "k": "text", "at": 1.6, "text": "SE PUEDE CON", "y": 610, "size": 120, "anim": "slam" },
+        { "k": "text", "at": 2.2, "text": "TU EDIFICIO 🏢", "y": 770, "size": 120, "anim": "slam", "bg": "white" }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 2.95,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": ["Tu tokenizadora", "Con tu marca"],
+      "itemsAt": [1.2, 2.0],
+      "icons": ["panel", "marca"]
+    },
+    { "type": "close", "dur": 5.0 }
+  ],
+  "gags": [
+    {
+      "at": 10.0,
+      "dur": 1.5,
+      "image": "memes/zorro/zorro-triste-fondo.jpg",
+      "style": "sticker",
+      "x": 0.78,
+      "y": 0.62,
+      "size": 0.2,
+      "rotate": 6,
+      "caption": "Lo sigo pensando 🫠",
+      "sfx": "sfx/trombon.mp3"
+    }
+  ],
+  "subtitles": [
+    { "from": 0.0, "to": 0.99, "text": "Noticia del día:" },
+    { "from": 1.37, "to": 6.04, "text": "un proyecto inmobiliario argentino ya tiene dueño para casi un tercio de sus fragmentos digitales," },
+    { "from": 6.36, "to": 7.33, "text": "en menos de un año." },
+    { "from": 7.89, "to": 10.6, "text": "Mientras otros siguen esperando que el cuñado se decida." },
+    { "from": 11.21, "to": 15.42, "text": "Según iProUP, Lena Buró, de Grupo Transatlántica y Fundar," },
+    { "from": 15.85, "to": 19.31, "text": "ya tiene asignado el 32 % de sus fragmentos." },
+    { "from": 19.81, "to": 22.16, "text": "Cuatro de cada diez curiosos terminan quedándose," },
+    { "from": 22.46, "to": 26.58, "text": "y cada mes la plataforma crece cerca de un 20 % en usuarios." },
+    { "from": 28.37, "to": 30.89, "text": "Si se puede con eso, se puede con tu edificio." },
+    { "from": 31.21, "to": 33.9, "text": "En Key Lab construimos tu tokenizadora con tu marca." },
+    { "from": 34.27, "to": 35.48, "text": "Agenda una reunión." }
+  ]
+}

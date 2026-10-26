@@ -1,0 +1,140 @@
+{
+  "bakeKey": "noticia-2026-11-01",
+  "voice": "media/noticia-2026-11-01/voz.mp3",
+  "score": "media/noticia-2026-11-01/partitura.wav",
+  "soundtrack": "media/noticia-2026-11-01/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 5.15,
+      "photo": "media/noticia-2026-11-01/medellin.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.1, 0, 2], "to": [1.28, 0, -3] },
+      "tint": "dark",
+      "shake": [1.5, 4.0],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1180, "size": 48, "fall": 0.5, "rings": 4, "color": "white" },
+        { "k": "chip", "at": 0.1, "text": "Noticia del día", "y": 300, "tone": "cobalt", "caps": true, "size": 30 },
+        { "k": "text", "at": 1.5, "text": "BANCOLOMBIA", "y": 410, "size": 130, "anim": "slam" },
+        { "k": "pin", "at": 2.5, "text": "MEDELLÍN", "x": 150, "y": 720 },
+        { "k": "pin", "at": 3.1, "text": "BOGOTÁ", "x": 600, "y": 720 },
+        { "k": "text", "at": 4.0, "text": "HABLANDO DE TOKENIZACIÓN", "y": 850, "size": 76, "anim": "slam", "bg": "cobalt" }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 3.45,
+      "photo": "media/noticia-2026-11-01/telegram.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.15, 0, 0], "to": [1.3, 0, -2] },
+      "tint": "dark",
+      "blur": 4,
+      "shake": [1.9],
+      "layers": [
+        { "k": "text", "at": 0.15, "text": "Y TÚ TODAVÍA", "y": 300, "size": 110 },
+        { "k": "text", "at": 1.2, "text": "APRENDIENDO CON", "y": 440, "size": 96 },
+        { "k": "text", "at": 1.9, "text": "EL PRIMO 🙃", "y": 590, "size": 120, "anim": "slam", "bg": "white", "rotate": -3 },
+        { "k": "text", "at": 2.6, "text": "DEL GRUPO", "y": 780, "size": 90, "anim": "slam", "bg": "cobalt" },
+        { "k": "text", "at": 2.9, "text": "DE TELEGRAM", "y": 900, "size": 90, "anim": "slam", "bg": "cobalt" }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 3.5,
+      "tag": "Noticia",
+      "source": "Cambio",
+      "articleUrl": "cambiocolombia.com",
+      "date": "14 oct 2026",
+      "headline": "Inteligencia Artificial y dinero digital: llega Bintec 2026, la feria de tecnología bancaria de Bancolombia",
+      "articleShot": "media/noticia-2026-11-01/nota.png",
+      "siteUrl": "bintec.eventosbancolombia.com",
+      "siteShot": "media/noticia-2026-11-01/web-empresa.png",
+      "chip": "Bintec 2026 · 13 al 15 de octubre"
+    },
+    {
+      "type": "mg",
+      "dur": 7.4,
+      "photo": "media/noticia-2026-11-01/conferencia.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.1, 0, 0], "to": [1.3, 0, -2] },
+      "tint": "dark",
+      "blur": 5,
+      "shake": [0.4, 1.9],
+      "layers": [
+        { "k": "count", "at": 0.4, "from": 0, "to": 80, "prefix": "+", "y": 270, "size": 200, "dur": 0.6 },
+        { "k": "text", "at": 1.1, "text": "CONFERENCIAS", "y": 500, "size": 100 },
+        { "k": "count", "at": 1.9, "from": 0, "to": 40, "y": 620, "size": 170, "dur": 0.6, "color": "soft" },
+        { "k": "text", "at": 2.6, "text": "TALLERES", "y": 820, "size": 100, "anim": "slam", "bg": "cobalt" },
+        { "k": "chip", "at": 3.3, "text": "🔗 Blockchain", "y": 970, "tone": "white", "size": 34 },
+        { "k": "chip", "at": 4.0, "text": "💸 Dinero programable", "y": 1060, "tone": "white", "size": 34 },
+        { "k": "chip", "at": 5.4, "text": "🤖 Agentes de IA", "y": 1150, "tone": "white", "size": 34 }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 4.35,
+      "photo": "media/noticia-2026-11-01/medellin-dia.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.2, 0, 0], "to": [1.35, 0, -2] },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [3.0],
+      "layers": [
+        { "k": "text", "at": 0.25, "text": "EL BANCO MÁS GRANDE", "y": 300, "size": 88 },
+        { "k": "text", "at": 0.9, "text": "DEL PAÍS", "y": 410, "size": 100 },
+        { "k": "text", "at": 1.6, "text": "LO PONE EN LA AGENDA", "y": 550, "size": 80, "anim": "slam", "bg": "white" },
+        { "k": "text", "at": 3.0, "text": "YA NO ES UN EXPERIMENTO", "y": 720, "size": 74, "anim": "slam", "bg": "cobalt", "rotate": -2 }
+      ]
+    },
+    { "type": "ey", "dur": 0.8 },
+    {
+      "type": "mg",
+      "dur": 3.3,
+      "tint": "cobalt",
+      "shake": [1.0, 2.5],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1150, "size": 52, "fall": 0.45, "rings": 5, "color": "soft" },
+        { "k": "text", "at": 0.35, "text": "NO NECESITAS", "y": 330, "size": 110 },
+        { "k": "text", "at": 1.0, "text": "UNA FERIA", "y": 460, "size": 130, "anim": "slam" },
+        { "k": "text", "at": 2.5, "text": "PARA EMPEZAR", "y": 640, "size": 120, "anim": "slam", "bg": "white" }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.2,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": ["Tu plataforma", "Para fragmentar tus activos", "Con tu marca"],
+      "itemsAt": [1.45, 2.05, 3.1],
+      "icons": ["web", "contrato", "marca"]
+    },
+    { "type": "close", "dur": 5.0 }
+  ],
+  "gags": [
+    {
+      "at": 7.1,
+      "dur": 1.5,
+      "image": "memes/zorro/zorro-sobrado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.8,
+      "y": 0.5,
+      "size": 0.2,
+      "rotate": 6,
+      "caption": "Experto desde ayer 😎",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    { "from": 0.0, "to": 1.07, "text": "Noticia del día:" },
+    { "from": 1.51, "to": 4.96, "text": "Bancolombia puso a Medellín y a Bogotá a hablar de tokenización." },
+    { "from": 5.32, "to": 8.42, "text": "Y tú todavía la aprendes con el primo del grupo de Telegram." },
+    { "from": 8.83, "to": 11.95, "text": "En Bintec 2026, su feria de tecnología," },
+    { "from": 12.25, "to": 15.61, "text": "hubo más de 80 conferencias y 40 talleres sobre blockchain," },
+    { "from": 15.9, "to": 19.26, "text": "dinero programable y agentes de inteligencia artificial." },
+    { "from": 19.71, "to": 23.78, "text": "Cuando el banco más grande del país lo pone en la agenda, ya no es un experimento." },
+    { "from": 24.98, "to": 27.77, "text": "No necesitas una feria para empezar." },
+    { "from": 28.03, "to": 31.95, "text": "En Key Lab construimos tu plataforma para fragmentar tus activos, con tu marca." },
+    { "from": 32.28, "to": 33.79, "text": "Agenda una reunión." }
+  ]
+}
