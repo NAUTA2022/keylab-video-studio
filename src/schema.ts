@@ -51,6 +51,7 @@ export const sceneSchema = z.discriminatedUnion('type', [
     date: z.string(),
     headline: z.string(),
     articleShot: z.string().optional().describe('captura de la nota en public/, ej. media/nota.png'),
+    articleUrl: z.string().optional().describe('dominio de la nota que se ve en la barra del navegador (si no, se deriva de source)'),
     siteUrl: z.string().optional(),
     siteShot: z.string().optional().describe('captura de la web de la empresa en public/'),
     chip: z.string().optional(),

@@ -1,0 +1,469 @@
+{
+  "bakeKey": "noticia-2026-10-27",
+  "voice": "media/noticia-2026-10-27/voz.mp3",
+  "score": "media/noticia-2026-10-27/partitura.wav",
+  "soundtrack": "media/noticia-2026-10-27/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 4.9,
+      "photo": "media/noticia-2026-10-27/saopaulo.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.1,
+          0,
+          2
+        ],
+        "to": [
+          1.28,
+          0,
+          -3
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        2.3,
+        3.9
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1180,
+          "size": 48,
+          "fall": 0.5,
+          "rings": 4,
+          "color": "white"
+        },
+        {
+          "k": "chip",
+          "at": 0.1,
+          "text": "Noticia del día",
+          "y": 300,
+          "tone": "cobalt",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "pin",
+          "at": 1.6,
+          "text": "BRASIL 🇧🇷",
+          "x": 200,
+          "y": 470
+        },
+        {
+          "k": "text",
+          "at": 2.0,
+          "text": "QUIERE TOKENIZAR",
+          "y": 600,
+          "size": 110,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 2.3,
+          "text": "TODOS SUS FONDOS",
+          "y": 730,
+          "size": 100,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 3.9,
+          "text": "SÍ, TODOS.",
+          "y": 900,
+          "size": 110,
+          "anim": "slam",
+          "bg": "white",
+          "rotate": -3
+        },
+        {
+          "k": "emoji",
+          "at": 4.0,
+          "name": "cabeza-explota",
+          "x": 870,
+          "y": 1120,
+          "size": 170
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 3.65,
+      "photo": "media/noticia-2026-10-27/celular-noche.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.15,
+          0,
+          0
+        ],
+        "to": [
+          1.3,
+          0,
+          -2
+        ]
+      },
+      "tint": "dark",
+      "blur": 3,
+      "shake": [],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.05,
+          "text": "Y UNO ACÁ…",
+          "y": 280,
+          "size": 110,
+          "anim": "slam"
+        },
+        {
+          "k": "bubble",
+          "at": 1.0,
+          "text": "Te mando el extracto 📄",
+          "x": 160,
+          "y": 520,
+          "time": "11:58 p. m."
+        },
+        {
+          "k": "bubble",
+          "at": 1.9,
+          "text": "extracto_final_v3.pdf 📎",
+          "x": 160,
+          "y": 680,
+          "time": "11:59 p. m."
+        },
+        {
+          "k": "bubble",
+          "at": 2.8,
+          "text": "¿Por WhatsApp? 💀",
+          "x": 380,
+          "y": 860,
+          "me": true,
+          "time": "11:59 p. m."
+        }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 7.45,
+      "tag": "Noticia",
+      "source": "Bitcoin.com News",
+      "articleUrl": "news.bitcoin.com",
+      "date": "25 oct 2026",
+      "headline": "Brasil impulsa tokenización obligatoria y vigilancia con IA para sus fondos",
+      "siteUrl": "gov.br/cvm",
+      "siteShot": "media/noticia-2026-10-27/web-empresa.png",
+      "chip": "Otto Lobo · presidente de la CVM"
+    },
+    {
+      "type": "mg",
+      "dur": 6.0,
+      "photo": "media/noticia-2026-10-27/saopaulo-noche.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.3,
+          3,
+          0
+        ],
+        "to": [
+          1.15,
+          -3,
+          0
+        ]
+      },
+      "tint": "dark",
+      "blur": 8,
+      "shake": [
+        0.6,
+        3.6
+      ],
+      "layers": [
+        {
+          "k": "chip",
+          "at": 0.1,
+          "text": "Fuente: CVM vía Bitcoin.com News",
+          "y": 260,
+          "tone": "white",
+          "caps": true,
+          "size": 24
+        },
+        {
+          "k": "count",
+          "at": 0.6,
+          "from": 0,
+          "to": 34000,
+          "prefix": "+",
+          "y": 330,
+          "size": 220,
+          "dur": 1.0
+        },
+        {
+          "k": "text",
+          "at": 1.4,
+          "text": "FONDOS",
+          "y": 580,
+          "size": 110
+        },
+        {
+          "k": "count",
+          "at": 3.6,
+          "from": 0,
+          "to": 2.32,
+          "decimals": 2,
+          "prefix": "US$",
+          "y": 740,
+          "size": 170,
+          "dur": 0.9,
+          "color": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 4.4,
+          "text": "BILLONES ADMINISTRADOS",
+          "y": 940,
+          "size": 76
+        },
+        {
+          "k": "chip",
+          "at": 4.8,
+          "text": "🤖 Vigilancia con inteligencia artificial",
+          "y": 1060,
+          "tone": "white",
+          "size": 30
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 6.4,
+      "photo": "media/noticia-2026-10-27/saopaulo.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.35,
+          0,
+          -2
+        ],
+        "to": [
+          1.15,
+          0,
+          2
+        ]
+      },
+      "tint": "dark",
+      "blur": 2,
+      "shake": [
+        1.0,
+        4.9
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.1,
+          "text": "LA BOLSA BRASILEÑA",
+          "y": 280,
+          "size": 100
+        },
+        {
+          "k": "text",
+          "at": 1.0,
+          "text": "YA CONSTRUYE",
+          "y": 420,
+          "size": 120,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 1.5,
+          "text": "SU TOKENIZADORA",
+          "y": 560,
+          "size": 120,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "clock",
+          "at": 3.4,
+          "x": 540,
+          "y": 900,
+          "size": 230
+        },
+        {
+          "k": "text",
+          "at": 4.9,
+          "text": "2027",
+          "y": 1080,
+          "size": 170,
+          "anim": "slam",
+          "align": "center"
+        }
+      ]
+    },
+    {
+      "type": "ey",
+      "dur": 0.9
+    },
+    {
+      "type": "mg",
+      "dur": 2.45,
+      "tint": "cobalt",
+      "shake": [
+        1.0
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1150,
+          "size": 52,
+          "fall": 0.45,
+          "rings": 5,
+          "color": "soft"
+        },
+        {
+          "k": "text",
+          "at": 0.05,
+          "text": "SI SE PUEDE CON ESO,",
+          "y": 360,
+          "size": 96
+        },
+        {
+          "k": "text",
+          "at": 1.0,
+          "text": "SE PUEDE",
+          "y": 520,
+          "size": 150,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 1.3,
+          "text": "CON LO TUYO",
+          "y": 700,
+          "size": 130,
+          "anim": "slam",
+          "bg": "white"
+        }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.3,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu plataforma de tokenización",
+        "Fragmenta tus activos",
+        "Con tu marca"
+      ],
+      "itemsAt": [
+        1.1,
+        2.2,
+        3.35
+      ],
+      "icons": [
+        "panel",
+        "trazabilidad",
+        "marca"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 5.0
+    }
+  ],
+  "gags": [
+    {
+      "at": 6.5,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-cama-laptop-fondo.jpg",
+      "style": "sticker",
+      "x": 0.8,
+      "y": 0.56,
+      "size": 0.2,
+      "rotate": 6,
+      "caption": "Lunes 😩",
+      "sfx": "sfx/trombon.mp3"
+    },
+    {
+      "at": 20.3,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-asustado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.19,
+      "size": 0.17,
+      "rotate": -6,
+      "caption": "¿Billones? 😱",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 1.08,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.56,
+      "to": 3.65,
+      "text": "Brasil quiere tokenizar todos sus fondos."
+    },
+    {
+      "from": 3.83,
+      "to": 4.64,
+      "text": "Sí, todos."
+    },
+    {
+      "from": 4.92,
+      "to": 8.04,
+      "text": "Y uno acá todavía mandando el extracto en PDF por WhatsApp."
+    },
+    {
+      "from": 8.63,
+      "to": 11.51,
+      "text": "Otto Lobo, presidente de la Comisión de Valores de Brasil,"
+    },
+    {
+      "from": 11.78,
+      "to": 15.73,
+      "text": "impulsa la tokenización obligatoria, con vigilancia por IA,"
+    },
+    {
+      "from": 16.04,
+      "to": 21.59,
+      "text": "para más de 34 mil fondos que administran cerca de US$2,3 billones."
+    },
+    {
+      "from": 22.09,
+      "to": 25.46,
+      "text": "Y la bolsa brasileña ya construye su plataforma de tokenización,"
+    },
+    {
+      "from": 25.81,
+      "to": 28.1,
+      "text": "que espera tener lista en 2027."
+    },
+    {
+      "from": 29.27,
+      "to": 31.47,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 31.84,
+      "to": 35.84,
+      "text": "En Key Lab construimos tu plataforma para fragmentar tus activos, con tu marca."
+    },
+    {
+      "from": 36.16,
+      "to": 37.44,
+      "text": "Agenda una reunión."
+    }
+  ]
+}

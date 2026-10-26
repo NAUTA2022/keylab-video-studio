@@ -203,7 +203,7 @@ export const Roast: React.FC<Extract<Scene, { type: 'roast' }>> = ({ lines, punc
 };
 
 /* 3 · NOTICIA (capturas reales: nota + web de la empresa) */
-export const News: React.FC<Extract<Scene, { type: 'news' }>> = ({ source, date, headline, articleShot, siteShot, siteUrl, chip, dur }) => {
+export const News: React.FC<Extract<Scene, { type: 'news' }>> = ({ source, date, headline, articleShot, articleUrl, siteShot, siteUrl, chip, dur }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const L = useLayout();
@@ -221,7 +221,7 @@ export const News: React.FC<Extract<Scene, { type: 'news' }>> = ({ source, date,
       </div>
       <div style={{ position: 'relative', width: winW, height: winH }}>
         <div style={{ position: 'absolute', inset: 0 }}>
-          <BrowserWindow url={source.toLowerCase().replace(/\s+/g, '') + '.com'} shot={articleShot} width={winW} height={winH}>
+          <BrowserWindow url={articleUrl ?? source.toLowerCase().replace(/\s+/g, '') + '.com'} shot={articleShot} width={winW} height={winH}>
             <div style={{ padding: 44 }}>
               <div style={{ width: 120, height: 10, background: C.cobalt, marginBottom: 28 }} />
               <div style={{ fontFamily: FONT.body, fontWeight: 900, fontSize: 54 * k, lineHeight: 1.12, color: C.ink }}>
