@@ -7,7 +7,7 @@
   "scenes": [
     {
       "type": "mg",
-      "dur": 5.3,
+      "dur": 5.1,
       "photo": "media/noticia-2026-10-26/panama.jpg",
       "credit": "Foto: Pexels (licencia libre)",
       "kb": {
@@ -24,9 +24,9 @@
       },
       "tint": "dark",
       "shake": [
-        2.3,
-        3.2,
-        3.7
+        2.6,
+        3.4,
+        3.85
       ],
       "layers": [
         {
@@ -50,14 +50,14 @@
         },
         {
           "k": "pin",
-          "at": 1.5,
+          "at": 1.7,
           "text": "PANAMÁ 🇵🇦",
           "x": 200,
           "y": 470
         },
         {
           "k": "text",
-          "at": 2.3,
+          "at": 2.6,
           "text": "LOS TOKENS",
           "y": 600,
           "size": 150,
@@ -65,7 +65,7 @@
         },
         {
           "k": "text",
-          "at": 3.2,
+          "at": 3.4,
           "text": "NO TIENEN",
           "y": 790,
           "size": 110,
@@ -74,7 +74,7 @@
         },
         {
           "k": "text",
-          "at": 3.7,
+          "at": 3.85,
           "text": "QUIÉN LOS VIGILE",
           "y": 915,
           "size": 110,
@@ -83,7 +83,7 @@
         },
         {
           "k": "emoji",
-          "at": 3.8,
+          "at": 4.2,
           "name": "ojos",
           "x": 870,
           "y": 1080,
@@ -93,7 +93,7 @@
     },
     {
       "type": "news",
-      "dur": 10.55,
+      "dur": 8.9,
       "tag": "Noticia",
       "source": "Infobae",
       "date": "26 oct 2026",
@@ -105,7 +105,7 @@
     },
     {
       "type": "mg",
-      "dur": 5.77,
+      "dur": 5.5333,
       "photo": "media/noticia-2026-10-26/panama.jpg",
       "credit": "Foto: Pexels (licencia libre)",
       "kb": {
@@ -123,8 +123,8 @@
       "tint": "cobalt",
       "blur": 10,
       "shake": [
-        1.0,
-        3.98
+        1.4,
+        4.2
       ],
       "layers": [
         {
@@ -138,7 +138,7 @@
         },
         {
           "k": "count",
-          "at": 1.0,
+          "at": 1.4,
           "to": 4,
           "y": 320,
           "size": 300,
@@ -146,14 +146,14 @@
         },
         {
           "k": "text",
-          "at": 1.6,
+          "at": 2.0,
           "text": "PROYECTOS DE LEY",
           "y": 650,
           "size": 96
         },
         {
           "k": "chip",
-          "at": 2.0,
+          "at": 2.3,
           "text": "📄 Marzo 2025",
           "x": 140,
           "y": 800,
@@ -162,7 +162,7 @@
         },
         {
           "k": "chip",
-          "at": 2.25,
+          "at": 2.5,
           "text": "📄 Agosto 2025",
           "x": 560,
           "y": 800,
@@ -171,7 +171,7 @@
         },
         {
           "k": "chip",
-          "at": 2.5,
+          "at": 2.6999999999999997,
           "text": "📄 Octubre 2025",
           "x": 140,
           "y": 880,
@@ -180,7 +180,7 @@
         },
         {
           "k": "chip",
-          "at": 2.75,
+          "at": 2.9,
           "text": "📄 Enero 2026",
           "x": 560,
           "y": 880,
@@ -189,7 +189,7 @@
         },
         {
           "k": "text",
-          "at": 3.98,
+          "at": 4.2,
           "text": "SIN FECHA DE DEBATE",
           "y": 990,
           "size": 84,
@@ -198,7 +198,7 @@
         },
         {
           "k": "clock",
-          "at": 4.05,
+          "at": 4.25,
           "x": 540,
           "y": 1210,
           "size": 230
@@ -207,7 +207,7 @@
     },
     {
       "type": "mg",
-      "dur": 2.78,
+      "dur": 2.7333,
       "photo": "media/noticia-2026-10-26/balon.jpg",
       "credit": "Foto: Pexels (licencia libre)",
       "kb": {
@@ -224,20 +224,20 @@
       },
       "tint": "dark",
       "shake": [
-        0.9,
+        0.85,
         1.75
       ],
       "layers": [
         {
           "k": "text",
-          "at": 0.25,
+          "at": 0.15,
           "text": "O SEA:",
           "y": 300,
           "size": 90
         },
         {
           "k": "text",
-          "at": 0.9,
+          "at": 0.85,
           "text": "PARTIDO DE BARRIO",
           "y": 420,
           "size": 104,
@@ -265,14 +265,14 @@
     },
     {
       "type": "ey",
-      "dur": 0.95
+      "dur": 0.9
     },
     {
       "type": "mg",
-      "dur": 3.5,
+      "dur": 3.4,
       "tint": "cobalt",
       "shake": [
-        1.35
+        1.13
       ],
       "layers": [
         {
@@ -287,14 +287,14 @@
         },
         {
           "k": "text",
-          "at": 0.1,
+          "at": 0.05,
           "text": "CUANDO NO HAY ÁRBITRO,",
           "y": 320,
           "size": 80
         },
         {
           "k": "text",
-          "at": 1.35,
+          "at": 1.13,
           "text": "LA CONFIANZA",
           "y": 460,
           "size": 150,
@@ -302,7 +302,7 @@
         },
         {
           "k": "text",
-          "at": 2.3,
+          "at": 2.05,
           "text": "LA PONE",
           "y": 660,
           "size": 110,
@@ -311,7 +311,7 @@
         },
         {
           "k": "text",
-          "at": 2.6,
+          "at": 2.4,
           "text": "TU PLATAFORMA",
           "y": 790,
           "size": 110,
@@ -320,7 +320,7 @@
         },
         {
           "k": "emoji",
-          "at": 2.45,
+          "at": 2.5,
           "name": "candado",
           "x": 870,
           "y": 1010,
@@ -330,7 +330,7 @@
     },
     {
       "type": "solution",
-      "dur": 7.55,
+      "dur": 7.7667,
       "tag": "Key Lab",
       "title": "En Key Lab construimos",
       "items": [
@@ -340,10 +340,10 @@
         "Trazabilidad de cada fragmento"
       ],
       "itemsAt": [
-        1.4,
-        2.5,
-        4.5,
-        5.55
+        1.75,
+        3.35,
+        5.18,
+        6.05
       ],
       "icons": [
         "marca",
@@ -359,7 +359,7 @@
   ],
   "gags": [
     {
-      "at": 19.9,
+      "at": 18.2,
       "dur": 1.6,
       "image": "memes/zorro/zorro-pensando-fondo.jpg",
       "style": "sticker",
@@ -371,7 +371,7 @@
       "sfx": "sfx/bruh.mp3"
     },
     {
-      "at": 33.6,
+      "at": 31.8,
       "dur": 1.6,
       "image": "memes/zorro/zorro-sobrado-fondo.jpg",
       "style": "sticker",
@@ -386,52 +386,52 @@
   "subtitles": [
     {
       "from": 0.0,
-      "to": 0.98,
+      "to": 1.22,
       "text": "Noticia del día:"
     },
     {
-      "from": 1.45,
-      "to": 4.95,
+      "from": 1.68,
+      "to": 4.74,
       "text": "En Panamá, los tokens no tienen quién los vigile."
     },
     {
-      "from": 5.49,
-      "to": 10.08,
+      "from": 5.37,
+      "to": 8.98,
       "text": "La Superintendencia del Mercado de Valores sostiene desde 2018"
     },
     {
-      "from": 10.48,
-      "to": 15.59,
+      "from": 9.31,
+      "to": 13.69,
       "text": "que un token no es un valor, y que estos esquemas no necesitan su permiso."
     },
     {
-      "from": 16.1,
-      "to": 21.37,
+      "from": 14.25,
+      "to": 19.35,
       "text": "Mientras tanto, 4 proyectos de ley de activos digitales siguen sin fecha de debate."
     },
     {
-      "from": 21.88,
-      "to": 24.2,
+      "from": 19.69,
+      "to": 22.05,
       "text": "O sea: partido de barrio sin árbitro."
     },
     {
-      "from": 25.34,
-      "to": 28.6,
+      "from": 23.17,
+      "to": 26.32,
       "text": "Cuando no hay árbitro, la confianza la pone tu plataforma."
     },
     {
-      "from": 29.06,
-      "to": 32.99,
+      "from": 26.7,
+      "to": 31.49,
       "text": "En Key Lab construimos tu tokenizadora con verificación de usuarios,"
     },
     {
-      "from": 33.37,
-      "to": 36.28,
+      "from": 31.73,
+      "to": 33.94,
       "text": "contratos claros y trazabilidad de cada fragmento."
     },
     {
-      "from": 36.85,
-      "to": 38.35,
+      "from": 34.49,
+      "to": 36.06,
       "text": "Agenda una reunión."
     }
   ]

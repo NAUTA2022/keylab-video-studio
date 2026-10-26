@@ -480,13 +480,29 @@ for i in range(N):
     target = active[i]
     cur += (target - cur) * (1 / att if target > cur else 1 / rel)
     duck[i] = cur
-music_gain = 1.0 - 0.55 * duck  # -7 dB aprox. bajo la voz
+# La voz manda: bajo la voz la música cae ~-13 dB (antes -7) y en los huecos vuelve.
+music_gain = 1.0 - 0.78 * duck
 music *= music_gain[:, None]
+
+# ---------- ecualización (la voz siempre por encima) ----------
+try:
+    from pedalboard import Pedalboard, HighpassFilter, PeakFilter, HighShelfFilter, LowShelfFilter, Compressor
+    # música: limpia graves sucios y abre un "hueco" en la zona de la palabra (1–4 kHz)
+    mus_eq = Pedalboard([HighpassFilter(45), LowShelfFilter(cutoff_frequency_hz=220, gain_db=-1.5),
+                         PeakFilter(cutoff_frequency_hz=2400, gain_db=-5.5, q=0.8), PeakFilter(cutoff_frequency_hz=900, gain_db=-2.0, q=1.0)])
+    music = mus_eq(music.T.astype(np.float32), SR).T.astype(np.float64)
+    # voz: quita retumbe, presencia y aire, compresión suave para que se entienda pareja
+    voz_fx = Pedalboard([HighpassFilter(85), LowShelfFilter(cutoff_frequency_hz=250, gain_db=-1.0),
+                         PeakFilter(cutoff_frequency_hz=3200, gain_db=3.0, q=0.9), HighShelfFilter(cutoff_frequency_hz=9000, gain_db=2.0),
+                         Compressor(threshold_db=-20, ratio=3.0, attack_ms=8, release_ms=120)])
+    voice = voz_fx(voice.T.astype(np.float32), SR).T.astype(np.float64)
+except Exception as e:
+    print('Sin pedalboard: mezcla sin ecualizar', e)
 
 # ---------- mezcla y master ----------
 def norm(x, peak=1.0):
     m = np.max(np.abs(x)); return x / m * peak if m > 0 else x
-mix = voice * 1.0 + norm(music, 0.55) + norm(sfx, 0.45)
+mix = norm(voice, 0.92) + norm(music, 0.42) + norm(sfx, 0.40)
 fade = int(0.8 * SR); end = int(DUR * SR)
 mix[end - fade:end] *= np.linspace(1, 0, fade)[:, None]; mix[end:] = 0
 mix = np.tanh(mix * 1.1) / np.tanh(1.1)  # limitador suave

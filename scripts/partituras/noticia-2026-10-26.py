@@ -34,6 +34,13 @@ os.makedirs(TMP, exist_ok=True)
 T_NEWS, T_FOUR, T_ARB, T_EY, T_CONF, T_SOL, T_CLOSE = 5.30, 15.85, 21.62, 24.40, 25.35, 28.85, 36.40
 PEAK = 23.37
 
+# Versión 2 (voz de Martin Osborne 5): la partitura se escribió sobre la línea de tiempo de la
+# voz anterior y aquí se "deforma" por tramos para caer exacta sobre los tiempos nuevos.
+WARP_OLD = [0, 1.45, 2.30, 3.20, 5.30, 10.48, 15.85, 16.85, 19.83, 21.62, 23.37, 24.25, 24.40, 25.35, 28.85, 35.35, 36.40, 41.4]
+WARP_NEW = [0, 1.68, 2.60, 3.40, 5.10, 9.31, 14.00, 15.40, 18.20, 19.533, 21.30, 22.12, 22.267, 23.167, 26.567, 33.30, 34.333, 39.333]
+def W(t):
+    return float(np.interp(t, WARP_OLD, WARP_NEW))
+
 def N(name):
     return pm.note_name_to_number(name)
 
@@ -45,7 +52,8 @@ def inst(key, program, drum=False):
 
 def note(key, program, pitch, t0, dur, vel=80, drum=False):
     p = N(pitch) if isinstance(pitch, str) else pitch
-    inst(key, program, drum).notes.append(pm.Note(velocity=int(np.clip(vel, 1, 127)), pitch=p, start=max(0, t0), end=max(t0 + 0.05, t0 + dur)))
+    a, b = W(max(0, t0)), W(t0 + dur)
+    inst(key, program, drum).notes.append(pm.Note(velocity=int(np.clip(vel, 1, 127)), pitch=p, start=a, end=max(a + 0.05, b)))
 
 def chord(key, program, pitches, t0, dur, vel=70):
     for p in pitches: note(key, program, p, t0, dur, vel)
@@ -54,7 +62,7 @@ def ramp(key, program, t0, t1, v0, v1, cc=11, steps=24, drum=False):
     i = inst(key, program, drum)
     for k in range(steps + 1):
         t = t0 + (t1 - t0) * k / steps
-        i.control_changes.append(pm.ControlChange(number=cc, value=int(np.clip(v0 + (v1 - v0) * k / steps, 0, 127)), time=t))
+        i.control_changes.append(pm.ControlChange(number=cc, value=int(np.clip(v0 + (v1 - v0) * k / steps, 0, 127)), time=W(t)))
 
 # ---------------- HOOK (0–5.3): trémolo grave + contrabajo, crescendo ----------------
 chord('trem', 44, ['D2', 'A2', 'D3'], 0.0, T_NEWS - 0.1, 90)
@@ -183,7 +191,7 @@ def render(key):
     with AudioFile(wav) as f:
         a = f.read(f.frames)
     if a.shape[0] == 1: a = np.vstack([a, a])
-    n = int(END * SR) + SR
+    n = int(W(END) * SR) + SR
     out = np.zeros((2, n), dtype=np.float32); L = min(n, a.shape[1]); out[:, :L] = a[:2, :L]
     return out
 
@@ -205,13 +213,15 @@ for key in stems:
 t = np.arange(mix.shape[1]) / SR
 sub = np.zeros_like(t)
 for t0, f0, f1, d in ((2.30, 55, 37, 1.0), (3.20, 55, 37, 1.0), (16.85, 60, 37, 1.3), (PEAK, 66, 55, 0.9), (T_CONF, 49, 37, 1.6), (R, 60, 37, 2.6)):
-    i0 = int(t0 * SR); n = int(d * SR); tt = np.arange(n) / SR
+    i0 = int(W(t0) * SR); n = int(d * SR); tt = np.arange(n) / SR
     f = f1 + (f0 - f1) * np.exp(-tt / 0.12)
     sub[i0:i0 + n] += np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt / (d * 0.45)) * 0.5
 mix += np.vstack([sub, sub]).astype(np.float32)
 
+# a partir de aquí todo va en la línea de tiempo nueva
+T_EY, T_CONF, END = W(T_EY), W(T_CONF), W(END)
 # VACÍO antes del "Ey.": caída exponencial de 60 ms con cola de reverb corta
-i0 = int(24.25 * SR); fall = int(0.06 * SR)
+i0 = int(W(24.25) * SR); fall = int(0.06 * SR)
 env = np.ones(mix.shape[1], dtype=np.float32)
 env[i0:i0 + fall] = np.exp(-np.linspace(0, 6, fall))
 env[i0 + fall:int(T_EY * SR)] = np.exp(-6) * np.exp(-np.linspace(0, 4, int(T_EY * SR) - i0 - fall))
