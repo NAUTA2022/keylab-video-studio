@@ -189,22 +189,6 @@
           "color": "soft"
         },
         {
-          "k": "text",
-          "at": 4.3,
-          "text": "COMPRADORES DE VIVIENDA NO VIS",
-          "y": 640,
-          "size": 70
-        },
-        {
-          "k": "text",
-          "at": 6.35,
-          "text": "VIVEN EN EL EXTERIOR",
-          "y": 760,
-          "size": 110,
-          "anim": "slam",
-          "bg": "cobalt"
-        },
-        {
           "k": "drop",
           "at": 5.9,
           "x": 540,
@@ -218,9 +202,34 @@
           "k": "chip",
           "at": 6.9,
           "text": "Antioquia, ene–ago 2026 · fuente: El Colombiano",
-          "y": 1000,
+          "y": 1020,
           "tone": "white",
           "size": 24
+        },
+        {
+          "k": "text",
+          "at": 4.3,
+          "text": "COMPRADORES NO VIS",
+          "y": 630,
+          "size": 76
+        },
+        {
+          "k": "text",
+          "at": 6.35,
+          "text": "VIVEN EN EL",
+          "y": 740,
+          "size": 110,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 6.55,
+          "text": "EXTERIOR",
+          "y": 870,
+          "size": 110,
+          "anim": "slam",
+          "bg": "cobalt"
         }
       ]
     },
@@ -250,25 +259,34 @@
         {
           "k": "text",
           "at": 0.1,
-          "text": "¿ESE COMPRADOR",
+          "text": "Y ESE COMPRADOR,",
           "y": 330,
           "size": 110
-        },
-        {
-          "k": "text",
-          "at": 0.9,
-          "text": "CÓMO LLEGA A TU STAND?",
-          "y": 470,
-          "size": 96,
-          "anim": "slam",
-          "bg": "white"
         },
         {
           "k": "clock",
           "at": 0.2,
           "x": 540,
-          "y": 900,
+          "y": 960,
           "size": 230
+        },
+        {
+          "k": "text",
+          "at": 0.9,
+          "text": "¿CÓMO LLEGA",
+          "y": 470,
+          "size": 100,
+          "anim": "slam",
+          "bg": "white"
+        },
+        {
+          "k": "text",
+          "at": 1.1,
+          "text": "A TU STAND?",
+          "y": 600,
+          "size": 100,
+          "anim": "slam",
+          "bg": "white"
         }
       ]
     },
@@ -315,20 +333,20 @@
           "at": 0.6,
           "text": "MADRID 🇪🇸",
           "x": 150,
-          "y": 300
+          "y": 400
         },
         {
           "k": "pin",
           "at": 1.3,
           "text": "MIAMI 🇺🇸",
           "x": 600,
-          "y": 300
+          "y": 400
         },
         {
           "k": "text",
           "at": 2.2,
           "text": "TU PROYECTO",
-          "y": 480,
+          "y": 560,
           "size": 140,
           "anim": "slam"
         },
@@ -336,7 +354,7 @@
           "k": "text",
           "at": 3.0,
           "text": "EN SU CELULAR 📱",
-          "y": 650,
+          "y": 730,
           "size": 110,
           "anim": "slam",
           "bg": "white"

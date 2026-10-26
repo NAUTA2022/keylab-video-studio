@@ -27,7 +27,17 @@ const force = flags.includes('--force');
 const reuse = flags.includes('--reusar');
 const only = flags.find((f) => f.startsWith('--escena='))?.split('=')[1];
 const FPS = 30;
-const BROWSER = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
+// usa el headless_shell que esté instalado (la versión cambia entre entornos)
+const BROWSER = process.env.REMOTION_BROWSER || (() => {
+  const base = '/opt/pw-browsers';
+  for (const d of (fs.existsSync(base) ? fs.readdirSync(base) : []).filter((x) => x.startsWith('chromium_headless_shell')).sort().reverse()) {
+    for (const rel of ['chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-linux/headless_shell']) {
+      const f = `${base}/${d}/${rel}`;
+      if (fs.existsSync(f)) return f;
+    }
+  }
+  return undefined;
+})();
 const data = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
 const key = data.bakeKey;
 if (!key) throw new Error(`${dataPath} no tiene "bakeKey"`);
@@ -75,7 +85,7 @@ for (const [i, s] of data.scenes.entries()) {
   fs.rmSync(tmp, { recursive: true, force: true });
   console.log(`escena ${i} (${s.type}): horneando cuadros ${start}-${start + len - 1}…`);
   const t0 = Date.now();
-  execFileSync('npx', ['remotion', 'render', comp, tmp, '--sequence', '--image-format=png', `--frames=${start}-${start + len - 1}`, '--props', JSON.stringify({ ...data, bake3d: true }), `--browser-executable=${BROWSER}`, '--concurrency=2', '--log=error'], { stdio: 'inherit' });
+  execFileSync('npx', ['remotion', 'render', comp, tmp, '--sequence', '--image-format=png', `--frames=${start}-${start + len - 1}`, '--props', JSON.stringify({ ...data, bake3d: true }), `--browser-executable=${BROWSER}`, '--concurrency=2', '--gl=swangle', '--log=error'], { stdio: 'inherit' });
   // el horneado viejo se borra solo cuando el nuevo salió bien
   if (fs.existsSync(base)) for (const d of fs.readdirSync(base)) if (d.startsWith(`${i}-`)) fs.rmSync(path.join(base, d), { recursive: true });
   fs.mkdirSync(dir, { recursive: true });
