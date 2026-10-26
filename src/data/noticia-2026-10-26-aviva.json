@@ -1,0 +1,211 @@
+{
+  "bakeKey": "noticia-2026-10-26-aviva",
+  "voice": "media/noticia-2026-10-26-aviva/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-26-aviva/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 4.65,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Una aseguradora tokenizó su",
+      "highlight": "fondo más grande",
+      "cues": {
+        "title": 1.38,
+        "boom": 3.2
+      }
+    },
+    {
+      "type": "stat",
+      "dur": 2.8,
+      "tag": "La cifra",
+      "value": 22,
+      "prefix": "£",
+      "suffix": "",
+      "label": "mil millones de libras: el fondo más grande de Aviva Investors",
+      "note": "≈ US$29.400 millones · Fuente: Aviva Investors y Ripple, 26 oct 2026"
+    },
+    {
+      "type": "roast",
+      "dur": 2.85,
+      "tag": "Realidad",
+      "lines": [
+        "Y tú cobrando el arriendo",
+        "con pantallazos por WhatsApp"
+      ],
+      "punch": "¿Y el comprobante?",
+      "cues": {
+        "line0": 0.1,
+        "line1": 0.75,
+        "punch": 1.75
+      }
+    },
+    {
+      "type": "news",
+      "dur": 8.45,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "26 oct 2026",
+      "headline": "Aviva Investors lanza una versión tokenizada de su fondo en libras de US$29.000 millones en XRP Ledger",
+      "articleShot": "media/noticia-2026-10-26-aviva/nota.png",
+      "siteUrl": "avivainvestors.com",
+      "siteShot": "media/noticia-2026-10-26-aviva/web-empresa.png",
+      "chip": "Sterling Liquidity Fund · XRP Ledger · con Ripple"
+    },
+    {
+      "type": "stat",
+      "dur": 2.85,
+      "tag": "Resultados",
+      "value": 86,
+      "prefix": "£",
+      "suffix": " M",
+      "label": "ya invertidos en sus 2 fondos tokenizados",
+      "note": "Fuente: Aviva Investors y Ripple, 26 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 2.75,
+      "tag": "Resultados",
+      "value": 50,
+      "prefix": "£",
+      "suffix": " M",
+      "label": "los puso Aviva de su propio bolsillo",
+      "note": "Fuente: Aviva Investors y Ripple, 26 oct 2026"
+    },
+    {
+      "type": "ey",
+      "dur": 0.9
+    },
+    {
+      "type": "pivot",
+      "dur": 2.7,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tu fondo",
+        "lo tuyo"
+      ],
+      "wordsAt": [
+        0.25,
+        1.3
+      ],
+      "icons": [
+        "tokens",
+        "manos"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.05,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu plataforma de tokenización",
+        "Fondos y activos en blockchain",
+        "Con tu marca"
+      ],
+      "itemsAt": [
+        1.2,
+        2.1,
+        3.0
+      ],
+      "icons": [
+        "panel",
+        "contrato",
+        "marca"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.5
+    }
+  ],
+  "gags": [
+    {
+      "at": 4.9,
+      "dur": 1.5,
+      "image": "memes/zorro/zorro-asustado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.76,
+      "y": 0.31,
+      "size": 0.22,
+      "rotate": 6,
+      "caption": "¿22 MIL MILLONES? 😱",
+      "sfx": "sfx/boing.mp3"
+    },
+    {
+      "at": 9.0,
+      "dur": 1.3,
+      "image": "memes/zorro/zorro-nervioso-fondo.jpg",
+      "style": "sticker",
+      "x": 0.8,
+      "y": 0.56,
+      "size": 0.2,
+      "rotate": -6,
+      "caption": "pantallazo_v3.jpg 😬",
+      "sfx": "sfx/bruh.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 1.08,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.38,
+      "to": 4.5,
+      "text": "Una aseguradora tokenizó su fondo más grande."
+    },
+    {
+      "from": 4.79,
+      "to": 6.6,
+      "text": "¡22 mil millones de libras!"
+    },
+    {
+      "from": 6.86,
+      "to": 10.15,
+      "text": "Y tú, cobrando el arriendo con pantallazos por WhatsApp."
+    },
+    {
+      "from": 10.44,
+      "to": 12.9,
+      "text": "Aviva Investors lanzó con Ripple"
+    },
+    {
+      "from": 12.9,
+      "to": 15.5,
+      "text": "una versión tokenizada de su fondo de liquidez en libras:"
+    },
+    {
+      "from": 15.76,
+      "to": 18.62,
+      "text": "mismo fondo, mismas reglas, ahora en blockchain."
+    },
+    {
+      "from": 18.9,
+      "to": 21.44,
+      "text": "Ya suma 86 millones de libras tokenizadas,"
+    },
+    {
+      "from": 21.72,
+      "to": 23.9,
+      "text": "y Aviva puso 50 de su bolsillo."
+    },
+    {
+      "from": 25.35,
+      "to": 27.75,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 28.04,
+      "to": 31.77,
+      "text": "En Key Lab construimos tu plataforma de tokenización, con tu marca."
+    },
+    {
+      "from": 32.08,
+      "to": 33.38,
+      "text": "Agenda una reunión."
+    }
+  ]
+}
