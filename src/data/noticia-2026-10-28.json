@@ -1,0 +1,430 @@
+{
+  "bakeKey": "noticia-2026-10-28",
+  "voice": "media/noticia-2026-10-28/voz.mp3",
+  "score": "media/noticia-2026-10-28/partitura.wav",
+  "soundtrack": "media/noticia-2026-10-28/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 6.1,
+      "photo": "media/noticia-2026-10-28/medellin.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.1,
+          0,
+          2
+        ],
+        "to": [
+          1.28,
+          0,
+          -3
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        2.5,
+        4.6
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1180,
+          "size": 48,
+          "fall": 0.5,
+          "rings": 4,
+          "color": "white"
+        },
+        {
+          "k": "chip",
+          "at": 0.1,
+          "text": "Noticia del día",
+          "y": 300,
+          "tone": "cobalt",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "pin",
+          "at": 1.5,
+          "text": "MEDELLÍN 🇨🇴",
+          "x": 200,
+          "y": 470
+        },
+        {
+          "k": "count",
+          "at": 2.5,
+          "from": 0,
+          "to": 178,
+          "y": 560,
+          "size": 300,
+          "dur": 0.9
+        },
+        {
+          "k": "text",
+          "at": 3.6,
+          "text": "PROYECTOS",
+          "y": 880,
+          "size": 120,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 4.6,
+          "text": "SALÓN DEL INMUEBLE",
+          "y": 1030,
+          "size": 90,
+          "anim": "slam",
+          "bg": "cobalt"
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 3.65,
+      "photo": "media/noticia-2026-10-28/medellin-dia.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.2,
+          0,
+          0
+        ],
+        "to": [
+          1.35,
+          0,
+          -2
+        ]
+      },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [
+        2.8
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.1,
+          "text": "33 CONSTRUCTORAS",
+          "y": 330,
+          "size": 110,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 1.75,
+          "text": "1.000 FOLLETOS",
+          "y": 500,
+          "size": 110,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 2.8,
+          "text": "Y UN LLAVERO 🔑",
+          "y": 680,
+          "size": 110,
+          "anim": "slam",
+          "bg": "white",
+          "rotate": -3
+        }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 6.0,
+      "tag": "Noticia",
+      "source": "El Colombiano",
+      "articleUrl": "elcolombiano.com",
+      "date": "23 oct 2026",
+      "headline": "Estos son los 178 proyectos inmobiliarios que se mueven en Antioquia",
+      "articleShot": "media/noticia-2026-10-28/nota.png",
+      "siteUrl": "conaltura.com",
+      "siteShot": "media/noticia-2026-10-28/web-empresa.png",
+      "chip": "Conaltura: el sector vende 15–20 % menos"
+    },
+    {
+      "type": "mg",
+      "dur": 8.0,
+      "photo": "media/noticia-2026-10-28/medellin.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.35,
+          3,
+          0
+        ],
+        "to": [
+          1.15,
+          -3,
+          0
+        ]
+      },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [
+        1.3,
+        6.35
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.15,
+          "text": "Y OJO:",
+          "y": 260,
+          "size": 100
+        },
+        {
+          "k": "count",
+          "at": 1.3,
+          "from": 0,
+          "to": 15,
+          "suffix": " DE 100",
+          "y": 380,
+          "size": 200,
+          "dur": 0.7,
+          "color": "soft"
+        },
+        {
+          "k": "text",
+          "at": 4.3,
+          "text": "COMPRADORES DE VIVIENDA NO VIS",
+          "y": 640,
+          "size": 70
+        },
+        {
+          "k": "text",
+          "at": 6.35,
+          "text": "VIVEN EN EL EXTERIOR",
+          "y": 760,
+          "size": 110,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "drop",
+          "at": 5.9,
+          "x": 540,
+          "y": 1150,
+          "size": 46,
+          "fall": 0.45,
+          "rings": 5,
+          "color": "white"
+        },
+        {
+          "k": "chip",
+          "at": 6.9,
+          "text": "Antioquia, ene–ago 2026 · fuente: El Colombiano",
+          "y": 1000,
+          "tone": "white",
+          "size": 24
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 2.15,
+      "photo": "media/noticia-2026-10-28/medellin-dia.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.4,
+          0,
+          0
+        ],
+        "to": [
+          1.5,
+          0,
+          0
+        ]
+      },
+      "tint": "dark",
+      "blur": 10,
+      "shake": [
+        0.9
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.1,
+          "text": "¿ESE COMPRADOR",
+          "y": 330,
+          "size": 110
+        },
+        {
+          "k": "text",
+          "at": 0.9,
+          "text": "CÓMO LLEGA A TU STAND?",
+          "y": 470,
+          "size": 96,
+          "anim": "slam",
+          "bg": "white"
+        },
+        {
+          "k": "clock",
+          "at": 0.2,
+          "x": 540,
+          "y": 900,
+          "size": 230
+        }
+      ]
+    },
+    {
+      "type": "ey",
+      "dur": 0.8333
+    },
+    {
+      "type": "mg",
+      "dur": 4.2667,
+      "photo": "media/noticia-2026-10-28/medellin.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.15,
+          0,
+          0
+        ],
+        "to": [
+          1.3,
+          0,
+          -2
+        ]
+      },
+      "tint": "cobalt",
+      "blur": 8,
+      "shake": [
+        2.2,
+        3.0
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1180,
+          "size": 52,
+          "fall": 0.45,
+          "rings": 5,
+          "color": "soft"
+        },
+        {
+          "k": "pin",
+          "at": 0.6,
+          "text": "MADRID 🇪🇸",
+          "x": 150,
+          "y": 300
+        },
+        {
+          "k": "pin",
+          "at": 1.3,
+          "text": "MIAMI 🇺🇸",
+          "x": 600,
+          "y": 300
+        },
+        {
+          "k": "text",
+          "at": 2.2,
+          "text": "TU PROYECTO",
+          "y": 480,
+          "size": 140,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 3.0,
+          "text": "EN SU CELULAR 📱",
+          "y": 650,
+          "size": 110,
+          "anim": "slam",
+          "bg": "white"
+        }
+      ]
+    },
+    {
+      "type": "hook",
+      "dur": 5.0,
+      "tag": "Key Lab",
+      "kicker": "En Key Lab construimos",
+      "title": "Tu web en 3D, piso a piso",
+      "highlight": "y en fragmentos",
+      "asset": "building3d",
+      "cues": {
+        "building": 1.3,
+        "tokens": 3.55
+      }
+    },
+    {
+      "type": "close",
+      "dur": 5.0
+    }
+  ],
+  "gags": [
+    {
+      "at": 8.75,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-galan-fondo.jpg",
+      "style": "sticker",
+      "x": 0.78,
+      "y": 0.55,
+      "size": 0.2,
+      "rotate": 6,
+      "caption": "Tome su llavero 🌹",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 0.96,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.48,
+      "to": 5.69,
+      "text": "Medellín sacó 178 proyectos al Salón del Inmueble."
+    },
+    {
+      "from": 6.2,
+      "to": 9.37,
+      "text": "33 constructoras, mil folletos y un llavero."
+    },
+    {
+      "from": 9.88,
+      "to": 15.36,
+      "text": "Pero el sector vende entre 15 y 20 % menos que el año pasado, según Conaltura."
+    },
+    {
+      "from": 15.88,
+      "to": 16.47,
+      "text": "Y ojo:"
+    },
+    {
+      "from": 16.99,
+      "to": 23.28,
+      "text": "más de 15 de cada 100 compradores de vivienda no VIS en Antioquia viven en el exterior."
+    },
+    {
+      "from": 23.86,
+      "to": 25.63,
+      "text": "¿Ese comprador cómo llega a tu stand?"
+    },
+    {
+      "from": 26.73,
+      "to": 30.86,
+      "text": "Si el que compra está en Madrid o en Miami, tu proyecto tiene que estar en su celular."
+    },
+    {
+      "from": 31.15,
+      "to": 36.48,
+      "text": "En Key Lab construimos tu web en 3D, piso a piso, y tu plataforma para fragmentar el proyecto."
+    },
+    {
+      "from": 36.84,
+      "to": 38.21,
+      "text": "Agenda una reunión."
+    }
+  ]
+}
