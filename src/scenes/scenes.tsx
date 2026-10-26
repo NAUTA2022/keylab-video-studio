@@ -16,7 +16,7 @@ import { Phone3D } from '../three/Phone3D';
 import { AssetSequence, ExcelChaos } from '../svg/assets';
 import { EY_FOX, OUTRO_MUEJEJE, OUTRO_MUEJEJE_LEAD, OneGag } from '../components/Gags';
 import { Sequence } from 'remotion';
-import { PiFileTextFill, PiLockKeyFill, PiPathFill, PiSquaresFourFill, PiStorefrontFill, PiUserCheckFill } from 'react-icons/pi';
+import { PiFileTextFill, PiGlobeFill, PiLockKeyFill, PiPathFill, PiRobotFill, PiSquaresFourFill, PiStorefrontFill, PiUserCheckFill, PiWhatsappLogoFill } from 'react-icons/pi';
 
 // íconos funcionales (react-icons, Phosphor) para las tarjetas de solución
 const SOLUTION_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
@@ -26,6 +26,9 @@ const SOLUTION_ICONS: Record<string, React.ComponentType<{ size?: number; color?
   trazabilidad: PiPathFill,
   panel: PiSquaresFourFill,
   candado: PiLockKeyFill,
+  ia: PiRobotFill,
+  web: PiGlobeFill,
+  whatsapp: PiWhatsappLogoFill,
 };
 import { BrowserWindow, GeoIcon, Isotipo, MaskReveal, Stamp, Wordmark, usePunch, useLayout } from '../components/ui';
 

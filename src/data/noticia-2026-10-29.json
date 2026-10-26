@@ -1,0 +1,154 @@
+{
+  "bakeKey": "noticia-2026-10-29",
+  "voice": "media/noticia-2026-10-29/voz.mp3",
+  "score": "media/noticia-2026-10-29/partitura.wav",
+  "soundtrack": "media/noticia-2026-10-29/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 6.45,
+      "photo": "media/noticia-2026-10-29/bodega.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.1, 0, 2], "to": [1.28, 0, -3] },
+      "tint": "dark",
+      "shake": [2.1, 4.3],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1180, "size": 48, "fall": 0.5, "rings": 4, "color": "white" },
+        { "k": "chip", "at": 0.1, "text": "Noticia del día", "y": 300, "tone": "cobalt", "caps": true, "size": 30 },
+        { "k": "pin", "at": 1.5, "text": "MERCADO LIBRE · LATAM", "x": 200, "y": 470 },
+        { "k": "count", "at": 2.1, "from": 0, "to": 9000000, "y": 560, "size": 170, "dur": 1.2 },
+        { "k": "text", "at": 3.4, "text": "CONVERSACIONES", "y": 780, "size": 120, "anim": "slam" },
+        { "k": "text", "at": 4.3, "text": "CON IA 🤖", "y": 930, "size": 120, "anim": "slam", "bg": "cobalt" },
+        { "k": "chip", "at": 5.4, "text": "por trimestre", "y": 1080, "tone": "white", "caps": true, "size": 30 }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 5.85,
+      "photo": "media/noticia-2026-10-29/pyme.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.2, 0, 0], "to": [1.35, 0, -2] },
+      "tint": "dark",
+      "blur": 6,
+      "shake": [],
+      "layers": [
+        { "k": "text", "at": 0.1, "text": "Y TÚ TODAVÍA…", "y": 270, "size": 110, "anim": "slam" },
+        { "k": "bubble", "at": 1.5, "text": "¿precio?", "x": 160, "y": 470, "time": "11:02 p. m." },
+        { "k": "bubble", "at": 2.1, "text": "¿precio? 👀", "x": 160, "y": 600, "time": "11:03 p. m." },
+        { "k": "bubble", "at": 2.7, "text": "¿hay envío a Pereira?", "x": 160, "y": 730, "time": "11:04 p. m." },
+        { "k": "bubble", "at": 3.6, "text": "Ya le respondo 😩", "x": 420, "y": 880, "me": true, "time": "11:07 p. m." },
+        { "k": "clock", "at": 4.3, "x": 540, "y": 1180, "size": 200 }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 3.7,
+      "tag": "Noticia",
+      "source": "Tecnogus",
+      "articleUrl": "tecnogus.com.co",
+      "date": "12 oct 2026",
+      "headline": "IA de Mercado Libre procesa 9 millones de consultas",
+      "articleShot": "media/noticia-2026-10-29/nota.png",
+      "siteUrl": "mercadolibre.com.co",
+      "siteShot": "media/noticia-2026-10-29/web-empresa.png",
+      "chip": "Mercado Libre · IA en atención y ventas"
+    },
+    {
+      "type": "mg",
+      "dur": 4.3,
+      "photo": "media/noticia-2026-10-29/pyme.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.35, 3, 0], "to": [1.2, -3, 0] },
+      "tint": "cobalt",
+      "blur": 8,
+      "shake": [0.0],
+      "layers": [
+        { "k": "count", "at": 0.0, "from": 0, "to": 30000, "prefix": "+", "y": 300, "size": 220, "dur": 0.8 },
+        { "k": "text", "at": 0.8, "text": "PYMES CON", "y": 560, "size": 110 },
+        { "k": "text", "at": 1.2, "text": "ASISTENTE VIRTUAL", "y": 690, "size": 100, "anim": "slam", "bg": "white" },
+        { "k": "chip", "at": 2.4, "text": "📦 Inventario", "x": 140, "y": 860, "tone": "white", "size": 34 },
+        { "k": "chip", "at": 2.75, "text": "💬 Responder clientes", "x": 470, "y": 860, "tone": "white", "size": 34 }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 8.05,
+      "photo": "media/noticia-2026-10-29/foto-producto.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": { "from": [1.1, 0, 0], "to": [1.3, 0, -2] },
+      "tint": "dark",
+      "blur": 3,
+      "shake": [3.2, 5.5, 7.0],
+      "layers": [
+        { "k": "chip", "at": 0.2, "text": "📸 Photo Studio de Mercado Libre", "y": 270, "tone": "cobalt", "size": 34 },
+        { "k": "count", "at": 3.2, "from": 0, "to": 900000, "y": 380, "size": 210, "dur": 1.0 },
+        { "k": "text", "at": 4.3, "text": "FOTOS DE PRODUCTO", "y": 610, "size": 96 },
+        { "k": "count", "at": 5.5, "from": 0, "to": 37000, "y": 740, "size": 170, "dur": 0.8, "color": "soft" },
+        { "k": "text", "at": 6.3, "text": "VENDEDORES", "y": 930, "size": 96 },
+        { "k": "text", "at": 7.0, "text": "EN UNA SEMANA", "y": 1060, "size": 100, "anim": "slam", "bg": "cobalt", "rotate": -2 }
+      ]
+    },
+    { "type": "ey", "dur": 0.8 },
+    {
+      "type": "mg",
+      "dur": 3.4,
+      "tint": "cobalt",
+      "shake": [1.6],
+      "layers": [
+        { "k": "drop", "at": 0.0, "x": 540, "y": 1150, "size": 52, "fall": 0.45, "rings": 5, "color": "soft" },
+        { "k": "text", "at": 0.05, "text": "SI ELLOS LO HACEN", "y": 330, "size": 100 },
+        { "k": "text", "at": 0.6, "text": "CON MILLONES,", "y": 450, "size": 100 },
+        { "k": "text", "at": 1.6, "text": "TÚ LO HACES", "y": 600, "size": 140, "anim": "slam" },
+        { "k": "text", "at": 2.2, "text": "CON TU NEGOCIO", "y": 770, "size": 110, "anim": "slam", "bg": "white" }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 6.05,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": ["Tu asistente con IA", "Conectado a tu web", "Y a tu WhatsApp"],
+      "itemsAt": [0.8, 2.95, 4.1],
+      "icons": ["ia", "web", "whatsapp"]
+    },
+    { "type": "close", "dur": 5.0 }
+  ],
+  "gags": [
+    {
+      "at": 10.6,
+      "dur": 1.5,
+      "image": "memes/zorro-cansado.jpg",
+      "style": "sticker",
+      "x": 0.8,
+      "y": 0.25,
+      "size": 0.2,
+      "rotate": 6,
+      "caption": "11 p. m. 💀",
+      "sfx": "sfx/bruh.mp3"
+    },
+    {
+      "at": 33.6,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-sobrado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.19,
+      "size": 0.16,
+      "rotate": -6,
+      "caption": "Y responde solo 😎",
+      "sfx": "sfx/scratch.mp3"
+    }
+  ],
+  "subtitles": [
+    { "from": 0.0, "to": 1.06, "text": "Noticia del día:" },
+    { "from": 1.6, "to": 6.33, "text": "Mercado Libre ya responde 9 millones de conversaciones por trimestre con IA." },
+    { "from": 6.58, "to": 12.0, "text": "Y tú todavía contestas a mano el \"¿precio?\" a las 11 de la noche." },
+    { "from": 12.59, "to": 18.45, "text": "Según Tecnogus, más de 30 mil pymes de la región ya usan asistentes virtuales" },
+    { "from": 18.66, "to": 20.02, "text": "para manejar inventario y responder clientes," },
+    { "from": 20.43, "to": 28.05, "text": "y Photo Studio de Mercado Libre armó 900 mil fotos de producto para 37 mil vendedores en una sola semana." },
+    { "from": 29.14, "to": 32.35, "text": "Si ellos lo hacen con millones, tú lo puedes hacer con tu negocio." },
+    { "from": 32.72, "to": 38.3, "text": "En Key Lab construimos tu asistente con IA, conectado a tu web y a tu WhatsApp." },
+    { "from": 38.76, "to": 40.19, "text": "Agenda una reunión." }
+  ]
+}
