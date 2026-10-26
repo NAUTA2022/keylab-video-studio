@@ -1,0 +1,438 @@
+{
+  "bakeKey": "noticia-2026-10-26",
+  "voice": "media/noticia-2026-10-26/voz.mp3",
+  "score": "media/noticia-2026-10-26/partitura.wav",
+  "soundtrack": "media/noticia-2026-10-26/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "mg",
+      "dur": 5.3,
+      "photo": "media/noticia-2026-10-26/panama.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.1,
+          0,
+          2
+        ],
+        "to": [
+          1.3,
+          0,
+          -3
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        2.3,
+        3.2,
+        3.7
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1180,
+          "size": 48,
+          "fall": 0.5,
+          "rings": 4,
+          "color": "white"
+        },
+        {
+          "k": "chip",
+          "at": 0.1,
+          "text": "Noticia del día",
+          "y": 300,
+          "tone": "cobalt",
+          "caps": true,
+          "size": 30
+        },
+        {
+          "k": "pin",
+          "at": 1.5,
+          "text": "PANAMÁ 🇵🇦",
+          "x": 200,
+          "y": 470
+        },
+        {
+          "k": "text",
+          "at": 2.3,
+          "text": "LOS TOKENS",
+          "y": 600,
+          "size": 150,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 3.2,
+          "text": "NO TIENEN",
+          "y": 790,
+          "size": 110,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "text",
+          "at": 3.7,
+          "text": "QUIÉN LOS VIGILE",
+          "y": 915,
+          "size": 110,
+          "anim": "slam",
+          "bg": "cobalt"
+        },
+        {
+          "k": "emoji",
+          "at": 3.8,
+          "name": "ojos",
+          "x": 870,
+          "y": 1080,
+          "size": 170
+        }
+      ]
+    },
+    {
+      "type": "news",
+      "dur": 10.55,
+      "tag": "Noticia",
+      "source": "Infobae",
+      "date": "26 oct 2026",
+      "headline": "La SMV de Panamá excluye a las criptomonedas de su supervisión",
+      "articleShot": "media/noticia-2026-10-26/nota.png",
+      "siteUrl": "supervalores.gob.pa",
+      "siteShot": "media/noticia-2026-10-26/web-empresa.png",
+      "chip": "SMV · Superintendencia del Mercado de Valores"
+    },
+    {
+      "type": "mg",
+      "dur": 5.77,
+      "photo": "media/noticia-2026-10-26/panama.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.35,
+          3,
+          0
+        ],
+        "to": [
+          1.2,
+          -3,
+          0
+        ]
+      },
+      "tint": "cobalt",
+      "blur": 10,
+      "shake": [
+        1.0,
+        3.98
+      ],
+      "layers": [
+        {
+          "k": "chip",
+          "at": 0.3,
+          "text": "Fuente: Nexo vía Infobae",
+          "y": 260,
+          "tone": "white",
+          "caps": true,
+          "size": 24
+        },
+        {
+          "k": "count",
+          "at": 1.0,
+          "to": 4,
+          "y": 320,
+          "size": 300,
+          "dur": 0.5
+        },
+        {
+          "k": "text",
+          "at": 1.6,
+          "text": "PROYECTOS DE LEY",
+          "y": 650,
+          "size": 96
+        },
+        {
+          "k": "chip",
+          "at": 2.0,
+          "text": "📄 Marzo 2025",
+          "x": 140,
+          "y": 800,
+          "tone": "white",
+          "size": 32
+        },
+        {
+          "k": "chip",
+          "at": 2.25,
+          "text": "📄 Agosto 2025",
+          "x": 560,
+          "y": 800,
+          "tone": "white",
+          "size": 32
+        },
+        {
+          "k": "chip",
+          "at": 2.5,
+          "text": "📄 Octubre 2025",
+          "x": 140,
+          "y": 880,
+          "tone": "white",
+          "size": 32
+        },
+        {
+          "k": "chip",
+          "at": 2.75,
+          "text": "📄 Enero 2026",
+          "x": 560,
+          "y": 880,
+          "tone": "white",
+          "size": 32
+        },
+        {
+          "k": "text",
+          "at": 3.98,
+          "text": "SIN FECHA DE DEBATE",
+          "y": 990,
+          "size": 84,
+          "anim": "slam",
+          "bg": "ink"
+        },
+        {
+          "k": "clock",
+          "at": 4.05,
+          "x": 540,
+          "y": 1210,
+          "size": 230
+        }
+      ]
+    },
+    {
+      "type": "mg",
+      "dur": 2.78,
+      "photo": "media/noticia-2026-10-26/balon.jpg",
+      "credit": "Foto: Pexels (licencia libre)",
+      "kb": {
+        "from": [
+          1.1,
+          0,
+          0
+        ],
+        "to": [
+          1.32,
+          0,
+          -2
+        ]
+      },
+      "tint": "dark",
+      "shake": [
+        0.9,
+        1.75
+      ],
+      "layers": [
+        {
+          "k": "text",
+          "at": 0.25,
+          "text": "O SEA:",
+          "y": 300,
+          "size": 90
+        },
+        {
+          "k": "text",
+          "at": 0.9,
+          "text": "PARTIDO DE BARRIO",
+          "y": 420,
+          "size": 104,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 1.75,
+          "text": "SIN ÁRBITRO",
+          "y": 640,
+          "size": 150,
+          "anim": "slam",
+          "bg": "cobalt",
+          "rotate": -3
+        },
+        {
+          "k": "emoji",
+          "at": 1.85,
+          "name": "ojos-blanco",
+          "x": 860,
+          "y": 840,
+          "size": 170
+        }
+      ]
+    },
+    {
+      "type": "ey",
+      "dur": 0.95
+    },
+    {
+      "type": "mg",
+      "dur": 3.5,
+      "tint": "cobalt",
+      "shake": [
+        1.35
+      ],
+      "layers": [
+        {
+          "k": "drop",
+          "at": 0.0,
+          "x": 540,
+          "y": 1150,
+          "size": 52,
+          "fall": 0.45,
+          "rings": 5,
+          "color": "soft"
+        },
+        {
+          "k": "text",
+          "at": 0.1,
+          "text": "CUANDO NO HAY ÁRBITRO,",
+          "y": 320,
+          "size": 80
+        },
+        {
+          "k": "text",
+          "at": 1.35,
+          "text": "LA CONFIANZA",
+          "y": 460,
+          "size": 150,
+          "anim": "slam"
+        },
+        {
+          "k": "text",
+          "at": 2.3,
+          "text": "LA PONE",
+          "y": 660,
+          "size": 110,
+          "anim": "slam",
+          "bg": "white"
+        },
+        {
+          "k": "text",
+          "at": 2.6,
+          "text": "TU PLATAFORMA",
+          "y": 790,
+          "size": 110,
+          "anim": "slam",
+          "bg": "white"
+        },
+        {
+          "k": "emoji",
+          "at": 2.45,
+          "name": "candado",
+          "x": 870,
+          "y": 1010,
+          "size": 170
+        }
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 7.55,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu tokenizadora con tu marca",
+        "Verificación de usuarios",
+        "Contratos claros",
+        "Trazabilidad de cada fragmento"
+      ],
+      "itemsAt": [
+        1.4,
+        2.5,
+        4.5,
+        5.55
+      ],
+      "icons": [
+        "marca",
+        "usuarios",
+        "contrato",
+        "trazabilidad"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 5.0
+    }
+  ],
+  "gags": [
+    {
+      "at": 19.9,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-pensando-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.19,
+      "size": 0.17,
+      "rotate": 6,
+      "caption": "¿Sin fecha? 🤔",
+      "sfx": "sfx/bruh.mp3"
+    },
+    {
+      "at": 33.6,
+      "dur": 1.6,
+      "image": "memes/zorro/zorro-sobrado-fondo.jpg",
+      "style": "sticker",
+      "x": 0.84,
+      "y": 0.26,
+      "size": 0.16,
+      "rotate": -6,
+      "caption": "Así sí 😎",
+      "sfx": "sfx/boing.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.0,
+      "to": 0.98,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.45,
+      "to": 4.95,
+      "text": "En Panamá, los tokens no tienen quién los vigile."
+    },
+    {
+      "from": 5.49,
+      "to": 10.08,
+      "text": "La Superintendencia del Mercado de Valores sostiene desde 2018"
+    },
+    {
+      "from": 10.48,
+      "to": 15.59,
+      "text": "que un token no es un valor, y que estos esquemas no necesitan su permiso."
+    },
+    {
+      "from": 16.1,
+      "to": 21.37,
+      "text": "Mientras tanto, 4 proyectos de ley de activos digitales siguen sin fecha de debate."
+    },
+    {
+      "from": 21.88,
+      "to": 24.2,
+      "text": "O sea: partido de barrio sin árbitro."
+    },
+    {
+      "from": 25.34,
+      "to": 28.6,
+      "text": "Cuando no hay árbitro, la confianza la pone tu plataforma."
+    },
+    {
+      "from": 29.06,
+      "to": 32.99,
+      "text": "En Key Lab construimos tu tokenizadora con verificación de usuarios,"
+    },
+    {
+      "from": 33.37,
+      "to": 36.28,
+      "text": "contratos claros y trazabilidad de cada fragmento."
+    },
+    {
+      "from": 36.85,
+      "to": 38.35,
+      "text": "Agenda una reunión."
+    }
+  ]
+}

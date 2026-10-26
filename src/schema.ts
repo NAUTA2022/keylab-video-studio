@@ -36,6 +36,9 @@ const mgLayer = z.discriminatedUnion('k', [
     prop: z.enum(['mate']).optional(), from: z.enum(['left', 'right', 'bottom']).optional(),
   }),
   z.object({ k: z.literal('meme'), ...mgBase, text: z.string(), y: z.number(), size: z.number().optional(), color: z.string().optional(), rotate: z.number().optional() }),
+  // recursos psicológicos de atención: gota que cae y abre ondas; reloj con tic tac
+  z.object({ k: z.literal('drop'), ...mgBase, x: z.number(), y: z.number().describe('punto donde cae la gota'), size: z.number().optional(), fall: z.number().optional().describe('segundos de caída'), rings: z.number().optional(), color: z.enum(['white', 'cobalt', 'soft']).optional() }),
+  z.object({ k: z.literal('clock'), ...mgBase, x: z.number(), y: z.number(), size: z.number().optional(), label: z.string().optional() }),
 ]);
 
 export const sceneSchema = z.discriminatedUnion('type', [
@@ -55,7 +58,7 @@ export const sceneSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('stat'), ...sceneBase, value: z.number(), decimals: z.number().default(0), prefix: z.string().default(''), suffix: z.string().default(''), label: z.string(), note: z.string().optional(), asset: z.enum(['phone3d']).optional(), project: z.string().optional() }),
   z.object({ type: z.literal('ey'), ...sceneBase, word: z.string().default('Ey.') }),
   z.object({ type: z.literal('pivot'), ...sceneBase, lead: z.string(), words: z.array(z.string()).min(1), wordsAt: z.array(z.number()).optional().describe('segundo en que entra cada palabra'), icons: z.array(z.string()).optional().describe('íconos react-icons: edificio, lote, hotel, proyecto, casa, bodega, local, fabrica, finca, oficinas, tokens') }),
-  z.object({ type: z.literal('solution'), ...sceneBase, title: z.string(), items: z.array(z.string()).max(4).default([]), clip: z.string().optional().describe('clip de animation-studio en public/, ej. clips/demo-plataforma.mp4: reemplaza las tarjetas') }),
+  z.object({ type: z.literal('solution'), ...sceneBase, title: z.string(), items: z.array(z.string()).max(4).default([]), itemsAt: z.array(z.number()).optional().describe('segundo (dentro de la escena) en que entra cada tarjeta, sincronizado con la voz'), icons: z.array(z.string()).optional().describe('ícono react-icons por tarjeta: marca, usuarios, contrato, trazabilidad, panel, candado'), clip: z.string().optional().describe('clip de animation-studio en public/, ej. clips/demo-plataforma.mp4: reemplaza las tarjetas') }),
   z.object({ type: z.literal('story'), ...sceneBase }),
   z.object({ type: z.literal('clip'), ...sceneBase, clip: z.string().describe('clip 9:16 (animation-studio) en public/'), dark: z.boolean().default(false), from: z.number().default(0).describe('segundo del clip donde empieza esta escena') }),
   z.object({ type: z.literal('boveda-hook'), ...sceneBase }),

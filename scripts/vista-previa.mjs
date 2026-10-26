@@ -15,11 +15,21 @@ if (!comp || !data) {
   console.error('uso: node scripts/vista-previa.mjs <Composición> <src/data/video.json>');
   process.exit(1);
 }
-const BROWSER = '/opt/pw-browsers/chromium_headless_shell-1194/chrome-linux/headless_shell';
+// usa el headless_shell que esté instalado (la versión cambia entre entornos)
+const BROWSER = process.env.REMOTION_BROWSER || (() => {
+  const base = '/opt/pw-browsers';
+  for (const d of (fs.existsSync(base) ? fs.readdirSync(base) : []).filter((x) => x.startsWith('chromium_headless_shell')).sort().reverse()) {
+    for (const rel of ['chrome-headless-shell-linux64/chrome-headless-shell', 'chrome-linux/headless_shell']) {
+      const f = `${base}/${d}/${rel}`;
+      if (fs.existsSync(f)) return f;
+    }
+  }
+  return undefined;
+})();
 execFileSync('node', ['scripts/hornear3d.mjs', comp, data], { stdio: 'inherit' });
 fs.mkdirSync('out/previa', { recursive: true });
 const stamp = new Date().toISOString().slice(0, 16).replace(/[-:T]/g, '');
 const out = `out/previa/${comp}-${stamp}.mp4`;
 const t0 = Date.now();
-execFileSync('npx', ['remotion', 'render', comp, out, `--props=${data}`, '--scale=0.5', '--crf=28', '--jpeg-quality=75', `--browser-executable=${BROWSER}`, '--concurrency=2', '--log=error'], { stdio: 'inherit' });
+execFileSync('npx', ['remotion', 'render', comp, out, `--props=${data}`, '--scale=0.5', '--crf=28', '--jpeg-quality=75', `--browser-executable=${BROWSER}`, '--concurrency=2', '--gl=swangle', '--log=error'], { stdio: 'inherit' });
 console.log(`vista previa lista en ${((Date.now() - t0) / 1000).toFixed(0)} s → ${out}`);

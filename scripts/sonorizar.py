@@ -106,12 +106,15 @@ def pad(freqs, length):
     return s * np.minimum(1, t / 0.5) * np.minimum(1, (length - t) / 0.4)
 
 # ---------- música ----------
+# Si el JSON trae "score" (partitura orquestal compuesta con la habilidad
+# partitura-emocional-reels), se usa esa pista y no se sintetiza la música 120 BPM.
+SCORE = D.get('score')
 BEAT = 0.5; BAR = 4 * BEAT
 prog = [[57, 60, 64], [53, 57, 60], [48, 52, 55], [55, 59, 62]]  # Am F C G
 roots = [33, 29, 36, 31]
 pump = np.ones(N)  # sidechain del kick
 t = 0.0; bar = 0
-while t < DUR:
+while t < DUR and not SCORE:
     ch = prog[bar % 4]; r = roots[bar % 4]
     for b in range(4):
         bt = t + b * BEAT
@@ -150,14 +153,19 @@ while t < DUR:
                 put(music, pad([hz(m) for m in ch], L), t, 0.22)
     t += BAR; bar += 1
 # si el drop no cae en compás, re-dispara el acorde en el drop
-put(music, supersaw_chord([hz(m) for m in prog[0]], min(BAR, CLOSE - DROP), 0.09), DROP, 0.32)
+if not SCORE:
+    put(music, supersaw_chord([hz(m) for m in prog[0]], min(BAR, CLOSE - DROP), 0.09), DROP, 0.32)
 music[:, 0] *= pump; music[:, 1] *= pump
 
 # riser hacia el "Ey." y silencio real
 rn = int(1.6 * SR); rt = t_(rn)
 riser = hp(noise(rn), 0.05) * (rt / rt[-1]) ** 2.2
 sweep = np.sin(2 * np.pi * np.cumsum(200 + 1800 * (rt / rt[-1]) ** 2) / SR) * (rt / rt[-1]) ** 2 * 0.3
-put(music, riser * 0.35 + sweep * 0.25, EY_START - 1.6)
+if not SCORE: put(music, riser * 0.35 + sweep * 0.25, EY_START - 1.6)
+if SCORE:
+    raw_ = subprocess.run(['ffmpeg', '-v', 'error', '-i', 'public/' + SCORE, '-f', 's16le', '-ac', '2', '-ar', str(SR), '-'], capture_output=True).stdout
+    sc_ = np.frombuffer(raw_, dtype=np.int16).reshape(-1, 2) / 32768
+    music[: min(N, len(sc_))] = sc_[:N]
 a, b = int(EY_START * SR), int(DROP * SR); f = int(0.008 * SR)
 music[a:a + f] *= np.linspace(1, 0, f)[:, None]; music[a + f:b] = 0
 
@@ -208,6 +216,19 @@ def cha_ching():
 def draw_scratch(length=0.5):
     n = int(length * SR); x = t_(n) / length
     return hp(noise(n), 0.3) * np.sin(np.pi * x) * (0.6 + 0.4 * np.sin(2 * np.pi * 9 * x)) * 0.25
+
+def water_drop():
+    # gota: tono que sube rápido (burbuja) + cola con eco corto
+    n = int(0.45 * SR); t = t_(n)
+    f = 700 + 1900 * (1 - np.exp(-t / 0.018))
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-t / 0.05)
+    tail = np.zeros(n); d = int(0.11 * SR); tail[d:] = s[:n - d] * 0.35
+    return s + tail
+def tictac(tic=True):
+    # tic agudo / tac grave, madera de reloj
+    n = int(0.06 * SR); t = t_(n)
+    f = 2400 if tic else 1650
+    return (np.sin(2 * np.pi * f * t) * 0.7 + noise(n) * 0.3) * np.exp(-t / 0.008)
 
 def cue(s, name, default):
     return s['start'] + (s.get('cues') or {}).get(name, default)
@@ -298,6 +319,15 @@ for i, s in enumerate(scenes):
             elif k == 'meme': put(sfx, thud(), t0, 0.5)
             elif k == 'video': put(sfx, whoosh(0.4), t0 - 0.1, 0.4); put(sfx, pop(1400), t0 + 0.05, 0.4)
             elif k == 'dancer': put(sfx, whoosh(0.4), t0 - 0.1, 0.4); put(sfx, pop(1500), t0 + 0.05, 0.35)
+            elif k == 'drop':
+                hit_ = t0 + l.get('fall', 0.55)
+                put(sfx, water_drop(), hit_, 0.75)
+                put(sfx, impact(0.35), hit_, 0.25)
+            elif k == 'clock':
+                end_ = st + (l['until'] if l.get('until') is not None else s['dur'])
+                j = 0; tt = t0 + 1 / FPS
+                while tt < end_ - 0.05:
+                    put(sfx, tictac(j % 2 == 0), tt, 0.55, -0.15 if j % 2 == 0 else 0.15); j += 1; tt += 0.5
         for sh in s.get('shake', []): put(sfx, impact(0.5), st + sh, 0.4)
     elif typ == 'ey':
         put(sfx, impact(1.2), st, 0.5)
@@ -401,9 +431,11 @@ for i, s in enumerate(scenes):
         put(sfx, whoosh(0.35), cue(s, 'brand', 2.95) - 0.05, 0.5); put(sfx, ding(), cue(s, 'brand', 2.95) + 0.2, 0.35)
     elif typ == 'solution':
         step = round(0.55 * FPS)
+        ats = s.get('itemsAt')
         for k in range(len(s['items'])):
-            put(sfx, whoosh(0.22), st + (10 + k * step) / FPS - 0.05, 0.4, 0.4)
-            put(sfx, blip(1200 + 300 * k, 0.05), st + (10 + k * step + 8) / FPS, 0.3)
+            t_in = st + (ats[k] if ats and k < len(ats) else (10 + k * step) / FPS)
+            put(sfx, whoosh(0.22), t_in - 0.05, 0.4, 0.4)
+            put(sfx, blip(1200 + 300 * k, 0.05), t_in + 8 / FPS, 0.3)
     elif typ == 'close':
         FIXED.append(('sfx/muejeje-corto.mp3', s['end'] - 2.05, 1.0, True))  # asset fijo: zorro muejeje
         put(sfx, impact(0.6), st, 0.55)

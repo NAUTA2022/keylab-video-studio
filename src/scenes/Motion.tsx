@@ -523,8 +523,118 @@ const VideoLayer: React.FC<{ l: Extract<Layer, { k: 'video' }> }> = ({ l }) => {
   );
 };
 
+/* Gota que cae desde arriba, se estira al caer y abre ondas concéntricas al tocar.
+   Recurso de atención: primero un instante de quietud, luego el impacto y las ondas. */
+const DropLayer: React.FC<{ l: Extract<Layer, { k: 'drop' }> }> = ({ l }) => {
+  const { vis, local, fps, out } = useWin(l.at, l.until);
+  if (!vis) return null;
+  const size = l.size ?? 46;
+  const fall = Math.max(4, Math.round((l.fall ?? 0.55) * fps));
+  const rings = l.rings ?? 4;
+  const col = l.color === 'cobalt' ? C.cobalt : l.color === 'soft' ? C.soft : C.white;
+  // caída acelerada (gravedad) desde fuera de cuadro
+  const p = interpolate(local, [0, fall], [0, 1], { ...clamp, easing: Easing.in(Easing.quad) });
+  const y0 = -size * 2;
+  const yDrop = y0 + (l.y - y0) * p;
+  const stretch = 1 + p * 0.6;
+  const hit = local - fall;
+  return (
+    <div style={{ position: 'absolute', inset: 0, opacity: out, pointerEvents: 'none' }}>
+      {hit < 0 ? (
+        <svg style={{ position: 'absolute', left: l.x - size / 2, top: yDrop - size * stretch, overflow: 'visible' }} width={size} height={size * stretch * 1.3}>
+          <path
+            d={`M ${size / 2} 0 C ${size * 0.95} ${size * stretch * 0.75}, ${size} ${size * stretch * 1.05}, ${size / 2} ${size * stretch * 1.25} C 0 ${size * stretch * 1.05}, ${size * 0.05} ${size * stretch * 0.75}, ${size / 2} 0 Z`}
+            fill={col}
+          />
+        </svg>
+      ) : null}
+      {hit >= 0
+        ? Array.from({ length: rings }).map((_, i) => {
+            const d = hit - i * 6;
+            if (d < 0) return null;
+            const life = 42;
+            const q = Math.min(1, d / life);
+            const r = size * 0.4 + q * size * (5.5 + i * 1.6);
+            const op = (1 - q) * (i === 0 ? 0.95 : 0.7);
+            if (op <= 0) return null;
+            return (
+              <div
+                key={i}
+                style={{
+                  position: 'absolute',
+                  left: l.x - r,
+                  top: l.y - r * 0.32,
+                  width: r * 2,
+                  height: r * 0.64,
+                  borderRadius: '50%',
+                  border: `${Math.max(2, 6 - i)}px solid ${col}`,
+                  opacity: op,
+                }}
+              />
+            );
+          })
+        : null}
+      {hit >= 0 && hit < 10 ? (
+        // salpicadura breve hacia arriba
+        <div
+          style={{
+            position: 'absolute',
+            left: l.x - size * 0.18,
+            top: l.y - size * 0.2 - Math.sin((hit / 10) * Math.PI) * size * 1.2,
+            width: size * 0.36,
+            height: size * 0.36,
+            borderRadius: '50%',
+            background: col,
+            opacity: 1 - hit / 10,
+          }}
+        />
+      ) : null}
+    </div>
+  );
+};
+
+/* Reloj analógico con tic tac: el segundero salta cada medio segundo con rebote
+   y el reloj late en cada tic. */
+const ClockLayer: React.FC<{ l: Extract<Layer, { k: 'clock' }> }> = ({ l }) => {
+  const { vis, local, fps, pin, out } = useWin(l.at, l.until);
+  if (!vis) return null;
+  const size = l.size ?? 300;
+  const half = Math.round(fps / 2);
+  const tick = Math.floor(local / half);
+  const inTick = local % half;
+  const settle = interpolate(inTick, [0, 3, 6], [0, 1.12, 1], clamp);
+  const sec = (tick - 1 + settle) * 30; // 30° por tic
+  const beat = interpolate(inTick, [0, 2, 8], [1.06, 1.03, 1], clamp);
+  const minute = -60 + local * 0.6;
+  const r = size / 2;
+  return (
+    <div style={{ position: 'absolute', left: l.x - r, top: l.y - r, width: size, height: size, opacity: out, transform: `scale(${pin * beat})` }}>
+      <svg width={size} height={size} viewBox="-100 -100 200 200">
+        <circle r="94" fill={C.white} stroke={C.ink} strokeWidth="8" />
+        {Array.from({ length: 12 }).map((_, i) => {
+          const a = (i * Math.PI) / 6;
+          const big = i % 3 === 0;
+          return <line key={i} x1={Math.sin(a) * (big ? 70 : 78)} y1={-Math.cos(a) * (big ? 70 : 78)} x2={Math.sin(a) * 86} y2={-Math.cos(a) * 86} stroke={C.ink} strokeWidth={big ? 7 : 4} strokeLinecap="round" />;
+        })}
+        <line x1="0" y1="0" x2={Math.sin((minute * Math.PI) / 180) * 48} y2={-Math.cos((minute * Math.PI) / 180) * 48} stroke={C.ink} strokeWidth="9" strokeLinecap="round" />
+        <line x1={-Math.sin((sec * Math.PI) / 180) * 14} y1={Math.cos((sec * Math.PI) / 180) * 14} x2={Math.sin((sec * Math.PI) / 180) * 74} y2={-Math.cos((sec * Math.PI) / 180) * 74} stroke={C.cobalt} strokeWidth="5" strokeLinecap="round" />
+        <circle r="8" fill={C.cobalt} />
+      </svg>
+      {l.label ? (
+        <div style={{ position: 'absolute', left: -200, right: -200, top: size + 18, textAlign: 'center', fontFamily: FONT.display, fontSize: size * 0.2, color: C.white, letterSpacing: 2 }}>
+          {tick % 2 === 0 ? 'TIC' : 'TAC'}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
 const renderLayer = (l: Layer, i: number) => {
   switch (l.k) {
+    case 'drop':
+      return <DropLayer key={i} l={l} />;
+    case 'clock':
+      return <ClockLayer key={i} l={l} />;
     case 'text':
       return <TextLayer key={i} l={l} />;
     case 'count':

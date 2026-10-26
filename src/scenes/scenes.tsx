@@ -16,6 +16,17 @@ import { Phone3D } from '../three/Phone3D';
 import { AssetSequence, ExcelChaos } from '../svg/assets';
 import { EY_FOX, OUTRO_MUEJEJE, OUTRO_MUEJEJE_LEAD, OneGag } from '../components/Gags';
 import { Sequence } from 'remotion';
+import { PiFileTextFill, PiLockKeyFill, PiPathFill, PiSquaresFourFill, PiStorefrontFill, PiUserCheckFill } from 'react-icons/pi';
+
+// íconos funcionales (react-icons, Phosphor) para las tarjetas de solución
+const SOLUTION_ICONS: Record<string, React.ComponentType<{ size?: number; color?: string }>> = {
+  marca: PiStorefrontFill,
+  usuarios: PiUserCheckFill,
+  contrato: PiFileTextFill,
+  trazabilidad: PiPathFill,
+  panel: PiSquaresFourFill,
+  candado: PiLockKeyFill,
+};
 import { BrowserWindow, GeoIcon, Isotipo, MaskReveal, Stamp, Wordmark, usePunch, useLayout } from '../components/ui';
 
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
@@ -340,7 +351,7 @@ export const Solution: React.FC<Extract<Scene, { type: 'solution' }>> = (props) 
   if (clipSrc) return <OffthreadVideo src={clipSrc} muted style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />;
   return <SolutionCards {...props} />;
 };
-const SolutionCards: React.FC<Extract<Scene, { type: 'solution' }>> = ({ title, items }) => {
+const SolutionCards: React.FC<Extract<Scene, { type: 'solution' }>> = ({ title, items, itemsAt, icons }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const k = useK();
@@ -351,7 +362,9 @@ const SolutionCards: React.FC<Extract<Scene, { type: 'solution' }>> = ({ title, 
         <SplitText text={title} by="words" stagger={3} />
       </div>
       {items.map((it, i) => {
-        const t = interpolate(f - 10 - i * step, [0, 12], [0, 1], { ...clamp, easing: Easing.out(Easing.back(1.3)) });
+        const start = itemsAt && itemsAt[i] !== undefined ? Math.round(itemsAt[i] * fps) : 10 + i * step;
+        const t = interpolate(f - start, [0, 12], [0, 1], { ...clamp, easing: Easing.out(Easing.back(1.3)) });
+        const Ico = icons && icons[i] ? SOLUTION_ICONS[icons[i]] : undefined;
         return (
           <div
             key={i}
@@ -368,7 +381,13 @@ const SolutionCards: React.FC<Extract<Scene, { type: 'solution' }>> = ({ title, 
               transform: `translateX(${(1 - t) * 120}px) rotate(${(1 - t) * 4}deg)`,
             }}
           >
-            <GeoIcon kind={ICONS[i % ICONS.length]} size={64 * k} />
+            {Ico ? (
+              <div style={{ width: 84 * k, height: 84 * k, borderRadius: 20 * k, background: C.cobalt, display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                <Ico size={52 * k} color={C.white} />
+              </div>
+            ) : (
+              <GeoIcon kind={ICONS[i % ICONS.length]} size={64 * k} />
+            )}
             <div style={{ fontFamily: FONT.body, fontWeight: 800, fontSize: 42 * k, color: C.ink, lineHeight: 1.15 }}>{it}</div>
           </div>
         );
