@@ -110,6 +110,12 @@ export const RetratoVivo: React.FC<{ rig: Rig; motion: Motion; x: number; y: num
   );
 };
 
+export const SEBASTIAN: Rig = {
+  src: 'personajes/historia/sebastian.png', w: 945, h: 1665,
+  neck: [462, 500], headTop: 450, headBottom: 545,
+  lShoulder: [240, 630], rShoulder: [700, 630], armInner: [295, 650], feet: [470, 1665],
+};
+
 /* Movimiento "idle" sutil: respiración, cabeza que mira y vuelve, brazos que se mecen */
 export const idle = (t: number, phase = 0): Motion => {
   const ez = Easing.inOut(Easing.sin);
@@ -147,8 +153,8 @@ const Motas: React.FC<{ cx: number; cy: number; w: number; h: number; n?: number
   );
 };
 
-/* Prueba: Ulises vivo */
-export const UlisesVivo: React.FC = () => {
+/* Prueba: retrato vivo a pantalla */
+export const RetratoPrueba: React.FC<{ rig: Rig; phase?: number }> = ({ rig, phase = 0 }) => {
   const f = useCurrentFrame();
   const { fps } = useVideoConfig();
   const t = f / fps;
@@ -160,9 +166,12 @@ export const UlisesVivo: React.FC = () => {
       {/* contraluz suave para separar la silueta del negro */}
       <AbsoluteFill style={{ background: `radial-gradient(ellipse 28% 48% at 50% 46%, rgba(170,180,215,${0.16 * glow}) 0%, rgba(5,5,7,0) 70%)` }} />
       <AbsoluteFill style={{ opacity: fade, transform: `scale(${push})`, transformOrigin: '50% 60%' }}>
-        <RetratoVivo rig={ULISES} motion={idle(t)} x={960} y={560} height={1040} />
+        <RetratoVivo rig={rig} motion={idle(t, phase)} x={960} y={560} height={1040} />
       </AbsoluteFill>
       <Motas cx={960} cy={560} w={760} h={1000} />
     </AbsoluteFill>
   );
 };
+
+export const UlisesVivo: React.FC = () => <RetratoPrueba rig={ULISES} />;
+export const SebastianVivo: React.FC = () => <RetratoPrueba rig={SEBASTIAN} phase={2.3} />;
