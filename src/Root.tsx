@@ -1,5 +1,6 @@
 import { TestLottie } from './scenes/TestLottie';
 import { TestRig } from './scenes/TestRig';
+import { Historia, HISTORIA_DUR } from './historia/Historia';
 import React from 'react';
 import { Composition } from 'remotion';
 import { KeyLabVideo } from './KeyLabVideo';
@@ -24,6 +25,7 @@ export const Root: React.FC = () => (
     {/* Assets fijos reutilizables: el "Ey." y el cierre van iguales en todos los videos */}
     <Composition id="KL-Ey" component={KeyLabVideo} schema={videoSchema} defaultProps={videoSchema.parse(assetEy) as VideoProps} calculateMetadata={calc} durationInFrames={36} fps={FPS} width={1080} height={1920} />
     <Composition id="KL-Cierre" component={KeyLabVideo} schema={videoSchema} defaultProps={videoSchema.parse(assetCierre) as VideoProps} calculateMetadata={calc} durationInFrames={111} fps={FPS} width={1080} height={1920} />
+    <Composition id="HistoriaKeyLab" component={Historia} durationInFrames={HISTORIA_DUR * FPS} fps={FPS} width={1920} height={1080} />
     <Composition id="GaleriaEmojis" component={TestLottie} durationInFrames={180} fps={FPS} width={1080} height={1920} />
     <Composition id="TestRig" component={TestRig} durationInFrames={180} fps={FPS} width={1080} height={1920} />
     <Composition id="TestDon" component={TestDon} durationInFrames={30} fps={FPS} width={1080} height={1920} />
