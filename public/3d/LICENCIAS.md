@@ -11,3 +11,7 @@
 | HDRI de iluminación | @pmndrs/assets (Poly Haven) | CC0 |
 
 Crédito opcional: "Modelos 3D: Kenney (kenney.nl)".
+
+## personas/xbot.glb
+- Fuente: repositorio de three.js (examples/models/gltf/Xbot.glb), https://github.com/mrdoob/three.js — personaje y animaciones de Mixamo (Adobe), de uso libre en proyectos.
+- Uso: siluetas humanas pintadas (historia de Key Lab). Se dibuja en blanco plano, sin texturas ni rasgos.
