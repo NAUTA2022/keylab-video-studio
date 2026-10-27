@@ -7,3 +7,6 @@ explicaciones/*/frames/
 explicaciones/*/node_modules/
 .DS_Store
 public/media/**/voz-raw.mp3
+public/media/historia-keylab/mezcla.wav
+public/media/historia-keylab/*-sinhits.wav
+public/media/historia-keylab/historia-keylab-*.mp3
