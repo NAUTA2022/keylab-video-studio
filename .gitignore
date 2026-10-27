@@ -6,3 +6,4 @@ explicaciones/*/out/
 explicaciones/*/frames/
 explicaciones/*/node_modules/
 .DS_Store
+public/media/**/voz-raw.mp3
