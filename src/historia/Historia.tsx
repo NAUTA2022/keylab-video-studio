@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurr
 import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
 import { Wordmark } from '../components/ui';
+import { RetratoVivo, SEBASTIAN, ULISES, idle } from './Retrato';
 
 // Historia de Key Lab · 1920x1080 · motion graphics minimalista sobre negro.
 // Personas = siluetas blancas. Todo el texto en color sólido (sin degradados).
@@ -110,6 +111,7 @@ const Person: React.FC<{
 }> = ({ kind, at, until, x, y = 820, h = 420, dim, glow, dx }) => {
   const t = useT();
   if (t < at || t > until) return null;
+  if (kind === 'ulises' || kind === 'sebas') return <Portrait kind={kind} at={at} until={until} x={x} y={y} h={h} dim={dim} dx={dx} />;
   const rev = interpolate(t, [at, at + 1.1], [0, 1], { ...clamp, easing: ease });
   const out = interpolate(t, [until - 0.5, until], [1, 0], clamp);
   let o = 1;
@@ -125,6 +127,28 @@ const Person: React.FC<{
       </div>
       {rev < 1 ? <div style={{ position: 'absolute', left: -20, right: -20, top: `${(1 - rev) * 100}%`, height: 2, background: SOFT, opacity: 1 - rev, boxShadow: `0 0 18px ${SOFT}` }} /> : null}
     </div>
+  );
+};
+
+/* Ulises y Sebastián: retratos pintados "vivos" en vez de silueta.
+   Se encuadran como busto (la cabeza arriba donde iría la silueta) y el cuerpo se funde hacia abajo. */
+const Portrait: React.FC<{ kind: 'ulises' | 'sebas'; at: number; until: number; x: number; y: number; h: number; dim?: [number, number][]; dx?: [number, number, number] }> = ({ kind, at, until, x, y, h, dim, dx }) => {
+  const t = useT();
+  const rig = kind === 'ulises' ? ULISES : SEBASTIAN;
+  const Hp = h * 2.0;
+  const p = interpolate(t, [at, at + 1.2], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(t, [until - 0.5, until], [1, 0], clamp);
+  let o = 1;
+  for (const [a, b] of dim ?? []) if (t >= a && t < b) o = interpolate(t, [a, a + 0.4], [1, 0.3], clamp);
+  if (dim) for (const [, b] of dim) if (t >= b && t < b + 0.4) o = interpolate(t, [b, b + 0.4], [0.3, 1], clamp);
+  const shift = dx ? interpolate(t, [dx[0], dx[1]], [0, dx[2]], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 0;
+  const top = y - h;
+  const fadeA = ((y + h * 0.02) / 1080) * 100, fadeB = ((y + h * 0.35) / 1080) * 100;
+  const mask = `linear-gradient(180deg, #000 ${fadeA}%, transparent ${fadeB}%)`;
+  return (
+    <AbsoluteFill style={{ opacity: p * out * o, transform: `translate(${shift}px, ${(1 - p) * 30}px)`, WebkitMaskImage: mask, maskImage: mask }}>
+      <RetratoVivo rig={rig} motion={idle(t, kind === 'ulises' ? 0 : 2.3)} x={x} y={top + Hp / 2} height={Hp} />
+    </AbsoluteFill>
   );
 };
 
@@ -334,8 +358,8 @@ export const Historia: React.FC = () => {
       <Chapter n="06" name="Algo propio" at={109.0} until={126.2} />
       <Horizon at={108.9} until={126.3} />
       <Floor at={109.0} until={126.2} y={900} w={800} />
-      <Person kind="ulises" at={109.2} until={126.2} x={880} y={900} h={420} />
-      <Person kind="sebas" at={109.4} until={126.2} x={1040} y={900} h={420} />
+      <Person kind="ulises" at={109.2} until={126.2} x={760} y={900} h={420} />
+      <Person kind="sebas" at={109.4} until={126.2} x={1160} y={900} h={420} />
       <Words text="Y empezaron algo propio." at={112.2} until={118.9} size={72} y={170} weight={800} />
       <Words text="Construir el futuro junto a sus clientes." at={115.0} until={118.9} size={40} y={290} color={SOFT} weight={700} />
       <Words text="Valores accesibles. La puerta del mercado abierta a más gente." at={119.3} until={126.2} size={46} y={170} />
@@ -381,7 +405,7 @@ export const Historia: React.FC = () => {
       <Words text="Key Lab no es el primero." at={189.3} until={196.6} size={78} y={360} weight={800} />
       <Words text="Es el que se sentó a entender lo que el mercado necesita." at={192.0} until={196.6} size={44} y={500} color={SOFT} weight={700} />
       <Floor at={197.0} until={200.5} y={840} w={1500} />
-      {(['ulises', 'sebas', 'a', 'race', 'b', 'c', 'matias'] as Kind[]).map((k, i) => (
+      {(['ulises', 'a', 'race', 'b', 'c', 'matias', 'sebas'] as Kind[]).map((k, i) => (
         <Person key={i} kind={k} at={197.0 + i * 0.12} until={200.5} x={360 + i * 200} y={840} h={240} />
       ))}
       <Words text="Codo a codo con sus clientes." at={197.9} until={200.5} size={60} y={250} weight={800} />
