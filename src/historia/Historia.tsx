@@ -1,8 +1,7 @@
 import React from 'react';
-import { AbsoluteFill, Audio, Easing, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
+import { AbsoluteFill, Audio, Easing, Img, interpolate, Sequence, staticFile, useCurrentFrame, useVideoConfig } from 'remotion';
 import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
-import { Wordmark } from '../components/ui';
 import { RetratoVivo, SEBASTIAN, ULISES, idle } from './Retrato';
 
 // Historia de Key Lab · 1920x1080 · motion graphics minimalista sobre negro.
@@ -250,19 +249,27 @@ const EyMoment: React.FC<{ at: number; until: number }> = ({ at, until }) => {
   );
 };
 
-/* Cierre */
+/* Cierre: isotipo cromado + wordmark oficial (archivos de marca) */
 const Outro: React.FC<{ at: number }> = ({ at }) => {
   const t = useT();
   if (t < at) return null;
-  const p = interpolate(t, [at, at + 1.2], [0, 1], { ...clamp, easing: ease });
-  const url = interpolate(t, [at + 0.8, at + 1.6], [0, 1], clamp);
+  const iso = interpolate(t, [at, at + 1.4], [0, 1], { ...clamp, easing: ease });
+  const sweep = interpolate(t, [at + 0.6, at + 2.0], [-30, 130], clamp);
+  const word = interpolate(t, [at + 0.7, at + 1.7], [0, 1], { ...clamp, easing: ease });
+  const url = interpolate(t, [at + 1.3, at + 2.1], [0, 1], clamp);
+  const float = Math.sin((t - at) * 1.3) * 4;
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ transform: `translateY(${(1 - p) * 30}px)`, opacity: p, marginTop: -120 }}>
-        <Wordmark width={560} />
+      <AbsoluteFill style={{ background: `radial-gradient(ellipse 30% 40% at 50% 40%, rgba(140,160,255,${0.14 * iso}) 0%, rgba(5,5,7,0) 70%)` }} />
+      <div style={{ position: 'relative', width: 300, height: 348, marginTop: -110, opacity: iso, transform: `translateY(${(1 - iso) * 30 + float}px) scale(${0.9 + iso * 0.1})` }}>
+        <Img src={staticFile('brand/isotipo-cromo.png')} style={{ width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 0 40px rgba(140,160,255,0.35))' }} />
+        <div style={{ position: 'absolute', inset: 0, WebkitMaskImage: `url(${staticFile('brand/isotipo-cromo.png')})`, WebkitMaskSize: 'contain', WebkitMaskRepeat: 'no-repeat', WebkitMaskPosition: 'center', background: `linear-gradient(110deg, transparent ${sweep - 18}%, rgba(255,255,255,0.75) ${sweep}%, transparent ${sweep + 18}%)` }} />
       </div>
-      <div style={{ marginTop: 34, fontFamily: BODY, fontWeight: 800, fontSize: 34, letterSpacing: 6, color: SOFT, opacity: url }}>keylab.tech</div>
-      <OneGag g={{ ...OUTRO_MUEJEJE, at: at + 1.4, dur: HISTORIA_DUR - at - 1.4, x: 0.84, y: 0.72, size: 0.16 }} />
+      <div style={{ marginTop: 46, opacity: word, clipPath: `inset(0 ${(1 - word) * 100}% 0 0)` }}>
+        <Img src={staticFile('brand/wordmark-blanco.png')} style={{ width: 380, display: 'block' }} />
+      </div>
+      <div style={{ marginTop: 26, fontFamily: BODY, fontWeight: 800, fontSize: 30, letterSpacing: 6, color: SOFT, opacity: url }}>keylab.tech</div>
+      <OneGag g={{ ...OUTRO_MUEJEJE, at: at + 1.6, dur: HISTORIA_DUR - at - 1.6, x: 0.84, y: 0.72, size: 0.16 }} />
     </AbsoluteFill>
   );
 };
@@ -437,7 +444,7 @@ const BigLogo: React.FC<{ at: number; until: number }> = ({ at, until }) => {
   if (o <= 0) return null;
   return (
     <div style={{ position: 'absolute', left: 960 - 330, top: 250, opacity: o, clipPath: `inset(0 ${(1 - p) * 100}% 0 0)` }}>
-      <Wordmark width={660} />
+      <Img src={staticFile('brand/wordmark-blanco.png')} style={{ width: 660, display: 'block' }} />
     </div>
   );
 };
