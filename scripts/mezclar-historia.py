@@ -19,9 +19,9 @@ sm=np.zeros_like(duck); a_at=np.exp(-1/(0.03*SR)); a_rl=np.exp(-1/(0.35*SR)); y=
 for i in range(0,len(duck),32):
     x=duck[i]; c=a_at if x>y else a_rl**32; y=c*y+(1-c)*x if x>y else y*(a_rl**32)+(1-a_rl**32)*x; sm[i:i+32]=y
 t=np.arange(n)/SR
-depth=np.where(((t>177.5)&(t<188))|(t>196.7),0.45,0.6)   # menos ducking en el clímax
+depth=np.where(((t>175.87)&(t<186.37))|(t>195.07),0.45,0.6)   # menos ducking en el clímax
 g=1-depth*sm
-lift=np.interp(t,[0,48,56,88,92,107,108,147,155,208],[8,8,5,5,7,7,5,5,2,2]); g=g*10**(lift/20)
+lift=np.interp(t,[0,48,56,88,92,107,107.4,145.4,153.4,207],[8,8,5,5,7,7,5,5,2,2]); g=g*10**(lift/20)
 out=v+m*g
 out=Pedalboard([Limiter(threshold_db=-1)])(out.astype(np.float32),SR)
 with AudioFile(D+'mezcla.wav','w',SR,2) as f: f.write(out)

@@ -26,16 +26,25 @@ from pedalboard import Pedalboard, Reverb, Delay, Compressor, Limiter, Gain, Hig
 from pedalboard.io import AudioFile
 OUT=sys.argv[1] if len(sys.argv)>1 else 'public/media/historia-keylab/partitura.wav'
 TMP='/tmp/part-historia'; os.makedirs(TMP,exist_ok=True)
-SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=208.0
+SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=206.4
 N=pm.note_name_to_number; stems={}
 def inst(k,prog):
     if k not in stems: stems[k]=pm.Instrument(program=prog,name=k)
     return stems[k]
+CUT0, CUT1 = 107.3, 108.93
+def R(t):
+    return t if t < CUT0 else (None if t < CUT1 else t - (CUT1 - CUT0))
 def note(k,prog,p,t,d,v=70):
+    t2 = R(t)
+    if t2 is None: return
+    if t < CUT0 and t + d > CUT0: d = CUT0 - t + 0.4
+    t = t2
     inst(k,prog).notes.append(pm.Note(velocity=int(np.clip(v,1,127)),pitch=N(p) if isinstance(p,str) else int(p),start=t,end=max(t+0.05,t+d)))
 def ramp(k,prog,t0,t1,v0,v1):
     i=inst(k,prog)
-    for s in range(25): a=s/24; i.control_changes.append(pm.ControlChange(11,int(v0+(v1-v0)*a),t0+(t1-t0)*a))
+    for s in range(25):
+        a=s/24; tt=R(t0+(t1-t0)*a)
+        if tt is not None: i.control_changes.append(pm.ControlChange(11,int(v0+(v1-v0)*a),tt))
 P={'piano':0,'celesta':8,'violines':40,'chelo':42,'cb':43,'trem':44,'pizz':45,'arpa':46,'timbal':47,'cuerdas':49,'coro':52,'trompas':60,'organo':19,'taiko':116,'chcorto':42,'cbcorto':43}
 def n(k,p,t,d,v): note(k,P[k],p,t,d,v)
 def r(k,t0,t1,v0,v1): ramp(k,P[k],t0,t1,v0,v1)
@@ -102,12 +111,14 @@ for t in np.arange(89.9,104.6,0.9): n('timbal','F#2',t,0.2,62); n('timbal','F#2'
 n('trem','F#5',89.9,14.7,55); r('trem',89.9,104.6,30,95)
 n('cb','F#1',89.9,14.7,58); n('chelo','C#3',95.0,9.6,48); r('chelo',95,104.6,40,85)
 for k,p in enumerate(['C#5','A4','F#4','C#4','F#3']): n('pizz',p,104.7+0.18*k,0.25,72-8*k)
-n('cuerdas','F#3',104.7,2.2,40); n('cuerdas','A3',104.7,2.2,40); n('cuerdas','C#4',104.7,2.2,40); r('cuerdas',104.7,106.9,60,0)
+n('cuerdas','F#3',104.7,2.55,46); n('cuerdas','A3',104.7,2.55,46); n('cuerdas','C#4',104.7,2.55,46); r('cuerdas',104.7,107.2,60,70)
+roll(106.2,1.0,'C#2',25,85,16)  # puente sin vacío hacia la parte mayor
+n('cb','C#1',106.0,1.2,60)
 # EY 108.0
 n('timbal','F#2',108.0,0.7,127); n('taiko','C2',108.0,0.7,112)
 # ESPERANZA 108.6–126.4 (mayor)
-bass(108.6,126.4,MAY,64); pad('cuerdas',108.6,126.4,MAY,52,4); arp(110.0,126.4,MAY,50); r('cuerdas',108.6,126.4,40,85)
-motif('piano',109.2,MOT_M,0,58); motif('piano',119.6,MOT_M[:2],0,54)
+bass(108.6,126.4,MAY,64); pad('cuerdas',108.6,126.4,MAY,52,4); arp(108.93,126.4,MAY,50); r('cuerdas',108.6,126.4,40,85)
+motif('piano',108.93,MOT_M,0,58); motif('piano',119.6,MOT_M[:2],0,54)
 # OSTINATO 126.4–151.7
 bass(126.4,151.7,MAY+MAY[:2]+MIN2[2:],70); pad('cuerdas',126.4,151.7,MAY+MAY[:2]+MIN2[2:],58,4)
 ostinato(126.4,151.7,MAY+MAY[:2]+MIN2[2:],45,80,Q/2)
@@ -173,10 +184,9 @@ t=np.arange(nS)/SR
 def sub(t0,dur,f0,f1,amp):
     m=(t>=t0)&(t<t0+dur); tt=t[m]-t0; f=f1+(f0-f1)*np.exp(-tt*8); ph=2*np.pi*np.cumsum(f)/SR
     o=np.zeros(nS); o[m]=amp*np.sin(ph)*np.exp(-tt*1.4)*np.clip(tt/0.01,0,1); return o
-s=sum(sub(a,b,70,46.25,c) for a,b,c in [(0.3,4,0.06),(108.0,1.2,0.3),(141.8,2,0.22),(151.7,2,0.22),(177.5,3,0.28),(200.7,6,0.3)])
+s=sum(sub(a,b,70,46.25,c) for a,b,c in [(0.3,4,0.06),(141.8-1.63,2,0.22),(151.7-1.63,2,0.22),(177.5-1.63,3,0.28),(200.7-1.63,6,0.3)])
 hits+=s.astype(np.float32)
 # VACÍO 107.0→108.0
-v0,v1=int(106.95*SR),int(108.0*SR); fall=np.exp(-np.arange(v1-v0)/(0.07*SR)); mix[:,v0:v1]*=fall; hits[:,v0:v1]*=fall
 np.save(f'{TMP}/hits.npy',hits)
 music=mix+hits
 music=Pedalboard([Compressor(threshold_db=-18,ratio=2.5),Limiter(threshold_db=-1)])(music,SR)

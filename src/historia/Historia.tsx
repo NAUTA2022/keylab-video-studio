@@ -11,7 +11,7 @@ import { Persona3D, type Layer } from './Persona3D';
 
 ensureFonts();
 const FPS = 30;
-export const HISTORIA_DUR = 208;
+export const HISTORIA_DUR = 206.4;
 const BG = '#050507';
 const INK = '#FFFFFF';
 const MUTED = '#8A8D99';
@@ -285,7 +285,7 @@ const Outro: React.FC<{ at: number }> = ({ at }) => {
         <div style={{ position: 'absolute', inset: 0, WebkitMaskImage: `url(${staticFile('brand/isotipo-cromo.png')})`, WebkitMaskSize: 'contain', WebkitMaskRepeat: 'no-repeat', WebkitMaskPosition: 'center', background: `linear-gradient(110deg, transparent ${sweep - 18}%, rgba(255,255,255,0.75) ${sweep}%, transparent ${sweep + 18}%)` }} />
       </div>
       <div style={{ marginTop: 46, opacity: word, clipPath: `inset(0 ${(1 - word) * 100}% 0 0)` }}>
-        <Img src={staticFile('brand/wordmark-blanco.png')} style={{ width: 380, display: 'block' }} />
+        <Img src={staticFile('brand/wordmark-texto.png')} style={{ width: 300, display: 'block' }} />
       </div>
       <div style={{ marginTop: 26, fontFamily: BODY, fontWeight: 800, fontSize: 30, letterSpacing: 6, color: SOFT, opacity: url }}>keylab.tech</div>
       <OneGag g={{ ...OUTRO_MUEJEJE, at: at + 1.6, dur: HISTORIA_DUR - at - 1.6, x: 0.84, y: 0.72, size: 0.16 }} />
@@ -300,7 +300,7 @@ export const Historia: React.FC = () => {
     <AbsoluteFill style={{ background: BG, overflow: 'hidden' }}>
       <Backdrop />
       <Audio src={staticFile('media/historia-keylab/historia-keylab-voz-musica.mp3')} />
-      <Sequence from={Math.round(204.9 * FPS)} layout="none"><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.45} /></Sequence>
+      <Sequence from={Math.round(203.27 * FPS)} layout="none"><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.45} /></Sequence>
 
       {/* 01 · ORIGEN 0–19.0 */}
       <Chapter n="01" name="El origen" at={0.3} until={18.9} />
@@ -377,63 +377,63 @@ export const Historia: React.FC = () => {
       <Words text="Caminos distintos." at={102.0} until={106.8} size={52} y={950} weight={700} />
 
 
-      {/* 06 · ALGO PROPIO 108.9–126.3 */}
-      <Chapter n="06" name="Algo propio" at={109.0} until={126.2} />
-      <Horizon at={108.9} until={126.3} />
-      <Floor at={109.0} until={126.2} y={900} w={800} />
-      <Person kind="ulises" at={109.2} until={126.2} x={760} y={900} h={420} />
-      <Person kind="sebas" at={109.4} until={126.2} x={1160} y={900} h={420} />
-      <Words text="Y empezaron algo propio." at={112.2} until={118.9} size={72} y={170} weight={800} />
-      <Words text="Construir el futuro junto a sus clientes." at={115.0} until={118.9} size={40} y={290} color={SOFT} weight={700} />
-      <Words text="Valores accesibles. La puerta del mercado abierta a más gente." at={119.3} until={126.2} size={46} y={170} />
-      <Words text="Y evolucionar todos los días." at={124.0} until={126.2} size={40} y={340} color={SOFT} weight={700} />
+      {/* 06 · ALGO PROPIO 107.27–124.67 */}
+      <Chapter n="06" name="Algo propio" at={107.37} until={124.57} />
+      <Horizon at={107.27} until={124.67} />
+      <Floor at={107.37} until={124.57} y={900} w={800} />
+      <Person kind="ulises" at={107.57} until={124.57} x={760} y={900} h={420} />
+      <Person kind="sebas" at={107.77} until={124.57} x={1160} y={900} h={420} />
+      <Words text="Y empezaron algo propio." at={110.57} until={117.27} size={72} y={170} weight={800} />
+      <Words text="Construir el futuro junto a sus clientes." at={113.37} until={117.27} size={40} y={290} color={SOFT} weight={700} />
+      <Words text="Valores accesibles. La puerta del mercado abierta a más gente." at={117.67} until={124.57} size={46} y={170} />
+      <Words text="Y evolucionar todos los días." at={122.37} until={124.57} size={40} y={340} color={SOFT} weight={700} />
 
-      {/* 07 · LA DECISIÓN 126.3–151.6 */}
-      <Chapter n="07" name="La decisión" at={126.4} until={151.5} />
-      <Words text="Blockenfy" at={129.4} until={141.6} font="display" size={140} y={200} />
-      <Words text="Mejoras en diseño y funciones." at={135.7} until={141.6} size={44} y={420} color={MUTED} weight={600} />
-      <Stroke d="M760 700 C900 700 940 700 960 700 C1040 700 1100 620 1260 580" at={138.7} until={141.6} len={600} color={INK} />
-      <Stroke d="M960 700 C1040 700 1100 780 1260 820" at={138.7} until={141.6} len={400} color={SOFT} />
-      <Label text="Visiones distintas" at={138.9} until={141.6} x={960} y={880} color={INK} size={24} />
-      <Words text="Ellos querían algo más." at={141.8} until={151.5} size={66} y={220} weight={800} />
-      {[['Calidad visual', 143.9], ['Calidad funcional', 145.2], ['Tokenización abierta', 146.7]].map(([txt, at], i) => (
-        <Pillar key={i} text={txt as string} at={at as number} until={151.5} x={420 + i * 540} accent={i === 2} />
+      {/* 07 · LA DECISIÓN 124.67–149.97 */}
+      <Chapter n="07" name="La decisión" at={124.77} until={149.87} />
+      <Words text="Blockenfy" at={127.77} until={139.97} font="display" size={140} y={200} />
+      <Words text="Mejoras en diseño y funciones." at={134.07} until={139.97} size={44} y={420} color={MUTED} weight={600} />
+      <Stroke d="M760 700 C900 700 940 700 960 700 C1040 700 1100 620 1260 580" at={137.07} until={139.97} len={600} color={INK} />
+      <Stroke d="M960 700 C1040 700 1100 780 1260 820" at={137.07} until={139.97} len={400} color={SOFT} />
+      <Label text="Visiones distintas" at={137.27} until={139.97} x={960} y={880} color={INK} size={24} />
+      <Words text="Ellos querían algo más." at={140.17} until={149.87} size={66} y={220} weight={800} />
+      {[['Calidad visual', 142.27], ['Calidad funcional', 143.57], ['Tokenización abierta', 145.07]].map(([txt, at], i) => (
+        <Pillar key={i} text={txt as string} at={at as number} until={149.87} x={420 + i * 540} accent={i === 2} />
       ))}
-      <Words text="Para que el mercado crezca." at={148.6} until={151.5} size={40} y={880} color={SOFT} weight={700} />
+      <Words text="Para que el mercado crezca." at={146.97} until={149.87} size={40} y={880} color={SOFT} weight={700} />
 
-      {/* 08 · KEY LAB 151.6–177.3 */}
-      <Chapter n="08" name="Key Lab" at={151.7} until={177.2} />
-      <Words text="Por eso hicieron evolucionar su empresa." at={151.7} until={155.8} size={56} y={480} />
-      <BigLogo at={155.9} until={164.4} />
+      {/* 08 · KEY LAB 149.97–175.67 */}
+      <Chapter n="08" name="Key Lab" at={150.07} until={175.57} />
+      <Words text="Por eso hicieron evolucionar su empresa." at={150.07} until={154.17} size={56} y={480} />
+      <BigLogo at={154.27} until={162.77} />
       {(['a', 'b', 'c', 'matias'] as Kind[]).map((k, i) => (
-        <Person key={i} kind={k} at={157.0 + i * 0.25} until={177.2} x={540 + i * 280} y={860} h={260} />
+        <Person key={i} kind={k} at={155.37 + i * 0.25} until={175.57} x={540 + i * 280} y={860} h={260} />
       ))}
-      <Floor at={156.8} until={177.2} y={860} w={1250} />
-      {[['Diseño', 158.3], ['UX / UI', 159.5], ['Producto', 162.3], ['Blockchain', 164.0]].map(([txt, at], i) => (
-        <Label key={i} text={txt as string} at={at as number} until={177.2} x={540 + i * 280} y={890} color={i === 3 ? SOFT : INK} size={24} />
+      <Floor at={155.17} until={175.57} y={860} w={1250} />
+      {[['Diseño', 156.67], ['UX / UI', 157.87], ['Producto', 160.67], ['Blockchain', 162.37]].map(([txt, at], i) => (
+        <Label key={i} text={txt as string} at={at as number} until={175.57} x={540 + i * 280} y={890} color={i === 3 ? SOFT : INK} size={24} />
       ))}
-      <Words text="Una plataforma tokenizadora white label." at={164.6} until={177.2} size={54} y={190} weight={800} />
-      <Chip text="Calidad AAA" at={170.7} until={177.2} x={600} y={330} accent />
-      <Chip text="Valor alcanzable" at={172.5} until={177.2} x={980} y={330} />
+      <Words text="Una plataforma tokenizadora white label." at={162.97} until={175.57} size={54} y={190} weight={800} />
+      <Chip text="Calidad AAA" at={169.07} until={175.57} x={600} y={330} accent />
+      <Chip text="Valor alcanzable" at={170.87} until={175.57} x={980} y={330} />
 
-      {/* 09 · HOY 177.3–188.0 */}
-      <Chapter n="09" name="Hoy" at={177.4} until={187.9} />
-      <Words text="Hoy" at={177.5} until={187.9} font="display" size={180} y={120} />
-      <Network at={178.0} until={187.9} />
-      <Words text="Alianzas con firmas legales y del sector." at={178.3} until={182.6} size={46} y={860} />
-      <Words text="Negocios que crecen." at={182.7} until={186.3} size={46} y={860} />
-      <Words text="Plataformas que de verdad valen la pena." at={186.4} until={187.9} size={46} y={860} weight={800} />
+      {/* 09 · HOY 175.67–186.37 */}
+      <Chapter n="09" name="Hoy" at={175.77} until={186.27} />
+      <Words text="Hoy" at={175.87} until={186.27} font="display" size={180} y={120} />
+      <Network at={176.37} until={186.27} />
+      <Words text="Alianzas con firmas legales y del sector." at={176.67} until={180.97} size={46} y={860} />
+      <Words text="Negocios que crecen." at={181.07} until={184.67} size={46} y={860} />
+      <Words text="Plataformas que de verdad valen la pena." at={184.77} until={186.27} size={46} y={860} weight={800} />
 
-      {/* 10 · CIERRE 188.0–208 */}
-      <Words text="Key Lab no es el primero." at={189.3} until={196.6} size={78} y={360} weight={800} />
-      <Words text="Es el que se sentó a entender lo que el mercado necesita." at={192.0} until={196.6} size={44} y={500} color={SOFT} weight={700} />
-      <Floor at={197.0} until={200.5} y={840} w={1500} />
+      {/* 10 · CIERRE 186.37–208 */}
+      <Words text="Key Lab no es el primero." at={187.67} until={194.97} size={78} y={360} weight={800} />
+      <Words text="Es el que se sentó a entender lo que el mercado necesita." at={190.37} until={194.97} size={44} y={500} color={SOFT} weight={700} />
+      <Floor at={195.37} until={198.87} y={840} w={1500} />
       {(['ulises', 'a', 'race', 'b', 'c', 'matias', 'sebas'] as Kind[]).map((k, i) => (
-        <Person key={i} kind={k} at={197.0 + i * 0.12} until={200.5} x={360 + i * 200} y={840} h={240} />
+        <Person key={i} kind={k} at={195.37 + i * 0.12} until={198.87} x={360 + i * 200} y={840} h={240} />
       ))}
-      <Words text="Codo a codo con sus clientes." at={197.9} until={200.5} size={60} y={250} weight={800} />
-      <Words text="Key Lab es el futuro." at={200.7} until={203.4} font="display" size={150} y={420} />
-      <Outro at={203.5} />
+      <Words text="Codo a codo con sus clientes." at={196.27} until={198.87} size={60} y={250} weight={800} />
+      <Words text="Key Lab es el futuro." at={199.07} until={201.77} font="display" size={150} y={420} />
+      <Outro at={201.87} />
     </AbsoluteFill>
   );
 };
