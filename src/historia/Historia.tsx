@@ -3,6 +3,7 @@ import { AbsoluteFill, Audio, Easing, Img, interpolate, Sequence, staticFile, us
 import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
 import { RetratoVivo, SEBASTIAN, ULISES, idle } from './Retrato';
+import { Persona3D, type Layer } from './Persona3D';
 
 // Historia de Key Lab · 1920x1080 · motion graphics minimalista sobre negro.
 // Personas = siluetas blancas. Todo el texto en color sólido (sin degradados).
@@ -111,22 +112,7 @@ const Person: React.FC<{
   const t = useT();
   if (t < at || t > until) return null;
   if (kind === 'ulises' || kind === 'sebas') return <Portrait kind={kind} at={at} until={until} x={x} y={y} h={h} dim={dim} dx={dx} />;
-  const rev = interpolate(t, [at, at + 1.1], [0, 1], { ...clamp, easing: ease });
-  const out = interpolate(t, [until - 0.5, until], [1, 0], clamp);
-  let o = 1;
-  for (const [a, b] of dim ?? []) o = Math.min(o, t >= a && t < b ? interpolate(t, [a, a + 0.4], [1, 0.25], clamp) : 1);
-  if (dim) for (const [, b] of dim) if (t >= b && t < b + 0.4) o = interpolate(t, [b, b + 0.4], [0.25, 1], clamp);
-  const breathe = 1 + Math.sin(t * 1.6 + x) * 0.006;
-  const shift = dx ? interpolate(t, [dx[0], dx[1]], [0, dx[2]], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 0;
-  const w = h * (200 / 240);
-  return (
-    <div style={{ position: 'absolute', left: x - w / 2 + shift, top: y - h, width: w, height: h, opacity: out * o, transform: `scale(${breathe})`, transformOrigin: '50% 100%' }}>
-      <div style={{ position: 'absolute', inset: 0, clipPath: `inset(${(1 - rev) * 100}% 0 0 0)`, filter: glow ? 'drop-shadow(0 0 40px rgba(140,160,255,0.45))' : 'drop-shadow(0 0 24px rgba(255,255,255,0.12))' }}>
-        <Bust kind={kind} color={INK} />
-      </div>
-      {rev < 1 ? <div style={{ position: 'absolute', left: -20, right: -20, top: `${(1 - rev) * 100}%`, height: 2, background: SOFT, opacity: 1 - rev, boxShadow: `0 0 18px ${SOFT}` }} /> : null}
-    </div>
-  );
+  return <Figure kind={kind} at={at} until={until} x={x} y={y} h={h} dim={dim} dx={dx} glow={glow} />;
 };
 
 /* Ulises y Sebastián: retratos pintados "vivos" en vez de silueta.
@@ -148,6 +134,39 @@ const Portrait: React.FC<{ kind: 'ulises' | 'sebas'; at: number; until: number; 
     <AbsoluteFill style={{ opacity: p * out * o, transform: `translate(${shift}px, ${(1 - p) * 30}px)`, WebkitMaskImage: mask, maskImage: mask }}>
       <RetratoVivo rig={rig} motion={idle(t, kind === 'ulises' ? 0 : 2.3)} x={x} y={top + Hp / 2} height={Hp} />
     </AbsoluteFill>
+  );
+};
+
+/* Las demás personas: cuerpo humano real con captura de movimiento, pintado a pincel con aura que hierve */
+const SEEDS: Record<string, number> = { race: 0.3, matias: 1.7, a: 2.9, b: 4.1, c: 5.3 };
+const Figure: React.FC<{ kind: Kind; at: number; until: number; x: number; y: number; h: number; dim?: [number, number][]; dx?: [number, number, number]; glow?: boolean }> = ({ kind, at, until, x, y, h, dim, dx, glow }) => {
+  const t = useT();
+  const H = Math.round(h * 2.05);
+  const W = Math.round(H * 0.85);
+  const p = interpolate(t, [at, at + 1.2], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(t, [until - 0.5, until], [1, 0], clamp);
+  let o = 1;
+  for (const [a, b] of dim ?? []) if (t >= a && t < b) o = interpolate(t, [a, a + 0.4], [1, 0.3], clamp);
+  if (dim) for (const [, b] of dim) if (t >= b && t < b + 0.4) o = interpolate(t, [b, b + 0.4], [0.3, 1], clamp);
+  const shift = dx ? interpolate(t, [dx[0], dx[1]], [0, dx[2]], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 0;
+  const walking = dx ? interpolate(t, [dx[0] - 0.3, dx[0] + 0.2, dx[1] - 0.2, dx[1] + 0.3], [0, 1, 1, 0], clamp) : 0;
+  const ph = SEEDS[kind] ?? 0;
+  const nod = kind === 'matias' ? interpolate(t, [at + 1.5, at + 1.9, at + 3.2, at + 3.6], [0, 1, 1, 0], clamp) : 0;
+  const layers: Layer[] = [
+    { clip: 'idle', weight: 1 - walking, offset: ph },
+    ...(walking > 0 ? [{ clip: 'walk', weight: walking, offset: ph } as Layer] : []),
+    ...(nod > 0 ? [{ clip: 'agree', weight: nod, additive: true, offset: -(at + 1.5) } as Layer] : []),
+  ];
+  // de espaldas en tres cuartos; los de Vulcano se dan la espalda al separarse
+  let yaw = Math.PI + (kind === 'race' ? 0.1 : 0.35 * (x < 960 ? 1 : -1));
+  if (dx) yaw += interpolate(walking, [0, 1], [0, dx[2] < 0 ? -0.9 : 0.9]);
+  const top = y - h * 1.08;
+  const fadeA = ((y - top - h * 0.14) / H) * 100, fadeB = ((y - top + h * 0.08) / H) * 100;
+  const mask = `linear-gradient(180deg, #000 ${fadeA}%, transparent ${fadeB}%)`;
+  return (
+    <div style={{ position: 'absolute', left: x - W / 2 + shift, top: top + (1 - p) * 24, width: W, height: H, opacity: p * out * o, WebkitMaskImage: mask, maskImage: mask }}>
+      <Persona3D id={`p-${kind}-${Math.round(at * 10)}`} width={W} height={H} yaw={yaw} aura={glow ? 1.6 : 1} cam={{ y: 1.3, z: 2.05, fov: 35, lookY: 1.25 }} layers={layers} />
+    </div>
   );
 };
 
