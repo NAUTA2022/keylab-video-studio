@@ -26,20 +26,27 @@ from pedalboard import Pedalboard, Reverb, Delay, Compressor, Limiter, Gain, Hig
 from pedalboard.io import AudioFile
 OUT=sys.argv[1] if len(sys.argv)>1 else 'public/media/historia-keylab/partitura.wav'
 TMP='/tmp/part-historia'; os.makedirs(TMP,exist_ok=True)
-SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=206.4
+SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=210.0
 N=pm.note_name_to_number; stems={}
 def inst(k,prog):
     if k not in stems: stems[k]=pm.Instrument(program=prog,name=k)
     return stems[k]
-CUT0, CUT1 = 107.3, 108.93
+import json as _json
+_M=_json.load(open('public/media/historia-keylab/mapa-tiempo.json'))
+_PO=[p[0] for p in _M['pts']]; _PN=[p[1] for p in _M['pts']]
+CUT0, CUT1 = _M['cut']
 def R(t):
-    return t if t < CUT0 else (None if t < CUT1 else t - (CUT1 - CUT0))
+    # tiempo de la voz original -> tiempo de la voz final (sin Ey, con arreglos e inserción)
+    if CUT0 < t < CUT1: return None
+    if t > _PO[-1]: return _PN[-1] + (t - _PO[-1])
+    return float(np.interp(t, _PO, _PN))
 def note(k,prog,p,t,d,v=70):
     t2 = R(t)
     if t2 is None: return
     if t < CUT0 and t + d > CUT0: d = CUT0 - t + 0.4
-    t = t2
-    inst(k,prog).notes.append(pm.Note(velocity=int(np.clip(v,1,127)),pitch=N(p) if isinstance(p,str) else int(p),start=t,end=max(t+0.05,t+d)))
+    e2 = R(t + d) if not (CUT0 < t + d < CUT1) else R(CUT0) + 0.4
+    t, d = t2, max(0.05, e2 - t2)
+    inst(k,prog).notes.append(pm.Note(velocity=int(np.clip(v,1,127)),pitch=N(p) if isinstance(p,str) else int(p),start=t,end=t+d))
 def ramp(k,prog,t0,t1,v0,v1):
     i=inst(k,prog)
     for s in range(25):
@@ -184,7 +191,7 @@ t=np.arange(nS)/SR
 def sub(t0,dur,f0,f1,amp):
     m=(t>=t0)&(t<t0+dur); tt=t[m]-t0; f=f1+(f0-f1)*np.exp(-tt*8); ph=2*np.pi*np.cumsum(f)/SR
     o=np.zeros(nS); o[m]=amp*np.sin(ph)*np.exp(-tt*1.4)*np.clip(tt/0.01,0,1); return o
-s=sum(sub(a,b,70,46.25,c) for a,b,c in [(0.3,4,0.06),(141.8-1.63,2,0.22),(151.7-1.63,2,0.22),(177.5-1.63,3,0.28),(200.7-1.63,6,0.3)])
+s=sum(sub(a,b,70,46.25,c) for a,b,c in [(0.3,4,0.06),(R(141.8),2,0.22),(R(151.7),2,0.22),(R(177.5),3,0.28),(R(200.7),6,0.3)])
 hits+=s.astype(np.float32)
 # VACÍO 107.0→108.0
 np.save(f'{TMP}/hits.npy',hits)

@@ -5,7 +5,7 @@ SR=44100; D='public/media/historia-keylab/'
 def load(p):
     with AudioFile(p).resampled_to(SR) as f: a=f.read(f.frames)
     return np.vstack([a,a]) if a.shape[0]==1 else a
-v=load(D+'voz-sin-ey.mp3'); m=load(D+'partitura.wav')
+v=load(D+'voz-v3.mp3'); m=load(D+'partitura.wav')
 n=max(v.shape[1],m.shape[1]); v=np.pad(v,((0,0),(0,n-v.shape[1]))); m=np.pad(m,((0,0),(0,n-m.shape[1])))
 v=Pedalboard([HighpassFilter(85),PeakFilter(3200,3,1.0),HighShelfFilter(8000,2),Compressor(threshold_db=-20,ratio=3,attack_ms=5,release_ms=120)])(v.astype(np.float32),SR)
 m=Pedalboard([HighpassFilter(45),PeakFilter(2400,-5.5,1.0),PeakFilter(900,-2,1.0)])(m.astype(np.float32),SR)
@@ -19,9 +19,9 @@ sm=np.zeros_like(duck); a_at=np.exp(-1/(0.03*SR)); a_rl=np.exp(-1/(0.35*SR)); y=
 for i in range(0,len(duck),32):
     x=duck[i]; c=a_at if x>y else a_rl**32; y=c*y+(1-c)*x if x>y else y*(a_rl**32)+(1-a_rl**32)*x; sm[i:i+32]=y
 t=np.arange(n)/SR
-depth=np.where(((t>175.87)&(t<186.37))|(t>195.07),0.45,0.6)   # menos ducking en el clímax
+depth=np.where(((t>179.38)&(t<189.88))|(t>198.58),0.45,0.6)   # menos ducking en el clímax
 g=1-depth*sm
-lift=np.interp(t,[0,48,56,88,92,107,107.4,145.4,153.4,207],[8,8,5,5,7,7,5,5,2,2]); g=g*10**(lift/20)
+lift=np.interp(t,[0,48,56,88,92,107,107.64,145.43,156.94,210],[8,8,5,5,7,7,5,5,2,2]); g=g*10**(lift/20)
 out=v+m*g
 out=Pedalboard([Limiter(threshold_db=-1)])(out.astype(np.float32),SR)
 with AudioFile(D+'mezcla.wav','w',SR,2) as f: f.write(out)

@@ -4,6 +4,7 @@ import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
 import { RetratoVivo, SEBASTIAN, ULISES, idle } from './Retrato';
 import { Persona3D, type Layer } from './Persona3D';
+import { MarketplacePhone } from './Marketplace';
 
 // Historia de Key Lab · 1920x1080 · motion graphics minimalista sobre negro.
 // Personas = siluetas blancas. Todo el texto en color sólido (sin degradados).
@@ -11,7 +12,7 @@ import { Persona3D, type Layer } from './Persona3D';
 
 ensureFonts();
 const FPS = 30;
-export const HISTORIA_DUR = 206.4;
+export const HISTORIA_DUR = 210;
 const BG = '#050507';
 const INK = '#FFFFFF';
 const MUTED = '#8A8D99';
@@ -69,6 +70,7 @@ const Label: React.FC<{ text: string; at: number; until: number; x: number; y: n
 
 /* Capítulo arriba a la izquierda */
 const Chapter: React.FC<{ n: string; name: string; at: number; until: number }> = ({ n, name, at, until }) => {
+  if (n) return null; // guía de capítulos desactivada
   const t = useT();
   const o = vis(t, at, until, 0.6) * interpolate(t, [at, at + 0.8], [0, 1], clamp);
   if (o <= 0) return null;
@@ -288,7 +290,6 @@ const Outro: React.FC<{ at: number }> = ({ at }) => {
         <Img src={staticFile('brand/wordmark-texto.png')} style={{ width: 300, display: 'block' }} />
       </div>
       <div style={{ marginTop: 26, fontFamily: BODY, fontWeight: 800, fontSize: 30, letterSpacing: 6, color: SOFT, opacity: url }}>keylab.tech</div>
-      <OneGag g={{ ...OUTRO_MUEJEJE, at: at + 1.6, dur: HISTORIA_DUR - at - 1.6, x: 0.84, y: 0.72, size: 0.16 }} />
     </AbsoluteFill>
   );
 };
@@ -300,8 +301,7 @@ export const Historia: React.FC = () => {
     <AbsoluteFill style={{ background: BG, overflow: 'hidden' }}>
       <Backdrop />
       <Audio src={staticFile('media/historia-keylab/historia-keylab-voz-musica.mp3')} />
-      <Sequence from={Math.round(203.27 * FPS)} layout="none"><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.45} /></Sequence>
-
+      
       {/* 01 · ORIGEN 0–19.0 */}
       <Chapter n="01" name="El origen" at={0.3} until={18.9} />
       <Voxel at={0.4} until={5.1} cx={960} cy={470} s={120} />
@@ -326,116 +326,118 @@ export const Historia: React.FC = () => {
       <Growth at={19.2} until={25.7} />
       <Floor at={25.9} until={36.3} y={840} w={1200} />
       <Person kind="ulises" at={25.9} until={36.3} x={560} y={840} h={300} />
+      <Stroke d="M960 500 C800 470 640 500 560 560" at={33.8} until={36.3} len={500} />
+      <Stroke d="M960 500 C1120 470 1280 500 1360 560" at={33.8} until={36.3} len={500} />
       <Person kind="race" at={26.9} until={36.3} x={960} y={840} h={460} glow />
       <Person kind="sebas" at={26.1} until={36.3} x={1360} y={840} h={300} />
       <Label text="Race" at={27.0} until={36.3} x={960} y={870} color={INK} size={32} />
       <Words text="La primera oportunidad real de surgir." at={28.6} until={32.0} size={50} y={130} />
       <Words text="El mentor de ambos." at={33.7} until={36.3} size={58} y={130} font="body" weight={800} />
-      <Stroke d="M960 500 C800 470 640 500 560 560" at={33.8} until={36.3} len={500} />
-      <Stroke d="M960 500 C1120 470 1280 500 1360 560" at={33.8} until={36.3} len={500} />
 
-      {/* 03 · PRIMER CONTACTO 36.4–52.3 */}
-      <Chapter n="03" name="El primer contacto" at={36.5} until={52.2} />
-      <Words text="Llegaron colaboraciones con otras empresas." at={36.6} until={41.2} size={56} y={480} />
-      <Words text="Crypto Depto" at={41.4} until={52.2} font="display" size={150} y={160} />
-      <Floor at={43.0} until={52.2} y={800} w={600} />
-      <Person kind="matias" at={43.2} until={52.2} x={960} y={800} h={360} />
-      <Label text="Matías" at={43.6} until={52.2} x={960} y={830} color={INK} size={28} />
-      <Words text="Tokenización de activos reales" at={45.7} until={52.2} size={44} y={890} color={SOFT} weight={700} />
-      <Words text="El primer contacto." at={49.3} until={52.2} size={36} y={960} color={MUTED} weight={600} />
+      {/* 03 · PRIMER CONTACTO 36.4–52.54 */}
+      <Chapter n="03" name="El primer contacto" at={36.5} until={52.44} />
+      <Words text="Llegaron colaboraciones con otras empresas." at={36.6} until={41.34} size={56} y={480} />
+      <Words text="Crypto Depto" at={41.55} until={52.44} font="display" size={150} y={160} />
+      <Floor at={43.24} until={52.44} y={800} w={600} />
+      <Person kind="matias" at={43.44} until={52.44} x={960} y={800} h={360} />
+      <Label text="Matías" at={43.84} until={52.44} x={960} y={830} color={INK} size={28} />
+      <Words text="Tokenización de activos reales" at={45.94} until={52.44} size={44} y={890} color={SOFT} weight={700} />
+      <Words text="El primer contacto." at={49.54} until={52.44} size={36} y={960} color={MUTED} weight={600} />
 
-      {/* 04 · APRENDER 52.3–89.8 */}
-      <Chapter n="04" name="Aprender en serio" at={52.4} until={89.7} />
-      <Floor at={52.4} until={76.9} y={900} w={700} />
-      <Person kind="ulises" at={52.5} until={76.9} x={480} y={900} h={520} />
-      <Words text="Ulises se metió de lleno en la teoría." at={52.6} until={70.6} size={54} y={190} width={1000} align="left" x={820} />
-      <Chip text="RWA" at={55.5} until={70.6} x={820} y={400} />
-      <Chip text="DEX / CEX" at={58.4} until={70.6} x={1010} y={400} />
-      <Chip text="Tokenomics" at={63.7} until={70.6} x={820} y={500} />
-      <Chip text="Vesting" at={65.9} until={70.6} x={1140} y={500} />
-      <Chip text="ICO" at={67.9} until={70.6} x={1380} y={500} accent />
-      <Words text="Y en la práctica:" at={70.8} until={76.9} size={44} y={330} width={1000} align="left" x={820} color={MUTED} weight={600} />
-      <Words text="codo a codo con desarrolladores blockchain." at={72.3} until={76.9} size={58} y={410} width={980} align="left" x={820} weight={800} />
-      <Floor at={77.0} until={89.7} y={900} w={700} />
-      <Person kind="sebas" at={77.1} until={89.7} x={1440} y={900} h={520} />
-      <Words text="Sebastián dominó las integraciones y el desarrollo blockchain." at={77.2} until={89.7} size={52} y={190} width={1000} align="left" x={160} />
-      <Chip text="Integraciones" at={79.0} until={89.7} x={160} y={460} />
-      <Chip text="ERC-3643" at={84.6} until={89.7} x={160} y={560} accent />
-      <Chip text="Polygon" at={87.7} until={89.7} x={440} y={560} />
-      <Chip text="BNB Chain" at={88.8} until={89.7} x={660} y={560} />
-      <Stroke d="M1240 640 L1100 640 L1060 600 L900 600" at={79.5} until={89.7} len={400} />
-      <Stroke d="M1240 700 L1080 700 L1040 740 L860 740" at={80.3} until={89.7} len={420} />
+      {/* 04 · APRENDER 52.54–90.04 */}
+      <Chapter n="04" name="Aprender en serio" at={52.64} until={89.94} />
+      <Floor at={52.64} until={77.14} y={900} w={700} />
+      <Person kind="ulises" at={52.74} until={77.14} x={480} y={900} h={520} />
+      <Words text="Ulises se metió de lleno en la teoría." at={52.84} until={70.84} size={54} y={190} width={1000} align="left" x={820} />
+      <Chip text="RWA" at={55.74} until={70.84} x={820} y={400} />
+      <Chip text="DEX / CEX" at={58.64} until={70.84} x={1010} y={400} />
+      <Chip text="Tokenomics" at={63.94} until={70.84} x={820} y={500} />
+      <Chip text="Vesting" at={66.14} until={70.84} x={1140} y={500} />
+      <Chip text="ICO" at={68.14} until={70.84} x={1380} y={500} accent />
+      <Words text="Y en la práctica:" at={71.04} until={77.14} size={44} y={330} width={1000} align="left" x={820} color={MUTED} weight={600} />
+      <Words text="codo a codo con desarrolladores blockchain." at={72.54} until={77.14} size={58} y={410} width={980} align="left" x={820} weight={800} />
+      <Floor at={77.24} until={89.94} y={900} w={700} />
+      <Person kind="sebas" at={77.34} until={89.94} x={1440} y={900} h={520} />
+      <Words text="Sebastián dominó las integraciones y el desarrollo blockchain." at={77.44} until={89.94} size={52} y={190} width={1000} align="left" x={160} />
+      <Chip text="Integraciones" at={79.24} until={89.94} x={160} y={460} />
+      <Chip text="ERC-3643" at={84.84} until={89.94} x={160} y={560} accent />
+      <Chip text="Polygon" at={87.94} until={89.94} x={470} y={560} />
+      <Chip text="BNB Chain" at={89.04} until={89.94} x={760} y={560} />
+      <Stroke d="M1240 650 L1150 650 L1110 690 L1040 690" at={79.74} until={89.94} len={400} />
+      <Stroke d="M1240 720 L1150 720 L1110 760 L1040 760" at={80.54} until={89.94} len={420} />
 
-      {/* 05 · VULCANO 89.8–107.0 */}
-      <Chapter n="05" name="Vulcano" at={90.0} until={106.8} />
-      <Words text="Vulcano" at={91.8} until={106.8} font="display" size={150} y={140} />
-      <Floor at={92.0} until={106.8} y={860} w={900} />
-      <Person kind="a" at={92.1} until={106.9} x={860} y={860} h={380} dx={[101.8, 104.6, -330]} />
-      <Person kind="b" at={92.4} until={106.9} x={1060} y={860} h={380} dx={[101.8, 104.6, 330]} />
-      <Label text="Dos amigos · tokenización y plataformas a medida" at={93.9} until={101.6} x={960} y={900} color={SOFT} size={20} />
-      <Words text="Proyectos juntos." at={100.0} until={101.7} size={44} y={950} color={MUTED} weight={600} />
-      <Words text="Caminos distintos." at={102.0} until={106.8} size={52} y={950} weight={700} />
+      {/* 05 · VULCANO 90.04–107.24 */}
+      <Chapter n="05" name="Vulcano" at={90.24} until={107.04} />
+      <Words text="Vulcano" at={92.04} until={107.04} font="display" size={150} y={140} />
+      <Floor at={92.24} until={107.04} y={860} w={900} />
+      <Person kind="a" at={92.34} until={107.14} x={860} y={860} h={380} dx={[102.04, 104.84, -330]} />
+      <Person kind="b" at={92.64} until={107.14} x={1060} y={860} h={380} dx={[102.04, 104.84, 330]} />
+      <Label text="Dos amigos · tokenización y plataformas a medida" at={94.14} until={101.84} x={960} y={900} color={SOFT} size={20} />
+      <Words text="Proyectos juntos." at={100.24} until={101.94} size={44} y={950} color={MUTED} weight={600} />
+      <Words text="Caminos distintos." at={102.24} until={107.04} size={52} y={950} weight={700} />
 
 
-      {/* 06 · ALGO PROPIO 107.27–124.67 */}
-      <Chapter n="06" name="Algo propio" at={107.37} until={124.57} />
-      <Horizon at={107.27} until={124.67} />
-      <Floor at={107.37} until={124.57} y={900} w={800} />
-      <Person kind="ulises" at={107.57} until={124.57} x={760} y={900} h={420} />
-      <Person kind="sebas" at={107.77} until={124.57} x={1160} y={900} h={420} />
-      <Words text="Y empezaron algo propio." at={110.57} until={117.27} size={72} y={170} weight={800} />
-      <Words text="Construir el futuro junto a sus clientes." at={113.37} until={117.27} size={40} y={290} color={SOFT} weight={700} />
-      <Words text="Valores accesibles. La puerta del mercado abierta a más gente." at={117.67} until={124.57} size={46} y={170} />
-      <Words text="Y evolucionar todos los días." at={122.37} until={124.57} size={40} y={340} color={SOFT} weight={700} />
+      {/* 06 · ALGO PROPIO 107.51–124.91 */}
+      <Chapter n="06" name="Algo propio" at={107.61} until={124.81} />
+      <Horizon at={107.51} until={124.91} />
+      <Floor at={107.61} until={124.81} y={900} w={800} />
+      <Person kind="ulises" at={107.81} until={124.81} x={760} y={900} h={420} />
+      <Person kind="sebas" at={108.01} until={124.81} x={1160} y={900} h={420} />
+      <Words text="Y empezaron algo propio." at={110.81} until={117.51} size={72} y={170} weight={800} />
+      <Words text="Construir el futuro junto a sus clientes." at={113.61} until={117.51} size={40} y={290} color={SOFT} weight={700} />
+      <Words text="Valores accesibles. La puerta del mercado abierta a más gente." at={117.91} until={124.81} size={46} y={170} />
+      <Words text="Y evolucionar todos los días." at={122.61} until={124.81} size={40} y={340} color={SOFT} weight={700} />
 
-      {/* 07 · LA DECISIÓN 124.67–149.97 */}
-      <Chapter n="07" name="La decisión" at={124.77} until={149.87} />
-      <Words text="Blockenfy" at={127.77} until={139.97} font="display" size={140} y={200} />
-      <Person kind="c" at={128.1} until={137.0} x={330} y={900} h={400} />
-      <Label text="Blockenfy" at={128.6} until={137.0} x={330} y={930} color={SOFT} size={20} />
-      <Words text="Mejoras en diseño y funciones." at={134.07} until={139.97} size={44} y={420} color={MUTED} weight={600} />
-      <Stroke d="M760 700 C900 700 940 700 960 700 C1040 700 1100 620 1260 580" at={137.07} until={139.97} len={600} color={INK} />
-      <Stroke d="M960 700 C1040 700 1100 780 1260 820" at={137.07} until={139.97} len={400} color={SOFT} />
-      <Label text="Visiones distintas" at={137.27} until={139.97} x={960} y={880} color={INK} size={24} />
-      <Words text="Ellos querían algo más." at={140.17} until={149.87} size={66} y={220} weight={800} />
-      {[['Calidad visual', 142.27], ['Calidad funcional', 143.57], ['Tokenización abierta', 145.07]].map(([txt, at], i) => (
-        <Pillar key={i} text={txt as string} at={at as number} until={149.87} x={420 + i * 540} accent={i === 2} />
+      {/* 07 · LA DECISIÓN 124.91–153.51 */}
+      <Chapter n="07" name="La decisión" at={125.01} until={153.41} />
+      <Words text="Blockenfy" at={127.93} until={140.00} font="display" size={140} y={200} />
+      <Person kind="c" at={128.25} until={137.03} x={330} y={900} h={400} />
+      <Label text="Blockenfy" at={128.73} until={137.03} x={330} y={930} color={SOFT} size={20} />
+      <Words text="Mejoras en diseño y funciones." at={134.10} until={140.00} size={44} y={420} color={MUTED} weight={600} />
+      <Stroke d="M760 700 C900 700 940 700 960 700 C1040 700 1100 620 1260 580" at={137.10} until={140.00} len={600} color={INK} />
+      <Stroke d="M960 700 C1040 700 1100 780 1260 820" at={137.10} until={140.00} len={400} color={SOFT} />
+      <Label text="Visiones distintas" at={137.30} until={140.00} x={960} y={880} color={INK} size={24} />
+      <Words text="Ellos querían algo más." at={140.20} until={153.41} size={66} y={220} weight={800} />
+      {[['Calidad visual', 142.30], ['Calidad funcional', 143.60], ['Tokenización abierta', 145.10]].map(([txt, at], i) => (
+        <Pillar key={i} text={txt as string} at={at as number} until={153.41} x={420 + i * 540} accent={i === 2} />
       ))}
-      <Words text="Para que el mercado crezca." at={146.97} until={149.87} size={40} y={880} color={SOFT} weight={700} />
+      <Words text="Para que el mercado crezca." at={147.00} until={149.40} size={40} y={880} color={SOFT} weight={700} />
+      <Words text="En esa empresa no iban a conseguirlo." at={149.50} until={153.41} size={46} y={870} weight={800} />
 
-      {/* 08 · KEY LAB 149.97–175.67 */}
-      <Chapter n="08" name="Key Lab" at={150.07} until={175.57} />
-      <Words text="Por eso hicieron evolucionar su empresa." at={150.07} until={154.17} size={56} y={480} />
-      <BigLogo at={154.27} until={162.77} />
+      {/* 08 · KEY LAB 153.51–179.21 */}
+      <Chapter n="08" name="Key Lab" at={153.61} until={179.11} />
+      <Words text="Por eso hicieron evolucionar su empresa." at={153.61} until={157.71} size={56} y={480} />
+      <BigLogo at={157.81} until={166.31} />
       {(['a', 'b', 'c', 'matias'] as Kind[]).map((k, i) => (
-        <Person key={i} kind={k} at={155.37 + i * 0.25} until={175.57} x={540 + i * 280} y={860} h={260} />
+        <Person key={i} kind={k} at={158.91 + i * 0.25} until={179.11} x={230 + i * 215} y={900} h={230} />
       ))}
-      <Floor at={155.17} until={175.57} y={860} w={1250} />
-      {[['Diseño', 156.67], ['UX / UI', 157.87], ['Producto', 160.67], ['Blockchain', 162.37]].map(([txt, at], i) => (
-        <Label key={i} text={txt as string} at={at as number} until={175.57} x={540 + i * 280} y={890} color={i === 3 ? SOFT : INK} size={24} />
+      
+      {[['Diseño', 160.21], ['UX / UI', 161.41], ['Producto', 164.21], ['Blockchain', 165.91]].map(([txt, at], i) => (
+        <Label key={i} text={txt as string} at={at as number} until={179.11} x={230 + i * 215} y={925} color={i === 3 ? SOFT : INK} size={20} />
       ))}
-      <Words text="Una plataforma tokenizadora white label." at={162.97} until={175.57} size={54} y={190} weight={800} />
-      <Chip text="Calidad AAA" at={169.07} until={175.57} x={600} y={330} accent />
-      <Chip text="Valor alcanzable" at={170.87} until={175.57} x={980} y={330} />
+      <Words text="Una plataforma tokenizadora white label." at={166.51} until={179.11} size={54} y={200} weight={800} align="left" x={150} width={1000} />
+      <Chip text="Calidad AAA" at={172.61} until={179.11} x={150} y={420} accent />
+      <Chip text="Valor alcanzable" at={174.41} until={179.11} x={480} y={420} />
+      <MarketplacePhone at={161.3} until={179.11} x={1480} y={540} switches={[166.5, 170.0, 173.2]} tapAt={175.0} />
 
-      {/* 09 · HOY 175.67–186.37 */}
-      <Chapter n="09" name="Hoy" at={175.77} until={186.27} />
-      <Words text="Hoy" at={175.87} until={186.27} font="display" size={180} y={120} />
-      <Network at={176.37} until={186.27} />
-      <Words text="Alianzas con firmas legales y del sector." at={176.67} until={180.97} size={46} y={860} />
-      <Words text="Negocios que crecen." at={181.07} until={184.67} size={46} y={860} />
-      <Words text="Plataformas que de verdad valen la pena." at={184.77} until={186.27} size={46} y={860} weight={800} />
+      {/* 09 · HOY 179.21–189.91 */}
+      <Chapter n="09" name="Hoy" at={179.31} until={189.81} />
+      <Words text="Hoy" at={179.41} until={189.81} font="display" size={180} y={120} />
+      <Network at={179.91} until={189.81} />
+      <Words text="Alianzas con firmas legales y del sector." at={180.21} until={184.51} size={46} y={860} />
+      <Words text="Negocios que crecen." at={184.61} until={188.21} size={46} y={860} />
+      <Words text="Plataformas que de verdad valen la pena." at={188.31} until={189.81} size={46} y={860} weight={800} />
 
-      {/* 10 · CIERRE 186.37–208 */}
-      <Words text="Key Lab no es el primero." at={187.67} until={194.97} size={78} y={360} weight={800} />
-      <Words text="Es el que se sentó a entender lo que el mercado necesita." at={190.37} until={194.97} size={44} y={500} color={SOFT} weight={700} />
-      <Floor at={195.37} until={198.87} y={840} w={1500} />
+      {/* 10 · CIERRE 189.91–208 */}
+      <Words text="Key Lab no es el primero." at={191.21} until={198.51} size={78} y={360} weight={800} />
+      <Words text="Es el que se sentó a entender lo que el mercado necesita." at={193.91} until={198.51} size={44} y={500} color={SOFT} weight={700} />
+      <Floor at={198.91} until={202.41} y={840} w={1500} />
       {(['ulises', 'a', 'race', 'b', 'c', 'matias', 'sebas'] as Kind[]).map((k, i) => (
-        <Person key={i} kind={k} at={195.37 + i * 0.12} until={198.87} x={360 + i * 200} y={840} h={240} />
+        <Person key={i} kind={k} at={198.91 + i * 0.12} until={202.41} x={360 + i * 200} y={840} h={240} />
       ))}
-      <Words text="Codo a codo con sus clientes." at={196.27} until={198.87} size={60} y={250} weight={800} />
-      <Words text="Key Lab es el futuro." at={199.07} until={201.77} font="display" size={150} y={420} />
-      <Outro at={201.87} />
+      <Words text="Codo a codo con sus clientes." at={199.81} until={202.41} size={60} y={250} weight={800} />
+      <Words text="Key Lab es el futuro." at={202.61} until={204.62} font="display" size={150} y={420} />
+      <Outro at={204.62} />
     </AbsoluteFill>
   );
 };
@@ -461,7 +463,7 @@ const BigLogo: React.FC<{ at: number; until: number }> = ({ at, until }) => {
   const o = vis(t, at, until, 0.6);
   if (o <= 0) return null;
   return (
-    <div style={{ position: 'absolute', left: 960 - 330, top: 250, opacity: o, clipPath: `inset(0 ${(1 - p) * 100}% 0 0)` }}>
+    <div style={{ position: 'absolute', left: 150, top: 250, opacity: o, clipPath: `inset(0 ${(1 - p) * 100}% 0 0)` }}>
       <Img src={staticFile('brand/wordmark-blanco.png')} style={{ width: 660, display: 'block' }} />
     </div>
   );
