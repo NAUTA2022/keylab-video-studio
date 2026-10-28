@@ -134,3 +134,55 @@ export const MarketplacePhone: React.FC<{ at: number; until: number; x: number; 
     </div>
   );
 };
+
+/* Capturas reales de la plataforma (Keychain) dentro de una ventana de navegador.
+   Cada captura entra con un deslizamiento suave y hace un recorrido lento (zoom + paneo). */
+type Shot = { img: string; label: string; at: number; zoom?: [number, number]; pan?: [[number, number], [number, number]] };
+export const PlataformaReal: React.FC<{ at: number; until: number; x: number; y: number; width: number; shots: Shot[] }> = ({ at, until, x, y, width, shots }) => {
+  const f = useCurrentFrame();
+  const { fps } = useVideoConfig();
+  const t = f / fps;
+  if (t < at - 0.1 || t > until + 0.1) return null;
+  const inP = interpolate(t, [at, at + 0.9], [0, 1], { ...clamp, easing: ease });
+  const out = interpolate(t, [until - 0.5, until], [1, 0], clamp);
+  const BAR = 38;
+  const sw = width, sh = Math.round(width * 740 / 1016);
+  const H = sh + BAR;
+  const cur = shots.filter((s) => t >= s.at).length - 1;
+  return (
+    <div style={{ position: 'absolute', left: x - sw / 2, top: y - H / 2, width: sw, height: H, opacity: inP * out, transform: `translateY(${(1 - inP) * 60}px) scale(${0.96 + 0.04 * inP})` }}>
+      <div style={{ position: 'absolute', inset: 0, borderRadius: 18, overflow: 'hidden', background: '#101219', border: '1.5px solid rgba(255,255,255,0.14)', boxShadow: '0 40px 120px rgba(45,82,255,0.28), 0 0 0 1px rgba(0,0,0,0.6)' }}>
+        <div style={{ height: BAR, display: 'flex', alignItems: 'center', gap: 8, padding: '0 16px', background: '#171A22' }}>
+          {['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 12, height: 12, borderRadius: 6, background: c }} />)}
+          <div style={{ marginLeft: 18, flex: 1, height: 22, borderRadius: 8, background: '#0D0F15', color: '#8A8D99', fontFamily: BODY, fontSize: 13, fontWeight: 600, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>app.tumarca.com</div>
+        </div>
+        <div style={{ position: 'absolute', left: 0, top: BAR, width: sw, height: sh, overflow: 'hidden', background: '#F4F6FA' }}>
+          {shots.map((s, i) => {
+            const end = i + 1 < shots.length ? shots[i + 1].at : until;
+            if (t < s.at - 0.05 || t > end + 0.7) return null;
+            const p = interpolate(t, [s.at, s.at + 0.7], [0, 1], { ...clamp, easing: ease });
+            const life = interpolate(t, [s.at, end + 0.6], [0, 1], clamp);
+            const [z0, z1] = s.zoom ?? [1.0, 1.08];
+            const [[px0, py0], [px1, py1]] = s.pan ?? [[0.5, 0.5], [0.5, 0.5]];
+            const z = z0 + (z1 - z0) * life;
+            const ox = (px0 + (px1 - px0) * life) * 100, oy = (py0 + (py1 - py0) * life) * 100;
+            return (
+              <div key={s.img} style={{ position: 'absolute', inset: 0, opacity: i === 0 ? 1 : p, transform: `translateX(${i === 0 ? 0 : (1 - p) * 60}px)` }}>
+                <Img src={staticFile(`media/historia-keylab/plataforma/${s.img}.png`)} style={{ width: '100%', height: '100%', objectFit: 'cover', transform: `scale(${z})`, transformOrigin: `${ox}% ${oy}%` }} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      {/* etiqueta de la pantalla actual */}
+      <div style={{ position: 'absolute', left: 0, top: H + 22, display: 'flex', alignItems: 'center', gap: 12 }}>
+        {shots.map((s, i) => (
+          <div key={s.img} style={{ height: 6, width: i === cur ? 34 : 10, borderRadius: 3, background: i === cur ? ACCENT : 'rgba(255,255,255,0.22)' }} />
+        ))}
+        <div style={{ marginLeft: 8, fontFamily: BODY, fontWeight: 700, fontSize: 18, color: '#E8EAF0', letterSpacing: 0.3 }}>{shots[Math.max(cur, 0)].label}</div>
+        <div style={{ marginLeft: 'auto' }} />
+      </div>
+      <div style={{ position: 'absolute', right: 0, top: H + 22, fontFamily: BODY, fontWeight: 600, fontSize: 15, color: '#6E7282' }}>Captura real · Keychain</div>
+    </div>
+  );
+};

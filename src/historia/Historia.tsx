@@ -4,7 +4,7 @@ import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
 import { RetratoVivo, SEBASTIAN, ULISES, idle } from './Retrato';
 import { Persona3D, type Layer } from './Persona3D';
-import { MarketplacePhone } from './Marketplace';
+import { PlataformaReal } from './Marketplace';
 
 // Historia de Key Lab · 1920x1080 · motion graphics minimalista sobre negro.
 // Personas = siluetas blancas. Todo el texto en color sólido (sin degradados).
@@ -415,10 +415,17 @@ export const Historia: React.FC = () => {
       {[['Diseño', 161.47], ['UX / UI', 162.67], ['Producto', 165.47], ['Blockchain', 167.17]].map(([txt, at], i) => (
         <Label key={i} text={txt as string} at={at as number} until={180.37} x={230 + i * 215} y={925} color={i === 3 ? SOFT : INK} size={20} />
       ))}
-      <Words text="Una plataforma tokenizadora white label." at={167.77} until={180.37} size={54} y={200} weight={800} align="left" x={150} width={1000} />
+      <Words text="Una plataforma tokenizadora white label." at={167.77} until={180.37} size={54} y={200} weight={800} align="left" x={150} width={820} />
       <Chip text="Calidad AAA" at={173.87} until={180.37} x={150} y={420} accent />
       <Chip text="Valor alcanzable" at={175.67} until={180.37} x={480} y={420} />
-      <MarketplacePhone at={162.56} until={180.37} x={1480} y={540} switches={[167.76, 171.26, 174.46]} tapAt={176.26} />
+      <PlataformaReal at={162.56} until={180.37} x={1490} y={520} width={760} shots={[
+        { img: 'p014-013', label: 'Marketplace con tu marca', at: 162.56, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+        { img: 'p013-012', label: 'Detalle del proyecto', at: 166.3, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+        { img: 'p011-010', label: 'Registro e ingreso', at: 169.6, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+        { img: 'p012-011', label: 'Dashboard del inversionista', at: 172.4, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+        { img: 'p015-014', label: 'Mis pertenencias', at: 175.2, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+        { img: 'p016-015', label: 'Perfil del inversionista', at: 177.8, zoom: [1.0, 1.045], pan: [[0.5, 0.35], [0.5, 0.5]] },
+      ]} />
 
       {/* 09 · HOY 180.47–191.17 */}
       <Chapter n="09" name="Hoy" at={180.57} until={191.07} />

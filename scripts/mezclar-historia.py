@@ -5,7 +5,7 @@ SR=44100; D='public/media/historia-keylab/'
 def load(p):
     with AudioFile(p).resampled_to(SR) as f: a=f.read(f.frames)
     return np.vstack([a,a]) if a.shape[0]==1 else a
-v=load(D+'voz-v3.mp3'); m=load(D+'partitura.wav')
+v=load(D+'voz-v4.mp3'); m=load(D+'partitura.wav')
 n=max(v.shape[1],m.shape[1]); v=np.pad(v,((0,0),(0,n-v.shape[1]))); m=np.pad(m,((0,0),(0,n-m.shape[1])))
 v=Pedalboard([HighpassFilter(85),PeakFilter(3200,3,1.0),HighShelfFilter(8000,2),Compressor(threshold_db=-20,ratio=3,attack_ms=5,release_ms=120)])(v.astype(np.float32),SR)
 m=Pedalboard([HighpassFilter(45),PeakFilter(2400,-5.5,1.0),PeakFilter(900,-2,1.0)])(m.astype(np.float32),SR)
