@@ -1,0 +1,206 @@
+{
+  "bakeKey": "noticia-2026-10-28-janus",
+  "voice": "media/noticia-2026-10-28-janus/voz.mp3",
+  "soundtrack": "media/noticia-2026-10-28-janus/banda.mp3",
+  "background": "dots",
+  "scenes": [
+    {
+      "type": "hook",
+      "dur": 3.1,
+      "tag": "Noticia",
+      "kicker": "Noticia del día",
+      "title": "Janus Henderson tokenizó el",
+      "highlight": "Nasdaq-100",
+      "cues": {
+        "title": 1.05,
+        "boom": 2.35
+      }
+    },
+    {
+      "type": "stat",
+      "dur": 3.0,
+      "tag": "La cifra",
+      "value": 100,
+      "prefix": "",
+      "suffix": "",
+      "label": "tecnológicas más grandes del Nasdaq, ahora en un fondo tokenizado",
+      "note": "Índice Nasdaq-100 · Fuente: Cointelegraph, 27 oct 2026"
+    },
+    {
+      "type": "roast",
+      "dur": 2.95,
+      "tag": "Realidad",
+      "lines": [
+        "Y tú, llevando las cuentas",
+        "en el cuaderno del fiado"
+      ],
+      "punch": "¿Y el saldo?",
+      "cues": {
+        "line0": 0.12,
+        "line1": 0.85,
+        "punch": 1.95
+      }
+    },
+    {
+      "type": "news",
+      "dur": 7.3,
+      "tag": "Noticia",
+      "source": "Cointelegraph",
+      "date": "27 oct 2026",
+      "headline": "Janus Henderson y Centrifuge lanzan un fondo tokenizado del Nasdaq-100 en Stellar",
+      "articleShot": "media/noticia-2026-10-28-janus/nota.png",
+      "siteUrl": "centrifuge.io",
+      "siteShot": "media/noticia-2026-10-28-janus/web-empresa.png",
+      "chip": "Fondo JQQQ · Nasdaq-100 · en Stellar"
+    },
+    {
+      "type": "stat",
+      "dur": 3.35,
+      "tag": "Resultados",
+      "value": 100,
+      "prefix": "",
+      "suffix": " mil",
+      "label": "dólares de inversión mínima",
+      "note": "Solo inversionistas profesionales fuera de EE. UU. · Fuente: Wall Street Journal vía Cointelegraph, 27 oct 2026"
+    },
+    {
+      "type": "stat",
+      "dur": 4.05,
+      "tag": "Resultados",
+      "value": 1,
+      "prefix": "+US$",
+      "suffix": " mil M",
+      "label": "en estrategias institucionales en blockchain de Janus Henderson",
+      "note": "Bonos del Tesoro, crédito y acciones · Fuente: Janus Henderson y Centrifuge, 27 oct 2026"
+    },
+    {
+      "type": "ey",
+      "dur": 1.1
+    },
+    {
+      "type": "pivot",
+      "dur": 2.5,
+      "lead": "Si se puede con eso, se puede con",
+      "words": [
+        "tu negocio",
+        "lo tuyo"
+      ],
+      "wordsAt": [
+        0.3,
+        1.7
+      ],
+      "icons": [
+        "crecer",
+        "manos"
+      ]
+    },
+    {
+      "type": "solution",
+      "dur": 4.55,
+      "tag": "Key Lab",
+      "title": "En Key Lab construimos",
+      "items": [
+        "Tu plataforma de tokenización",
+        "Fondos y activos en blockchain",
+        "Con tu marca"
+      ],
+      "itemsAt": [
+        1.0,
+        2.0,
+        3.5
+      ],
+      "icons": [
+        "panel",
+        "contrato",
+        "marca"
+      ]
+    },
+    {
+      "type": "close",
+      "dur": 4.3
+    }
+  ],
+  "gags": [
+    {
+      "at": 7.55,
+      "dur": 1.4,
+      "image": "memes/zorro/zorro-triste-fondo.jpg",
+      "style": "sticker",
+      "x": 0.77,
+      "y": 0.6,
+      "size": 0.21,
+      "rotate": -6,
+      "caption": "fiado_final.xls 😭",
+      "sfx": "sfx/trombon.mp3"
+    },
+    {
+      "at": 18.3,
+      "dur": 1.4,
+      "image": "memes/zorro/zorro-punetazo-fondo.jpg",
+      "style": "sticker",
+      "x": 0.83,
+      "y": 0.59,
+      "size": 0.19,
+      "rotate": 6,
+      "caption": "¿100 MIL DE ENTRADA? 🥊",
+      "sfx": "sfx/scratch.mp3"
+    }
+  ],
+  "subtitles": [
+    {
+      "from": 0.08,
+      "to": 1.0,
+      "text": "Noticia del día:"
+    },
+    {
+      "from": 1.05,
+      "to": 2.98,
+      "text": "Janus Henderson metió el Nasdaq-100 en blockchain."
+    },
+    {
+      "from": 3.2,
+      "to": 6.0,
+      "text": "Las 100 tecnológicas más grandes, tokenizadas."
+    },
+    {
+      "from": 6.22,
+      "to": 8.93,
+      "text": "Y tú, llevando las cuentas en el cuaderno del fiado."
+    },
+    {
+      "from": 9.16,
+      "to": 12.02,
+      "text": "Según Cointelegraph, la gestora lanzó con Centrifuge"
+    },
+    {
+      "from": 12.27,
+      "to": 16.3,
+      "text": "un fondo tokenizado en Stellar que sigue el índice Nasdaq-100,"
+    },
+    {
+      "from": 16.3,
+      "to": 19.6,
+      "text": "para inversionistas profesionales, desde US$100.000."
+    },
+    {
+      "from": 19.84,
+      "to": 23.58,
+      "text": "Y ya maneja más de US$1.000 millones en estrategias en blockchain."
+    },
+    {
+      "from": 24.98,
+      "to": 27.2,
+      "text": "Si se puede con eso, se puede con lo tuyo."
+    },
+    {
+      "from": 27.44,
+      "to": 31.7,
+      "text": "En Key Lab construimos tu plataforma de tokenización, con tu marca."
+    },
+    {
+      "from": 31.96,
+      "to": 33.3,
+      "text": "Agenda una reunión."
+    }
+  ]
+}
