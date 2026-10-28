@@ -305,8 +305,8 @@ export const Historia: React.FC = () => {
       {/* 01 · ORIGEN 0–19.0 */}
       <Chapter n="01" name="El origen" at={0.3} until={18.9} />
       <Voxel at={0.4} until={5.1} cx={960} cy={470} s={120} />
-      <Words text="Todo empezó en un videojuego" at={0.3} until={5.1} size={64} y={690} />
-      <Label text="The Sandbox" at={2.7} until={5.1} x={960} y={790} color={SOFT} size={26} />
+      <Words text="Todo empezó en una empresa de videojuegos" at={0.3} until={5.1} size={56} y={680} />
+      <Words text="que construía en The Sandbox." at={2.7} until={5.1} size={40} y={775} color={SOFT} weight={700} />
       <Floor at={5.4} until={18.9} y={820} w={1300} />
       <Person kind="ulises" at={5.6} until={18.9} x={610} dim={[[14.6, 18.9]]} />
       <Person kind="sebas" at={5.9} until={18.9} x={1310} dim={[[11.3, 14.6]]} />
