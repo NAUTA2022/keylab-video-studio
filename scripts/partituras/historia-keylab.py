@@ -26,7 +26,7 @@ from pedalboard import Pedalboard, Reverb, Delay, Compressor, Limiter, Gain, Hig
 from pedalboard.io import AudioFile
 OUT=sys.argv[1] if len(sys.argv)>1 else 'public/media/historia-keylab/partitura.wav'
 TMP='/tmp/part-historia'; os.makedirs(TMP,exist_ok=True)
-SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=210.0
+SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=211.0
 N=pm.note_name_to_number; stems={}
 def inst(k,prog):
     if k not in stems: stems[k]=pm.Instrument(program=prog,name=k)
