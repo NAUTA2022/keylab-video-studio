@@ -391,6 +391,8 @@ export const Historia: React.FC = () => {
       {/* 07 · LA DECISIÓN 124.67–149.97 */}
       <Chapter n="07" name="La decisión" at={124.77} until={149.87} />
       <Words text="Blockenfy" at={127.77} until={139.97} font="display" size={140} y={200} />
+      <Person kind="c" at={128.1} until={137.0} x={330} y={900} h={400} />
+      <Label text="Blockenfy" at={128.6} until={137.0} x={330} y={930} color={SOFT} size={20} />
       <Words text="Mejoras en diseño y funciones." at={134.07} until={139.97} size={44} y={420} color={MUTED} weight={600} />
       <Stroke d="M760 700 C900 700 940 700 960 700 C1040 700 1100 620 1260 580" at={137.07} until={139.97} len={600} color={INK} />
       <Stroke d="M960 700 C1040 700 1100 780 1260 820" at={137.07} until={139.97} len={400} color={SOFT} />
@@ -445,9 +447,9 @@ const Pillar: React.FC<{ text: string; at: number; until: number; x: number; acc
   const o = vis(t, at, until);
   if (o <= 0) return null;
   return (
-    <div style={{ position: 'absolute', left: x - 220, top: 420, width: 440, height: 380, opacity: o, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
+    <div style={{ position: 'absolute', left: x - 260, top: 420, width: 520, height: 380, opacity: o, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
       <div style={{ width: 2, height: 260 * p, background: accent ? ACCENT : INK, boxShadow: accent ? `0 0 24px ${ACCENT}` : undefined }} />
-      <div style={{ marginTop: 22, fontFamily: BODY, fontWeight: 800, fontSize: 34, letterSpacing: 3, color: accent ? SOFT : INK, textTransform: 'uppercase', opacity: p }}>{text}</div>
+      <div style={{ marginTop: 22, fontFamily: BODY, fontWeight: 800, fontSize: 32, letterSpacing: 3, color: accent ? SOFT : INK, textTransform: 'uppercase', opacity: p, whiteSpace: 'nowrap', textAlign: 'center' }}>{text}</div>
     </div>
   );
 };
