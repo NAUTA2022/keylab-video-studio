@@ -300,7 +300,6 @@ export const Historia: React.FC = () => {
     <AbsoluteFill style={{ background: BG, overflow: 'hidden' }}>
       <Backdrop />
       <Audio src={staticFile('media/historia-keylab/historia-keylab-voz-musica.mp3')} />
-      <Sequence from={Math.round(108.0 * FPS)} durationInFrames={60} layout="none"><Audio src={staticFile('sfx/boom.mp3')} volume={0.5} /></Sequence>
       <Sequence from={Math.round(204.9 * FPS)} layout="none"><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.45} /></Sequence>
 
       {/* 01 · ORIGEN 0–19.0 */}
@@ -377,8 +376,6 @@ export const Historia: React.FC = () => {
       <Words text="Proyectos juntos." at={100.0} until={101.7} size={44} y={950} color={MUTED} weight={600} />
       <Words text="Caminos distintos." at={102.0} until={106.8} size={52} y={950} weight={700} />
 
-      {/* EY 108.0–108.9 */}
-      <EyMoment at={108.0} until={108.9} />
 
       {/* 06 · ALGO PROPIO 108.9–126.3 */}
       <Chapter n="06" name="Algo propio" at={109.0} until={126.2} />
