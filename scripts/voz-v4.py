@@ -31,7 +31,7 @@ for op, i1, i2, j1, j2 in sm.get_opcodes():
 chunks, cur = [], [0]
 for j in range(1, len(new)):
     prev = new[j - 1]
-    if re.search(r'[.,:;]$', prev['text']) and new[j]['start'] - prev['end'] > 0.12:
+    if re.search(r'[.]$', prev['text']) and new[j]['start'] - prev['end'] > 0.2:
         chunks.append(cur); cur = []
     cur.append(j)
 chunks.append(cur)
@@ -62,25 +62,26 @@ for i, t in enumerate(tg):
         tg[i] = None
 log, end_prev = [], 0.0
 for i, ch in enumerate(chunks):
-    a = new[ch[0]]['start'] - 0.04
+    a = max(0.0, new[ch[0]]['start'] - 0.04)
     if i: a = max(a, (new[chunks[i - 1][-1]]['end'] + new[ch[0]]['start']) / 2)
     b = new[ch[-1]]['end'] + 0.12
     if i + 1 < len(chunks): b = min(b, (new[ch[-1]]['end'] + new[chunks[i + 1][0]]['start']) / 2)
     seg = raw[int(a * SR):int(b * SR)]
+    if len(seg) < 2000: print("VACIO", i, a, b, [new[j]["text"] for j in ch]); continue
     lead = new[ch[0]]['start'] - a
     t0 = (tg[i] if tg[i] is not None else end_prev + 0.25) - lead
-    t0 = max(t0, end_prev + 0.02)
+    t0 = max(t0, end_prev + 0.18)
     nxt = next((tg[k] for k in range(i + 1, len(chunks)) if tg[k] is not None), None)
     win = (nxt - 0.06 - t0) if nxt is not None else 1e9
     d = len(seg) / SR
     r = 1.0
-    if d > win:
-        r = min(d / win, 1.18)
-        seg = tempo(seg, r)
+    # sin cambiar velocidad: la frase suena entera y natural
+    fade = int(0.012 * SR)
+    seg = seg.copy(); seg[:fade] *= np.linspace(0, 1, fade); seg[-fade:] *= np.linspace(1, 0, fade)
     s0 = int(t0 * SR)
     out[s0:s0 + len(seg)] += seg[:len(out) - s0]
     end_prev = t0 + len(seg) / SR
-    log.append((round(t0 + lead, 2), tg[i] and round(tg[i], 2), round(r, 3), ' '.join(new[j]['text'] for j in ch)[:60]))
+    log.append((round(t0 + lead, 2), tg[i] and round(t0 + lead - tg[i], 2), round(win - d, 2), ' '.join(new[j]['text'] for j in ch)[:60]))
 for l in log:
     print(l)
 pcm = (np.clip(out, -1, 1) * 32767).astype(np.int16)
