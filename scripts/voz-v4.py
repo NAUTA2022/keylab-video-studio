@@ -60,7 +60,7 @@ tg = [target(c) for c in chunks]
 for i, t in enumerate(tg):
     if t is None:
         tg[i] = None
-log, end_prev = [], 0.0
+log, end_prev, placed = [], 0.0, []
 for i, ch in enumerate(chunks):
     a = max(0.0, new[ch[0]]['start'] - 0.04)
     if i: a = max(a, (new[chunks[i - 1][-1]]['end'] + new[ch[0]]['start']) / 2)
@@ -81,8 +81,12 @@ for i, ch in enumerate(chunks):
     s0 = int(t0 * SR)
     out[s0:s0 + len(seg)] += seg[:len(out) - s0]
     end_prev = t0 + len(seg) / SR
+    off = t0 + lead - new[ch[0]]['start']
+    for j in ch: placed.append({'w': new[j]['text'], 's': round(new[j]['start'] + off, 3), 'e': round(new[j]['end'] + off, 3)})
     log.append((round(t0 + lead, 2), tg[i] and round(t0 + lead - tg[i], 2), round(win - d, 2), ' '.join(new[j]['text'] for j in ch)[:60]))
 for l in log:
     print(l)
 pcm = (np.clip(out, -1, 1) * 32767).astype(np.int16)
 subprocess.run(['ffmpeg', '-v', 'error', '-y', '-f', 's16le', '-ar', str(SR), '-ac', '1', '-i', '-', '-t', str(TOTAL), '-b:a', '192k', M + 'voz-v4.mp3'], input=pcm.tobytes())
+
+json.dump(placed, open(M + 'voz-v4-palabras.json', 'w'), ensure_ascii=False)
