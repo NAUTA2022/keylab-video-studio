@@ -13,11 +13,11 @@ import { PlataformaReal } from './Marketplace';
 ensureFonts();
 const FPS = 30;
 export const HISTORIA_DUR = 211;
-const BG = '#050507';
-const INK = '#FFFFFF';
-const MUTED = '#8A8D99';
+export const BG = '#050507';
+export const INK = '#FFFFFF';
+export const MUTED = '#8A8D99';
 const ACCENT = '#2D52FF';
-const SOFT = '#8CA0FF';
+export const SOFT = '#8CA0FF';
 const DISPLAY = 'Anton';
 const BODY = 'Figtree';
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
@@ -28,17 +28,18 @@ const vis = (t: number, a: number, b: number, fade = 0.45) =>
   Math.min(interpolate(t, [a, a + 0.01], [0, 1], clamp), interpolate(t, [b - fade, b], [1, 0], clamp));
 
 /* ---------- Texto que entra palabra por palabra con máscara ---------- */
-const Words: React.FC<{
+export const Words: React.FC<{
   text: string; at: number; until: number; size: number; font?: 'display' | 'body'; weight?: number;
   color?: string; x?: number; y: number; align?: 'left' | 'center' | 'right'; width?: number; tracking?: number; stagger?: number;
 }> = ({ text, at, until, size, font = 'body', weight = 700, color = INK, x, y, align = 'center', width = 1600, tracking = 0, stagger = 0.07 }) => {
   const t = useT();
+  const { width: CW } = useVideoConfig();
   size = size * 1.2;
   if (t < at - 0.05 || t > until + 0.05) return null;
   const out = interpolate(t, [until - 0.4, until], [1, 0], clamp);
   const blurOut = interpolate(t, [until - 0.4, until], [0, 8], clamp);
   const words = text.split(' ');
-  const left = x ?? (align === 'center' ? (1920 - width) / 2 : 160);
+  const left = x ?? (align === 'center' ? (CW - width) / 2 : 160);
   return (
     <div style={{ position: 'absolute', left, top: y, width, textAlign: align, opacity: out, filter: `blur(${blurOut}px)` }}>
       <div style={{ fontFamily: font === 'display' ? DISPLAY : BODY, fontWeight: font === 'display' ? 400 : weight, fontSize: size, lineHeight: 1.08, color, letterSpacing: tracking, textTransform: font === 'display' ? 'uppercase' : undefined }}>
@@ -56,7 +57,7 @@ const Words: React.FC<{
 };
 
 /* Etiqueta pequeña con tracking (nombres, áreas) */
-const Label: React.FC<{ text: string; at: number; until: number; x: number; y: number; color?: string; size?: number; align?: 'left' | 'center' }> = ({ text, at, until, x, y, color = MUTED, size = 22, align = 'center' }) => {
+export const Label: React.FC<{ text: string; at: number; until: number; x: number; y: number; color?: string; size?: number; align?: 'left' | 'center' }> = ({ text, at, until, x, y, color = MUTED, size = 22, align = 'center' }) => {
   const t = useT();
   const o = vis(t, at, until) * interpolate(t, [at, at + 0.6], [0, 1], clamp);
   const ls = interpolate(t, [at, at + 1.2], [14, 6], { ...clamp, easing: ease });
@@ -85,7 +86,7 @@ const Chapter: React.FC<{ n: string; name: string; at: number; until: number }> 
 };
 
 /* ---------- Siluetas ---------- */
-type Kind = 'ulises' | 'sebas' | 'race' | 'matias' | 'a' | 'b' | 'c';
+export type Kind = 'ulises' | 'sebas' | 'race' | 'matias' | 'a' | 'b' | 'c';
 const HAIR: Record<Kind, string> = {
   ulises: 'M61 86 C54 54 70 30 96 27 C108 20 124 24 132 34 C146 42 150 62 140 88 C136 70 128 62 118 60 C114 68 100 70 90 64 C80 70 68 74 61 86 Z M70 46 C66 36 72 28 82 30 C78 36 76 40 70 46 Z M124 30 C134 26 142 32 142 42 C136 38 132 34 124 30 Z',
   sebas: 'M63 80 C60 50 80 34 102 34 C126 34 142 52 137 82 C128 64 112 57 100 57 C86 57 71 63 63 80 Z',
@@ -108,7 +109,7 @@ const Bust: React.FC<{ kind: Kind; color: string }> = ({ kind, color }) => (
   </svg>
 );
 
-const Person: React.FC<{
+export const Person: React.FC<{
   kind: Kind; at: number; until: number; x: number; y?: number; h?: number; dim?: [number, number][]; glow?: boolean; dx?: [number, number, number];
 }> = ({ kind, at, until, x, y = 820, h = 420, dim, glow, dx }) => {
   const t = useT();
@@ -129,8 +130,9 @@ const Portrait: React.FC<{ kind: 'ulises' | 'sebas'; at: number; until: number; 
   for (const [a, b] of dim ?? []) if (t >= a && t < b) o = interpolate(t, [a, a + 0.4], [1, 0.3], clamp);
   if (dim) for (const [, b] of dim) if (t >= b && t < b + 0.4) o = interpolate(t, [b, b + 0.4], [0.3, 1], clamp);
   const shift = dx ? interpolate(t, [dx[0], dx[1]], [0, dx[2]], { ...clamp, easing: Easing.inOut(Easing.cubic) }) : 0;
+  const { height: CH } = useVideoConfig();
   const top = y - h;
-  const fadeA = ((y + h * 0.02) / 1080) * 100, fadeB = ((y + h * 0.35) / 1080) * 100;
+  const fadeA = ((y + h * 0.02) / CH) * 100, fadeB = ((y + h * 0.35) / CH) * 100;
   const mask = `linear-gradient(180deg, #000 ${fadeA}%, transparent ${fadeB}%)`;
   return (
     <AbsoluteFill style={{ opacity: p * out * o, transform: `translate(${shift}px, ${(1 - p) * 30}px)`, WebkitMaskImage: mask, maskImage: mask }}>
@@ -160,7 +162,8 @@ const Figure: React.FC<{ kind: Kind; at: number; until: number; x: number; y: nu
     ...(nod > 0 ? [{ clip: 'agree', weight: nod, additive: true, offset: -(at + 1.5) } as Layer] : []),
   ];
   // de espaldas en tres cuartos; los de Vulcano se dan la espalda al separarse
-  let yaw = Math.PI + (kind === 'race' ? 0.1 : 0.35 * (x < 960 ? 1 : -1));
+  const CW2 = useVideoConfig().width / 2;
+  let yaw = Math.PI + (kind === 'race' ? 0.1 : 0.35 * (x < CW2 ? 1 : -1));
   if (dx) yaw += interpolate(walking, [0, 1], [0, dx[2] < 0 ? -0.9 : 0.9]);
   const top = y - h * 1.08;
   const fadeA = ((y - top - h * 0.14) / H) * 100, fadeB = ((y - top + h * 0.08) / H) * 100;
@@ -173,29 +176,31 @@ const Figure: React.FC<{ kind: Kind; at: number; until: number; x: number; y: nu
 };
 
 /* Línea de piso bajo las siluetas */
-const Floor: React.FC<{ at: number; until: number; y?: number; w?: number }> = ({ at, until, y = 820, w = 1200 }) => {
+export const Floor: React.FC<{ at: number; until: number; y?: number; w?: number; cx?: number }> = ({ at, until, y = 820, w = 1200, cx }) => {
   const t = useT();
+  const { width: CW } = useVideoConfig();
   const p = interpolate(t, [at, at + 1.4], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until);
   if (o <= 0) return null;
-  return <div style={{ position: 'absolute', left: 960 - (w * p) / 2, top: y, width: w * p, height: 1, background: 'rgba(255,255,255,0.28)', opacity: o }} />;
+  return <div style={{ position: 'absolute', left: (cx ?? CW / 2) - (w * p) / 2, top: y, width: w * p, height: 1, background: 'rgba(255,255,255,0.28)', opacity: o }} />;
 };
 
 /* Línea fina que se dibuja entre dos puntos */
-const Stroke: React.FC<{ d: string; at: number; until: number; len?: number; color?: string; width?: number; dur?: number }> = ({ d, at, until, len = 1200, color = SOFT, width = 2, dur = 1.2 }) => {
+export const Stroke: React.FC<{ d: string; at: number; until: number; len?: number; color?: string; width?: number; dur?: number }> = ({ d, at, until, len = 1200, color = SOFT, width = 2, dur = 1.2 }) => {
   const t = useT();
+  const { width: CW, height: CH } = useVideoConfig();
   const p = interpolate(t, [at, at + dur], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until);
   if (o <= 0) return null;
   return (
-    <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, opacity: o }}>
+    <svg width={CW} height={CH} style={{ position: 'absolute', inset: 0, opacity: o }}>
       <path d={d} fill="none" stroke={color} strokeWidth={width} strokeLinecap="round" strokeDasharray={len} strokeDashoffset={len * (1 - p)} />
     </svg>
   );
 };
 
 /* Cubo isométrico de vóxel (The Sandbox) dibujado a línea */
-const Voxel: React.FC<{ at: number; until: number; cx: number; cy: number; s: number }> = ({ at, until, cx, cy, s }) => {
+export const Voxel: React.FC<{ at: number; until: number; cx: number; cy: number; s: number }> = ({ at, until, cx, cy, s }) => {
   const top = `M${cx} ${cy - s} L${cx + s * 0.87} ${cy - s / 2} L${cx} ${cy} L${cx - s * 0.87} ${cy - s / 2} Z`;
   const left = `M${cx - s * 0.87} ${cy - s / 2} L${cx - s * 0.87} ${cy + s / 2} L${cx} ${cy + s} L${cx} ${cy}`;
   const right = `M${cx + s * 0.87} ${cy - s / 2} L${cx + s * 0.87} ${cy + s / 2} L${cx} ${cy + s}`;
@@ -209,7 +214,7 @@ const Voxel: React.FC<{ at: number; until: number; cx: number; cy: number; s: nu
 };
 
 /* Chip tipo etiqueta (conceptos) */
-const Chip: React.FC<{ text: string; at: number; until: number; x: number; y: number; accent?: boolean }> = ({ text, at, until, x, y, accent }) => {
+export const Chip: React.FC<{ text: string; at: number; until: number; x: number; y: number; accent?: boolean }> = ({ text, at, until, x, y, accent }) => {
   const t = useT();
   const p = interpolate(t, [at, at + 0.6], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until) * p;
@@ -222,13 +227,13 @@ const Chip: React.FC<{ text: string; at: number; until: number; x: number; y: nu
 };
 
 /* Barras de crecimiento minimalistas */
-const Growth: React.FC<{ at: number; until: number }> = ({ at, until }) => {
+export const Growth: React.FC<{ at: number; until: number; left?: number; bottom?: number }> = ({ at, until, left = 1180, bottom = 220 }) => {
   const t = useT();
   const o = vis(t, at, until);
   if (o <= 0) return null;
   const hs = [90, 150, 220, 310, 420];
   return (
-    <div style={{ position: 'absolute', left: 1180, bottom: 220, display: 'flex', alignItems: 'flex-end', gap: 34, opacity: o }}>
+    <div style={{ position: 'absolute', left, bottom, display: 'flex', alignItems: 'flex-end', gap: 34, opacity: o }}>
       {hs.map((h, i) => {
         const p = interpolate(t, [at + 0.4 + i * 0.5, at + 1.4 + i * 0.5], [0, 1], { ...clamp, easing: ease });
         return <div key={i} style={{ width: 46, height: h * p, background: i === hs.length - 1 ? ACCENT : 'rgba(255,255,255,0.85)' }} />;
@@ -238,7 +243,7 @@ const Growth: React.FC<{ at: number; until: number }> = ({ at, until }) => {
 };
 
 /* Fondo: negro con rejilla de puntos que deriva muy lento y viñeta */
-const Backdrop: React.FC = () => {
+export const Backdrop: React.FC = () => {
   const t = useT();
   return (
     <AbsoluteFill style={{ background: BG }}>
@@ -249,7 +254,7 @@ const Backdrop: React.FC = () => {
 };
 
 /* Resplandor de horizonte (esperanza) */
-const Horizon: React.FC<{ at: number; until: number }> = ({ at, until }) => {
+export const Horizon: React.FC<{ at: number; until: number }> = ({ at, until }) => {
   const t = useT();
   const p = interpolate(t, [at, at + 6], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until, 1);
@@ -271,7 +276,7 @@ const EyMoment: React.FC<{ at: number; until: number }> = ({ at, until }) => {
 };
 
 /* Cierre: isotipo cromado + wordmark oficial (archivos de marca) */
-const Outro: React.FC<{ at: number }> = ({ at }) => {
+export const Outro: React.FC<{ at: number }> = ({ at }) => {
   const t = useT();
   if (t < at) return null;
   const iso = interpolate(t, [at, at + 1.4], [0, 1], { ...clamp, easing: ease });
@@ -450,11 +455,17 @@ export const Historia: React.FC = () => {
 };
 
 /* Columna con texto (pilares de la decisión) */
-const Pillar: React.FC<{ text: string; at: number; until: number; x: number; accent?: boolean }> = ({ text, at, until, x, accent }) => {
+export const Pillar: React.FC<{ text: string; at: number; until: number; x: number; accent?: boolean; row?: { y: number } }> = ({ text, at, until, x, accent, row }) => {
   const t = useT();
   const p = interpolate(t, [at, at + 0.9], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until);
   if (o <= 0) return null;
+  if (row) return (
+    <div style={{ position: 'absolute', left: x, top: row.y, height: 60, opacity: o, display: 'flex', alignItems: 'center', gap: 28 }}>
+      <div style={{ width: 140 * p, height: 2, background: accent ? ACCENT : INK, boxShadow: accent ? `0 0 24px ${ACCENT}` : undefined }} />
+      <div style={{ fontFamily: BODY, fontWeight: 800, fontSize: 40, letterSpacing: 3, color: accent ? SOFT : INK, textTransform: 'uppercase', opacity: p, whiteSpace: 'nowrap' }}>{text}</div>
+    </div>
+  );
   return (
     <div style={{ position: 'absolute', left: x - 260, top: 420, width: 520, height: 380, opacity: o, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'flex-end' }}>
       <div style={{ width: 2, height: 260 * p, background: accent ? ACCENT : INK, boxShadow: accent ? `0 0 24px ${ACCENT}` : undefined }} />
@@ -464,27 +475,28 @@ const Pillar: React.FC<{ text: string; at: number; until: number; x: number; acc
 };
 
 /* Logo grande con barrido */
-const BigLogo: React.FC<{ at: number; until: number }> = ({ at, until }) => {
+export const BigLogo: React.FC<{ at: number; until: number; x?: number; y?: number }> = ({ at, until, x = 150, y = 250 }) => {
   const t = useT();
   const p = interpolate(t, [at, at + 1.2], [0, 1], { ...clamp, easing: ease });
   const o = vis(t, at, until, 0.6);
   if (o <= 0) return null;
   return (
-    <div style={{ position: 'absolute', left: 150, top: 250, opacity: o, clipPath: `inset(0 ${(1 - p) * 100}% 0 0)` }}>
+    <div style={{ position: 'absolute', left: x, top: y, opacity: o, clipPath: `inset(0 ${(1 - p) * 100}% 0 0)` }}>
       <Img src={staticFile('brand/wordmark-blanco.png')} style={{ width: 660, display: 'block' }} />
     </div>
   );
 };
 
 /* Red de nodos: Key Lab al centro conectada con aliados y clientes */
-const Network: React.FC<{ at: number; until: number }> = ({ at, until }) => {
+export const Network: React.FC<{ at: number; until: number; cx?: number; cy?: number; k?: number }> = ({ at, until, cx = 960, cy = 580, k = 1 }) => {
   const t = useT();
   const o = vis(t, at, until);
   if (o <= 0) return null;
-  const nodes = [[560, 560], [720, 420], [1200, 420], [1360, 560], [700, 720], [1220, 720], [960, 380]];
-  const c = [960, 580];
+  const { width: CW, height: CH } = useVideoConfig();
+  const nodes = [[560, 560], [720, 420], [1200, 420], [1360, 560], [700, 720], [1220, 720], [960, 380]].map(([x, y]) => [cx + (x - 960) * k, cy + (y - 580) * k]);
+  const c = [cx, cy];
   return (
-    <svg width={1920} height={1080} style={{ position: 'absolute', inset: 0, opacity: o }}>
+    <svg width={CW} height={CH} style={{ position: 'absolute', inset: 0, opacity: o }}>
       {nodes.map(([x, y], i) => {
         const p = interpolate(t, [at + 0.3 + i * 0.5, at + 1.3 + i * 0.5], [0, 1], { ...clamp, easing: ease });
         return (
