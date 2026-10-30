@@ -428,8 +428,6 @@ export const NoticiaHackeos: React.FC = () => (
     {/* 7 · Key Lab ciclo cerrado 80.6–92 */}
     <BigLogo at={80.62} until={87.3} x={210} y={200} />
     <ClosedLoop at={81.88} until={87.3} cy={940} />
-    <Fig id="loopA" at={82.43} until={87.3} x={170} y={1860} h={230} yaw={Math.PI + 0.5} />
-    <Fig id="loopB" at={82.7} until={87.3} x={910} y={1860} h={230} yaw={Math.PI - 0.5} />
     <Words text="Ciclo cerrado entre dueño e inversionista" at={82.09} until={87.3} size={46} y={1340} width={TW} weight={800} />
     <Chip text="Solo con verificaciones estrictas" at={84.67} until={87.3} x={170} y={1500} accent />
     <Words text="La revolución de internet ya llegó" at={87.42} until={92.0} font="display" size={120} y={420} width={TW} />
