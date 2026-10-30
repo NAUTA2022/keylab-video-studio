@@ -91,8 +91,8 @@ export const BrushFilter: React.FC<{ id: string; seed: number; edge?: number; st
 
 export const Persona3D: React.FC<{
   layers: Layer[]; yaw?: number; x?: number; width?: number; height?: number; style?: React.CSSProperties; ink?: string;
-  cam?: { y: number; z: number; fov: number; lookY: number }; aura?: number; id?: string; boilEvery?: number; tOffset?: number; model?: string;
-}> = ({ model = 'xbot', layers, yaw = Math.PI + 0.35, x = 0, width, height, style, ink = '#EDEDF0', cam = { y: 1.4, z: 1.95, fov: 35, lookY: 1.22 }, aura = 1, id = 'brush', boilEvery = 3, tOffset = 0 }) => {
+  cam?: { y: number; z: number; fov: number; lookY: number }; aura?: number; auraRGB?: string; id?: string; boilEvery?: number; tOffset?: number; model?: string;
+}> = ({ model = 'xbot', layers, yaw = Math.PI + 0.35, x = 0, width, height, style, ink = '#EDEDF0', cam = { y: 1.4, z: 1.95, fov: 35, lookY: 1.22 }, aura = 1, auraRGB = '150,170,255', id = 'brush', boilEvery = 3, tOffset = 0 }) => {
   const frame = useCurrentFrame();
   const vc = useVideoConfig();
   const W = width ?? vc.width;
@@ -108,7 +108,7 @@ export const Persona3D: React.FC<{
   return (
     <div style={{ position: 'absolute', width: W, height: H, ...style }}>
       <BrushFilter id={id} seed={seed} />
-      <div style={{ position: 'absolute', inset: 0, filter: `url(#${id}) drop-shadow(0 0 26px rgba(150,170,255,${glow * aura}))` }}>
+      <div style={{ position: 'absolute', inset: 0, filter: `url(#${id}) drop-shadow(0 0 26px rgba(${auraRGB},${glow * aura}))` }}>
         <ThreeCanvas width={W} height={H} gl={{ alpha: true, antialias: true, preserveDrawingBuffer: true }} style={{ background: 'transparent' }}>
           {data ? <Rig data={data} layers={layers} t={t} yaw={yaw} x={x} ink={ink} cam={cam} /> : null}
         </ThreeCanvas>

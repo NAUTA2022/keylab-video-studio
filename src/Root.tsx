@@ -2,6 +2,7 @@ import { TestLottie } from './scenes/TestLottie';
 import { TestRig } from './scenes/TestRig';
 import { Historia, HISTORIA_DUR } from './historia/Historia';
 import { HistoriaVertical } from './historia/HistoriaVertical';
+import { NoticiaHackeos, HACKEOS_DUR } from './historia/NoticiaHackeos';
 import { PersonajePrueba } from './historia/Pintado';
 import { SebastianVivo, UlisesVivo } from './historia/Retrato';
 import React from 'react';
@@ -29,6 +30,7 @@ export const Root: React.FC = () => (
     <Composition id="KL-Ey" component={KeyLabVideo} schema={videoSchema} defaultProps={videoSchema.parse(assetEy) as VideoProps} calculateMetadata={calc} durationInFrames={36} fps={FPS} width={1080} height={1920} />
     <Composition id="KL-Cierre" component={KeyLabVideo} schema={videoSchema} defaultProps={videoSchema.parse(assetCierre) as VideoProps} calculateMetadata={calc} durationInFrames={111} fps={FPS} width={1080} height={1920} />
     <Composition id="HistoriaKeyLab" component={Historia} durationInFrames={HISTORIA_DUR * FPS} fps={FPS} width={1920} height={1080} />
+    <Composition id="NoticiaHackeos" component={NoticiaHackeos} durationInFrames={HACKEOS_DUR * FPS} fps={FPS} width={1080} height={1920} />
     <Composition id="HistoriaVertical" component={HistoriaVertical} durationInFrames={HISTORIA_DUR * FPS} fps={FPS} width={1080} height={1920} />
     <Composition id="PersonajePrueba" component={PersonajePrueba} durationInFrames={9 * FPS} fps={FPS} width={1920} height={1080} />
     <Composition id="SebastianVivo" component={SebastianVivo} durationInFrames={10 * FPS} fps={FPS} width={1920} height={1080} />
