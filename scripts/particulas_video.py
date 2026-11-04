@@ -33,8 +33,8 @@ def sample(path, W, H, scale, gap, min_lum):
     w, h = max(1, int(im.width * s)), max(1, int(im.height * s))
     im = im.resize((w, h), Image.LANCZOS)
     a = np.asarray(im).astype(np.float32)
-    if gap <= 0:  # unas 25 000 partículas para 1080 de ancho
-        gap = max(2, int(round(math.sqrt(w * h / 25000))))
+    if gap <= 0:  # denso: unas 100 000 posiciones en la caja de la imagen (≈60 000 partículas en un retrato)
+        gap = max(2, int(round(math.sqrt(w * h / 100000))))
     ys, xs = np.mgrid[0:h:gap, 0:w:gap]
     px = a[ys, xs]
     keep = (px[..., 3] > 60) & (px[..., :3].sum(-1) > min_lum)
@@ -133,7 +133,7 @@ def main():
     ap.add_argument('--hold', type=float, default=0.6, help='segundos quietos al final')
     ap.add_argument('--w', type=int, default=1080); ap.add_argument('--h', type=int, default=1920); ap.add_argument('--fps', type=int, default=30)
     ap.add_argument('--scale', type=float, default=0.82, help='tamaño de la imagen respecto al cuadro')
-    ap.add_argument('--gap', type=int, default=0, help='píxeles entre partículas (0 = automático)')
+    ap.add_argument('--gap', type=int, default=0, help='píxeles entre partículas (0 = automático y denso; 2 = máximo detalle)')
     ap.add_argument('--size', type=float, default=0.85, help='tamaño de cada partícula respecto al gap')
     ap.add_argument('--bg', default='#050507'); ap.add_argument('--trail', type=float, default=0.72, help='0 = sin estela, 0.9 = estela larga')
     ap.add_argument('--bright', type=float, default=1.35, help='aclara los colores de la foto')
