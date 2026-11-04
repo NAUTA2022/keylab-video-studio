@@ -5,7 +5,8 @@ import {
 } from 'react-icons/pi';
 import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
-import { Backdrop, BigLogo, Chip, Words, INK, MUTED, SOFT } from './Historia';
+import { Backdrop, BigLogo, INK, MUTED, SOFT } from './Historia';
+import { Moneda3D } from './Moneda3D';
 
 // Key Lab × Chrysós Joyería · piloto de tokenización de oro laminado (US$ 3.000) con la comunidad.
 // Vertical 1080x1920. Tiempos = segundos de public/media/chrysos-video/voz.mp3 (Martin Osborne, con hueco de 1 s para el Ey).
@@ -24,6 +25,44 @@ const useT = () => useCurrentFrame() / FPS;
 const pin = (t: number, a: number, d = 0.6) => interpolate(t, [a, a + d], [0, 1], { ...clamp, easing: ease });
 const vis = (t: number, a: number, b: number, f = 0.4) => Math.min(interpolate(t, [a, a + 0.01], [0, 1], clamp), interpolate(t, [b - f, b], [1, 0], clamp));
 const TW = 920;
+
+/* Texto centrado de verdad: palabras separadas por espacios reales (sin margen colgando al final de la línea) */
+const Words: React.FC<{ text: string; at: number; until: number; size: number; font?: 'display' | 'body'; weight?: number; color?: string; y: number; width?: number; tracking?: number; x?: number }> = ({ text, at, until, size, font = 'body', weight = 700, color = INK, y, width = TW, tracking = 0 }) => {
+  const t = useT();
+  size = size * 1.2;
+  if (t < at - 0.05 || t > until + 0.05) return null;
+  const out = interpolate(t, [until - 0.4, until], [1, 0], clamp);
+  const words = text.split(' ');
+  return (
+    <div style={{ position: 'absolute', left: (1080 - width) / 2, top: y, width, textAlign: 'center', opacity: out, filter: `blur(${(1 - out) * 8}px)` }}>
+      <div style={{ fontFamily: font === 'display' ? DISPLAY : BODY, fontWeight: font === 'display' ? 400 : weight, fontSize: size, lineHeight: 1.08, color, letterSpacing: tracking, textTransform: font === 'display' ? 'uppercase' : undefined, paddingLeft: tracking }}>
+        {words.map((w, i) => {
+          const p = interpolate(t, [at + i * 0.07, at + i * 0.07 + 0.7], [0, 1], { ...clamp, easing: ease });
+          return (
+            <React.Fragment key={i}>
+              {i > 0 ? ' ' : null}
+              <span style={{ display: 'inline-block', overflow: 'hidden', verticalAlign: 'top', paddingBottom: size * 0.08 }}>
+                <span style={{ display: 'inline-block', transform: `translateY(${(1 - p) * 105}%)`, filter: `blur(${(1 - p) * 6}px)` }}>{w}</span>
+              </span>
+            </React.Fragment>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
+
+/* Píldora centrada */
+const Chip: React.FC<{ text: string; at: number; until: number; y: number; x?: number; accent?: boolean }> = ({ text, at, until, y }) => {
+  const t = useT();
+  const o = vis(t, at, until) * pin(t, at, 0.5);
+  if (o <= 0) return null;
+  return (
+    <div style={{ position: 'absolute', top: y, left: 0, width: 1080, display: 'flex', justifyContent: 'center', opacity: o }}>
+      <div style={{ background: ACCENT, borderRadius: 999, padding: '14px 34px', fontFamily: BODY, fontWeight: 800, fontSize: 28, letterSpacing: 3, color: INK, textTransform: 'uppercase', transform: `scale(${0.9 + 0.1 * o})` }}>{text}</div>
+    </div>
+  );
+};
 
 /* Ícono que aparece con rebote */
 const Pop: React.FC<{ at: number; until: number; x: number; y: number; size?: number; color?: string; Icon: React.ComponentType<{ size?: number; color?: string }>; label?: string; fall?: number }> = ({ at, until, x, y, size = 150, color = INK, Icon, label, fall }) => {
@@ -163,18 +202,16 @@ const Comunidad: React.FC<{ at: number; until: number; cy: number; lines: number
   );
 };
 
-/* Token dorado con la corona de Chrysós que gira */
+/* Token: moneda de oro 3D */
 const Token: React.FC<{ at: number; until: number; cy: number }> = ({ at, until, cy }) => {
   const t = useT();
   const o = vis(t, at, until);
   if (o <= 0) return null;
   const p = pin(t, at, 0.8);
-  const sx = Math.cos((t - at) * 2.2);
+  const S = 680;
   return (
-    <div style={{ position: 'absolute', left: 540 - 230, top: cy - 230, width: 460, height: 460, opacity: o * p, transform: `scale(${0.6 + 0.4 * p}) scaleX(${0.25 + 0.75 * Math.abs(sx)})` }}>
-      <div style={{ position: 'absolute', inset: 0, borderRadius: 230, background: sx > 0 ? GOLD : '#C99A2E', boxShadow: '0 0 90px rgba(233,185,73,0.55), inset 0 0 0 14px rgba(255,255,255,0.18)' }} />
-      <div style={{ position: 'absolute', inset: 30, borderRadius: 200, border: '4px solid rgba(5,5,7,0.35)' }} />
-      <Img src={staticFile('media/chrysos/chrysos-logo.png')} style={{ position: 'absolute', left: 80, top: 140, width: 300, filter: 'brightness(0) opacity(0.78)' }} />
+    <div style={{ position: 'absolute', left: 540 - S / 2, top: cy - S / 2, width: S, height: S, opacity: o * p, transform: `scale(${0.7 + 0.3 * p})`, filter: 'drop-shadow(0 0 60px rgba(233,185,73,0.45))' }}>
+      <Moneda3D at={at} size={S} />
     </div>
   );
 };
