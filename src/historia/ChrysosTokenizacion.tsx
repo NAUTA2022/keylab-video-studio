@@ -13,7 +13,7 @@ import { Moneda3D } from './Moneda3D';
 // El logo de Chrysós en partículas (12.5–16.8 s) se superpone después con ffmpeg (clip ProRes con alfa).
 
 ensureFonts();
-export const CHRYSOS_DUR = 68.5;
+export const CHRYSOS_DUR = 67.5;
 const FPS = 30;
 const GOLD = '#E9B949';
 const ACCENT = '#2D52FF';
@@ -21,7 +21,9 @@ const DISPLAY = 'Anton';
 const BODY = 'Figtree';
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const ease = Easing.bezier(0.16, 1, 0.3, 1);
-const useT = () => useCurrentFrame() / FPS;
+// Sin Ey: el video real es 1 s más corto después de 5.85 s; los tiempos del guion siguen en la escala original.
+const SHIFT_AT = 5.85, SHIFT = 1.0;
+const useT = () => { const t = useCurrentFrame() / FPS; return t < SHIFT_AT ? t : t + SHIFT; };
 const pin = (t: number, a: number, d = 0.6) => interpolate(t, [a, a + d], [0, 1], { ...clamp, easing: ease });
 const vis = (t: number, a: number, b: number, f = 0.4) => Math.min(interpolate(t, [a, a + 0.01], [0, 1], clamp), interpolate(t, [b - f, b], [1, 0], clamp));
 const TW = 920;
@@ -211,7 +213,7 @@ const Token: React.FC<{ at: number; until: number; cy: number }> = ({ at, until,
   const S = 680;
   return (
     <div style={{ position: 'absolute', left: 540 - S / 2, top: cy - S / 2, width: S, height: S, opacity: o * p, transform: `scale(${0.7 + 0.3 * p})`, filter: 'drop-shadow(0 0 60px rgba(233,185,73,0.45))' }}>
-      <Moneda3D at={at} size={S} />
+      <Moneda3D at={at - SHIFT} size={S} />
     </div>
   );
 };
@@ -263,8 +265,7 @@ export const ChrysosTokenizacion: React.FC = () => {
       <AbsoluteFill style={{ background: `radial-gradient(ellipse 80% 45% at 50% 55%, rgba(233,185,73,${glow}) 0%, rgba(5,5,7,0) 70%)` }} />
       <Audio src={staticFile('media/chrysos-video/voz-musica.mp3')} />
       <Sequence from={Math.round(3.24 * FPS)} durationInFrames={30}><Audio src={staticFile('sfx/boing.mp3')} volume={0.35} /></Sequence>
-      <Sequence from={Math.round(5.85 * FPS)} durationInFrames={60}><Audio src={staticFile('sfx/boom.mp3')} volume={0.55} /></Sequence>
-      <Sequence from={Math.round(65.0 * FPS)} durationInFrames={105}><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.6} /></Sequence>
+      <Sequence from={Math.round(64.0 * FPS)} durationInFrames={105}><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.6} /></Sequence>
 
       {/* 1 · HOOK 0–5.85 */}
       <Words text="¿Te explicaron la tokenización con 3 PDF y una flecha?" at={0.05} until={5.8} size={62} y={260} width={TW} weight={900} />
@@ -275,11 +276,9 @@ export const ChrysosTokenizacion: React.FC = () => {
       <Words text="Mejor…" at={4.28} until={5.8} size={70} y={1250} width={TW} weight={800} color={MUTED} />
       <Words text="vívela." at={5.0} until={5.8} font="display" size={190} y={1360} width={TW} color={GOLD} />
 
-      {/* 2 · EY */}
-      <Ey at={5.85} until={6.9} />
 
       {/* 3 · Key Lab tokeniza US$ 3.000 para stock de oro laminado 6.94–12.4 */}
-      <BigLogo at={6.94} until={12.4} x={210} y={230} />
+      <BigLogo at={5.94} until={11.4} x={210} y={230} />
       <Words text="va a tokenizar" at={7.5} until={12.4} size={52} y={420} width={TW} weight={800} color={SOFT} />
       <Cifra at={8.47} until={12.4} to={3000} pre="US$ " y={520} size={200} dur={0.9} />
       <Words text="para un stock de oro laminado" at={9.8} until={12.4} size={50} y={790} width={TW} weight={800} />
@@ -333,7 +332,7 @@ export const ChrysosTokenizacion: React.FC = () => {
       {/* 10 · CTA 61.78–68.5 */}
       <Words text="¿Quieres ser parte del piloto?" at={61.78} until={68.5} size={64} y={330} width={TW} weight={900} />
       <Close at={62.6} />
-      <OneGag g={{ ...OUTRO_MUEJEJE, at: 65.0, dur: 3.5, y: 0.9, size: 0.26 }} />
+      <OneGag g={{ ...OUTRO_MUEJEJE, at: 64.0, dur: 3.5, y: 0.9, size: 0.26 }} />
 
       <Aviso at={6.94} until={61.7} />
     </AbsoluteFill>

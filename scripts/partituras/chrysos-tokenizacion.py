@@ -6,7 +6,7 @@ from pedalboard import Pedalboard, Reverb, Delay, Compressor, Limiter, Gain, Hig
 from pedalboard.io import AudioFile
 OUT=sys.argv[1] if len(sys.argv)>1 else 'public/media/chrysos-video/partitura.wav'
 TMP='/tmp/part-chrysos'; os.makedirs(TMP,exist_ok=True)
-SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=69.0
+SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=68.0
 N=pm.note_name_to_number; stems={}
 def inst(k,prog):
     if k not in stems: stems[k]=pm.Instrument(program=prog,name=k)
@@ -67,57 +67,57 @@ for t in [1.98,2.25,2.53]: n('pizz','C#5',t,0.12,88)                 # tres pe d
 n('trompas','F#2',3.24,0.6,80); n('trompas','G2',3.5,0.5,70)           # una flecha (wah)
 n('trem','C#4',4.28,1.4,50); r('trem',4.28,5.6,30,110); n('violines','F#5',4.9,0.7,70)
 roll(4.3,1.25,'C#2',35,112,18)
-# ---------- EY 5.85 ----------
-n('timbal','F#2',5.85,0.7,127); n('taiko','C2',5.85,0.7,115)
-# ---------- KEY LAB + oro 6.9–16.8: mayor luminoso, crece hacia Chrysós ----------
-bass(6.9,16.8,MAY,58); pad('cuerdas',6.9,16.8,MAY,46,4); r('cuerdas',6.9,16.8,30,92)
-motif('piano',6.95,MOT_M,0,58)
-for t in [8.47,10.75]: n('celesta','F#6',t,0.5,60); n('celesta','C#7',t+0.12,0.5,52)    # tres mil dólares / oro laminado
-n('trem','F#5',12.2,2.3,50); r('trem',12.2,14.45,30,110); roll(12.6,1.85,'C#2',35,118,22)
-n('timbal','F#2',14.47,0.7,120); n('taiko','C2',14.47,0.7,105)                          # CHRYSÓS
-for x in ['F#3','A#3','C#4','F#4']: n('coro',x,14.47,2.3,80)
-for x in ['F#2','C#3','F#3']: n('trompas',x,14.47,1.6,92)
-for k,p in enumerate(['C#6','F#6','A#6','C#7']): n('celesta',p,14.5+0.1*k,0.8,62)
-arp(14.47,16.8,MAY,55)
-# ---------- honesto: piloto 16.8–26.0 (down, íntimo) ----------
-n('piano','F#4',16.85,2.4,54); n('piano','A#4',16.85,2.4,48); n('piano','C#5',17.6,1.8,50)
-n('chelo','F#2',16.85,9.0,52); r('chelo',16.85,26.0,40,80)
-pad('cuerdas',18.6,26.0,MAY,40,4); r('cuerdas',18.6,26.0,25,70)
-for t in [19.05,21.99,24.9]: n('celesta','A#6',t,0.4,48)                                 # piloto / comunidad / tokenización
-# ---------- proceso 26–37.65: ostinato que crece, golpe en cada paso ----------
-ostinato(26.0,37.65,MAY,55,95,Q/4); bass(26.0,37.65,MAY,62); pad('cuerdas',26.0,37.65,MAY,50,4); r('cuerdas',26,37.65,40,100)
-for t in [27.95,32.65,35.86]:                                                              # diciembre / compramos / enero
+# ---------- (sin Ey) entra Key Lab 5.85 ----------
+n('timbal','F#2',5.85,0.7,110)
+# ---------- KEY LAB + oro 5.9–15.8: mayor luminoso, crece hacia Chrysós ----------
+bass(5.9,15.8,MAY,58); pad('cuerdas',5.9,15.8,MAY,46,4); r('cuerdas',5.9,15.8,30,92)
+motif('piano',5.95,MOT_M,0,58)
+for t in [7.47,9.75]: n('celesta','F#6',t,0.5,60); n('celesta','C#7',t+0.12,0.5,52)    # tres mil dólares / oro laminado
+n('trem','F#5',11.2,2.3,50); r('trem',11.2,13.45,30,110); roll(11.6,1.85,'C#2',35,118,22)
+n('timbal','F#2',13.47,0.7,120); n('taiko','C2',13.47,0.7,105)                          # CHRYSÓS
+for x in ['F#3','A#3','C#4','F#4']: n('coro',x,13.47,2.3,80)
+for x in ['F#2','C#3','F#3']: n('trompas',x,13.47,1.6,92)
+for k,p in enumerate(['C#6','F#6','A#6','C#7']): n('celesta',p,13.5+0.1*k,0.8,62)
+arp(13.47,15.8,MAY,55)
+# ---------- honesto: piloto 15.8–25 (down, íntimo) ----------
+n('piano','F#4',15.85,2.4,54); n('piano','A#4',15.85,2.4,48); n('piano','C#5',16.6,1.8,50)
+n('chelo','F#2',15.85,8,52); r('chelo',15.85,25,40,80)
+pad('cuerdas',17.6,25,MAY,40,4); r('cuerdas',17.6,25,25,70)
+for t in [18.05,20.99,23.9]: n('celesta','A#6',t,0.4,48)                                 # piloto / comunidad / tokenización
+# ---------- proceso 26–36.65: ostinato que crece, golpe en cada paso ----------
+ostinato(25,36.65,MAY,55,95,Q/4); bass(25,36.65,MAY,62); pad('cuerdas',25,36.65,MAY,50,4); r('cuerdas',26,36.65,40,100)
+for t in [26.95,31.65,34.86]:                                                              # diciembre / compramos / enero
     n('taiko','C2',t,0.7,100); n('timbal','F#2',t,0.5,96)
     for x in ['F#3','C#4']: n('trompas',x,t,1.0,82)
-n('violines','C#6',35.86,1.8,72)
-# ---------- cifras 37.85–49.73: ups ----------
-bass(37.85,49.73,MAY,70); pad('cuerdas',37.85,49.73,MAY,60,4); arp(37.85,49.73,MAY,58)
-motif('violines',37.9,MOT_M,0,70); r('violines',37.9,49.7,55,100)
-for t in [38.9,43.7,48.85]:                                                                # 30 % / 20 % / sin vencimiento
+n('violines','C#6',34.86,1.8,72)
+# ---------- cifras 36.85–48.73: ups ----------
+bass(36.85,48.73,MAY,70); pad('cuerdas',36.85,48.73,MAY,60,4); arp(36.85,48.73,MAY,58)
+motif('violines',36.9,MOT_M,0,70); r('violines',36.9,48.7,55,100)
+for t in [37.9,42.7,47.85]:                                                                # 30 % / 20 % / sin vencimiento
     n('taiko','C2',t,0.8,112); n('timbal','F#2',t,0.6,110)
     for x in ['F#2','C#3','F#3','A#3']: n('trompas',x,t,1.6,96)
-pad('coro',43.7,49.73,MAY,44,4); r('coro',43.7,49.73,30,92)
-# ---------- referido 49.9–56.6: juguetón ----------
-for k,t in enumerate(np.arange(49.95,53.6,Q/2)): n('pizz',['F#4','C#5','A#4','C#5','D#5','C#5','A#4','F#4'][k%8],t,Q*0.3,70)
-bass(49.9,56.6,MAY,58); n('cuerdas','F#4',49.9,6.6,44)
-n('timbal','F#2',54.33,0.6,118); n('taiko','C2',54.33,0.6,108)                            # +5 %
-for k,p in enumerate(['F#6','A#6','C#7']): n('celesta',p,54.35+0.09*k,0.6,66)
-# ---------- clímax 56.75–61.7: Tu token. Tu parte del oro. Cada paso a la vista ----------
+pad('coro',42.7,48.73,MAY,44,4); r('coro',42.7,48.73,30,92)
+# ---------- referido 48.9–55.6: juguetón ----------
+for k,t in enumerate(np.arange(48.95,52.6,Q/2)): n('pizz',['F#4','C#5','A#4','C#5','D#5','C#5','A#4','F#4'][k%8],t,Q*0.3,70)
+bass(48.9,55.6,MAY,58); n('cuerdas','F#4',48.9,5.6,44)
+n('timbal','F#2',53.33,0.6,118); n('taiko','C2',53.33,0.6,108)                            # +5 %
+for k,p in enumerate(['F#6','A#6','C#7']): n('celesta',p,53.35+0.09*k,0.6,66)
+# ---------- clímax 55.75–60.7: Tu token. Tu parte del oro. Cada paso a la vista ----------
 PE=MAY+MAY
-bass(56.75,61.7,PE,84); pad('cuerdas',56.75,61.7,PE,74,4); pad('coro',56.75,61.7,PE,64,4); arp(56.75,61.7,PE,62)
-motif('violines',56.8,MOT_M,12,90); motif('trompas',56.8,MOT_M,-12,76)
-for t in [56.75,58.03,59.9]: n('taiko','C2',t,0.8,122); n('timbal','F#2',t,0.6,118)
-# ---------- CTA IV–V–I 61.78–69 ----------
-for t,d,(rt,ch) in [(61.78,1.4,('B1',['B','D#','F#'])),(63.18,1.35,('C#2',['C#','E#','G#']))]:
+bass(55.75,60.7,PE,84); pad('cuerdas',55.75,60.7,PE,74,4); pad('coro',55.75,60.7,PE,64,4); arp(55.75,60.7,PE,62)
+motif('violines',55.8,MOT_M,12,90); motif('trompas',55.8,MOT_M,-12,76)
+for t in [55.75,57.03,58.9]: n('taiko','C2',t,0.8,122); n('timbal','F#2',t,0.6,118)
+# ---------- CTA IV–V–I 60.78–69 ----------
+for t,d,(rt,ch) in [(60.78,1.4,('B1',['B','D#','F#'])),(62.18,1.35,('C#2',['C#','E#','G#']))]:
     for x in ch: n('cuerdas',N(x+'4'),t,d,96); n('coro',N(x+'4'),t,d,86); n('trompas',N(x+'3'),t,d,86)
     n('chelo',N(rt)+12,t,d,96); n('cb',rt,t,d,92)
 I=['F#3','A#3','C#4','F#4']
-n('timbal','F#2',64.55,0.8,122); n('taiko','C2',64.55,0.8,110)
-for x in I: n('cuerdas',x,64.55,4.4,104); n('coro',x,64.55,4.2,90); n('organo',N(x)-12,64.55,4.4,55)
-for x in ['F#2','C#3','F#3']: n('trompas',x,64.55,3.2,92)
-n('cb','F#1',64.55,4.4,95); n('chelo','F#2',64.55,4.4,90); n('piano','F#5',65.0,3.5,56)
-for k in ['cuerdas','coro','organo','cb','chelo','trompas']: r(k,66.3,68.9,110,0)
-SUBS=[(5.85,2.5,0.3),(14.47,2.5,0.26),(38.9,1.6,0.18),(43.7,1.6,0.18),(56.75,2,0.22),(64.55,4,0.28)]
+n('timbal','F#2',63.55,0.8,122); n('taiko','C2',63.55,0.8,110)
+for x in I: n('cuerdas',x,63.55,4.4,104); n('coro',x,63.55,4.2,90); n('organo',N(x)-12,63.55,4.4,55)
+for x in ['F#2','C#3','F#3']: n('trompas',x,63.55,3.2,92)
+n('cb','F#1',63.55,4.4,95); n('chelo','F#2',63.55,4.4,90); n('piano','F#5',64,3.5,56)
+for k in ['cuerdas','coro','organo','cb','chelo','trompas']: r(k,65.3,67.9,110,0)
+SUBS=[(5.85,2.0,0.2),(13.47,2.5,0.26),(37.9,1.6,0.18),(42.7,1.6,0.18),(55.75,2,0.22),(63.55,4,0.28)]
 
 def bus_fx(x):
     x=x.copy()
