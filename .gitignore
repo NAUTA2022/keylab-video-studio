@@ -16,3 +16,6 @@ public/media/rilian/*.wav
 public/media/rilian/*.m4a
 public/media/opening/*.wav
 public/media/mini-noticia/*.mov
+public/media/chrysos/*.mov
+public/media/chrysos-video/*.wav
+out/chrysos/
