@@ -13,7 +13,7 @@ Ejemplos
 Línea de tiempo: cada efecto dura --seg segundos (≈40 % rompe/dispersa, ≈45 % vuelve, 15 % quieto).
 "morph" cambia a la siguiente --img. Se puede dar la duración de cada efecto con efecto:segundos (p. ej. explode:1.8).
 """
-import argparse, math, subprocess, sys
+import argparse, math, subprocess
 import numpy as np
 from PIL import Image
 
@@ -192,8 +192,6 @@ def main():
         else:
             nxt = homes[(img_i + 1) % len(homes)][0] if cur == 'morph' else None
             pos, mix = fx_pos(cur, np.float32(u), home, imgs[img_i % len(imgs)][3], sc, nxt)
-            if cur == 'morph' and u >= 0.999:
-                pass
         # al terminar un morph, la imagen siguiente pasa a ser la de casa
         if cur != 'morph' and prev_name_is_morph(plan, t, FPS):
             img_i = (img_i + 1) % len(homes); home, col = homes[img_i]
