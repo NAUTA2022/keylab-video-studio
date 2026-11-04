@@ -58,25 +58,23 @@ def ostinato(t0,t1,prog,v0,v1,step):
             t+=step; k+=1
 
 
-# Opening Key Lab 10 s (original). 0.8 se abre la luz · 1.2/2.2/3.0 palabras · 4.4 redoble · 5.8 IMPACTO · 7.0 marca · 9.6 se apaga
-n('cb','F#1',0.0,5.8,60); r('cb',0.0,5.8,20,100)
-n('trem','F#3',0.6,5.2,50); r('trem',0.6,5.8,20,110); n('trem','C#4',2.2,3.6,50)
-pad('cuerdas',0.8,5.8,[('F#2',['F#','A','C#']),('D2',['D','F#','A'])],52,4); r('cuerdas',0.8,5.8,25,105)
-for t in [1.2,2.2,3.0]: n('taiko','C2',t,0.5,96); n('timbal','F#2',t,0.4,90)
-for t in np.arange(1.2,4.4,0.5): n('timbal','F#2',t,0.15,55)
-n('violines','C#5',3.0,2.8,62); n('violines','F#5',3.6,2.2,66); r('violines',3.0,5.8,40,112)
-n('coro','F#4',3.6,2.2,50); r('coro',3.6,5.8,20,105)
-roll(4.4,1.4,'C#2',40,127,24)
-# IMPACTO
-for x in ['F#2','C#3','F#3','A#3']: n('trompas',x,5.8,3.8,110)
-for x in ['F#3','A#3','C#4','F#4']: n('cuerdas',x,5.8,4.2,112); n('coro',x,5.8,3.8,96)
-n('timbal','F#2',5.8,0.8,127); n('taiko','C2',5.8,0.9,124); n('cb','F#1',5.8,4.2,100); n('chelo','F#2',5.8,4.2,100)
-n('celesta','C#6',7.0,0.6,70); n('celesta','F#6',7.25,1.6,66); n('piano','F#5',7.0,2.5,58)
-for k in ['cuerdas','coro','trompas','cb','chelo']: r(k,8.2,10.0,115,0)
-SUBS=[(5.8,4,0.34),(1.2,1,0.12)]
+# Opening Key Lab 10 s v2 · TU 0.9 · DUM 1.35 → PLAMMM majestuoso que crece hasta 3.0 (logo armado), sostiene y se apaga 8.6–10
+TU,DUM=0.9,1.35
+for t,v in [(TU,104),(DUM,127)]:
+    n('timbal','F#1',t,0.9,v); n('taiko','C2',t,0.9,v); n('cb','F#1',t,0.35,v); n('chelo','F#2',t,0.35,v-8)
+    for x in ['F#2','C#3']: n('trompas',x,t,0.3,v-14)
+# PLAMMM: acorde enorme en Fa# mayor, todo entra en DUM y crece
+for x in ['F#2','C#3','F#3','A#3','C#4']: n('trompas',x,DUM,7.0,100)
+for x in ['F#3','A#3','C#4','F#4','A#4']: n('cuerdas',x,DUM,7.3,100)
+for x in ['F#4','A#4','C#5']: n('coro',x,DUM+0.1,7.0,92)
+n('violines','F#5',DUM+0.3,7.0,90); n('violines','C#6',2.2,6.0,80)
+n('cb','F#1',DUM,7.3,105); n('chelo','F#2',DUM,7.3,100); n('organo','F#2',DUM,7.0,80); n('organo','C#3',DUM,7.0,74)
+for k in ['trompas','cuerdas','coro','violines','cb','chelo','organo']: r(k,DUM,3.0,55,120); r(k,8.6,10.0,120,0)
+n('timbal','F#2',3.0,0.6,96); roll(2.2,0.8,'F#2',30,90,16)
+n('celesta','C#6',3.1,0.6,72); n('celesta','F#6',3.35,0.6,70); n('celesta','A#6',3.6,2.0,66); n('arpa','F#5',3.1,1.5,60); n('arpa','C#6',3.3,1.5,60)
+n('piano','F#4',3.0,4.0,62); n('piano','A#4',3.0,4.0,58); n('piano','C#5',3.0,4.0,58)
+SUBS=[(TU,1.2,0.26),(DUM,2.5,0.4),(3.0,1.5,0.18)]
 def bus_fx(x):
-    x=x.copy(); v0=int(5.55*SR); f=int(0.06*SR)
-    x[:,v0:v0+f]*=np.linspace(1,0,f); x[:,v0+f:int(5.79*SR)]*=0.05   # vacío antes del impacto
     return x
 
 FX={'piano':[Reverb(room_size=0.85,wet_level=0.35,dry_level=0.7),Delay(delay_seconds=Q*0.75,feedback=0.35,mix=0.16)],
