@@ -25,7 +25,7 @@ def hex_rgb(h):
     return np.array([int(h[i:i + 2], 16) for i in (0, 2, 4)], np.float32)
 
 
-def sample(path, W, H, scale, gap, min_lum):
+def sample(path, W, H, scale, gap, min_lum, cy=0.5):
     im = Image.open(path).convert('RGBA')
     bb = im.getbbox()
     if bb: im = im.crop(bb)
@@ -38,7 +38,7 @@ def sample(path, W, H, scale, gap, min_lum):
     ys, xs = np.mgrid[0:h:gap, 0:w:gap]
     px = a[ys, xs]
     keep = (px[..., 3] > 60) & (px[..., :3].sum(-1) > min_lum)
-    x0, y0 = (W - w) / 2, (H - h) / 2
+    x0, y0 = (W - w) / 2, H * cy - h / 2
     jit = np.random.default_rng(3).uniform(-0.38, 0.38, (int(keep.sum()), 2)) * gap  # rompe la cuadrícula
     pos = (np.stack([xs[keep] + x0, ys[keep] + y0], 1) + jit).astype(np.float32)
     col = px[keep][:, :3]
@@ -60,7 +60,7 @@ def fx_pos(name, u, home, box, sc, nxt=None):
     """Posición de cada partícula en el progreso u (0..1) del efecto. Devuelve (pos, mezcla_color_hacia_nxt)."""
     W, H = sc.W, sc.H
     x0, y0, bw, bh = box
-    cx, cy = W / 2, H / 2
+    cx, cy = x0 + bw / 2, y0 + bh / 2
     hx, hy = home[:, 0], home[:, 1]
     r1, r2, r3 = sc.r1, sc.r2, sc.r3
     OUT, BACK = 0.40, 0.85          # rompe hasta 0.40, vuelve hasta 0.85
@@ -140,13 +140,15 @@ def main():
     ap.add_argument('--bright', type=float, default=1.55, help='aclara los colores de la foto')
     ap.add_argument('--min-lum', type=int, default=30, help='ignora píxeles más oscuros que esto (fondo)')
     ap.add_argument('--alpha', action='store_true', help='fondo transparente → .mov ProRes 4444 para superponer en otros videos')
+    ap.add_argument('--cy', type=float, default=0.5, help='centro vertical de la imagen (0..1 del alto); el efecto usa toda la pantalla')
+    ap.add_argument('--live', type=float, default=0, help='movimiento siempre vivo: px de vaivén por partícula + un enjambre que orbita fuera de la imagen (p. ej. 6)')
     ap.add_argument('--audio', help='pista de audio para mezclar')
     ap.add_argument('--out', required=True)
     a = ap.parse_args()
 
     W, H, FPS = a.w, a.h, a.fps
     rng = np.random.default_rng(7)
-    imgs = [sample(p, W, H, a.scale, a.gap, a.min_lum) for p in a.img]
+    imgs = [sample(p, W, H, a.scale, a.gap, a.min_lum, a.cy) for p in a.img]
     N = max(len(i[0]) for i in imgs)
 
     def fit(pos, col):  # misma cantidad de partículas en todas las imágenes
@@ -181,6 +183,13 @@ def main():
     prev = None
     offs = [(dy, dx) for dy in range(sz) for dx in range(sz)]
     halo = [(-1, dx, 0.35) for dx in range(sz)] + [(sz, dx, 0.35) for dx in range(sz)] + [(dy, -1, 0.35) for dy in range(sz)] + [(dy, sz, 0.35) for dy in range(sz)]
+    live_w = rng.uniform(1.2, 3.2, (N, 2)).astype(np.float32); live_ph = rng.uniform(0, 6.283, (N, 2)).astype(np.float32)
+    live_amp = rng.uniform(0.3, 1.0, N).astype(np.float32)
+    bx0, by0, bw0, bh0 = imgs[0][3]; ocx, ocy, R0 = bx0 + bw0 / 2, by0 + bh0 / 2, max(bw0, bh0) / 2
+    NS = int(N * 0.12) if a.live > 0 else 0   # enjambre que sobrepasa la imagen
+    s_r = (R0 * rng.uniform(0.9, 2.1, NS)).astype(np.float32); s_a = rng.uniform(0, 6.283, NS).astype(np.float32)
+    s_w = (rng.uniform(0.25, 0.7, NS) * rng.choice([-1, 1], NS)).astype(np.float32); s_e = rng.uniform(0.55, 1.0, NS).astype(np.float32)
+    s_col = homes[0][1][rng.integers(0, N, NS)] if NS else None
     for f in range(nfr):
         t = f / FPS
         # en qué efecto estamos
@@ -198,6 +207,8 @@ def main():
         if cur != 'morph' and prev_name_is_morph(plan, t, FPS):
             img_i = (img_i + 1) % len(homes); home, col = homes[img_i]
             pos = home if cur is None else fx_pos(cur, np.float32(u), home, imgs[img_i][3], sc, None)[0]
+        if a.live > 0:  # vaivén suave: nunca queda quieto
+            pos = pos + a.live * np.stack([np.sin(t * live_w[:, 0] + live_ph[:, 0]), np.cos(t * live_w[:, 1] + live_ph[:, 1])], 1) * live_amp[:, None]
         c = col if mix is None else col + (homes[(img_i + 1) % len(homes)][1] - col) * mix[:, None]
         c = np.minimum(255, c * a.bright + 10)
         # brillo azul hielo según velocidad
@@ -210,6 +221,11 @@ def main():
             rgb = rgb * a.trail + bg * (1 - a.trail); alpha *= a.trail
         else:
             rgb[:] = bg; alpha[:] = 0
+        if NS:
+            ang = s_a + t * s_w; rr = s_r * (1 + 0.08 * np.sin(t * 1.7 + s_a))
+            spos = np.stack([ocx + np.cos(ang) * rr, ocy + np.sin(ang) * rr * s_e], 1)
+            fade = min(1.0, t / 1.0)
+            pos = np.vstack([pos, spos]); c = np.vstack([c, (np.minimum(255, s_col * a.bright) * 0.75 * fade + bg * (1 - 0.75 * fade))])
         xi, yi = np.round(pos[:, 0]).astype(np.int32), np.round(pos[:, 1]).astype(np.int32)
         for dy, dx, k in halo:  # halo suave alrededor (se mezcla con lo que hay)
             x, y = xi + dx, yi + dy
