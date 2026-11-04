@@ -39,7 +39,8 @@ def sample(path, W, H, scale, gap, min_lum):
     px = a[ys, xs]
     keep = (px[..., 3] > 60) & (px[..., :3].sum(-1) > min_lum)
     x0, y0 = (W - w) / 2, (H - h) / 2
-    pos = np.stack([xs[keep] + x0, ys[keep] + y0], 1).astype(np.float32)
+    jit = np.random.default_rng(3).uniform(-0.38, 0.38, (int(keep.sum()), 2)) * gap  # rompe la cuadrícula
+    pos = (np.stack([xs[keep] + x0, ys[keep] + y0], 1) + jit).astype(np.float32)
     col = px[keep][:, :3]
     return pos, col, gap, (x0, y0, w, h)
 
@@ -134,9 +135,9 @@ def main():
     ap.add_argument('--w', type=int, default=1080); ap.add_argument('--h', type=int, default=1920); ap.add_argument('--fps', type=int, default=30)
     ap.add_argument('--scale', type=float, default=0.82, help='tamaño de la imagen respecto al cuadro')
     ap.add_argument('--gap', type=int, default=0, help='píxeles entre partículas (0 = automático y denso; 2 = máximo detalle)')
-    ap.add_argument('--size', type=float, default=0.85, help='tamaño de cada partícula respecto al gap')
+    ap.add_argument('--size', type=int, default=2, help='tamaño de cada partícula en píxeles (2 = puntito fino; 3 = más lleno)')
     ap.add_argument('--bg', default='#050507'); ap.add_argument('--trail', type=float, default=0.72, help='0 = sin estela, 0.9 = estela larga')
-    ap.add_argument('--bright', type=float, default=1.35, help='aclara los colores de la foto')
+    ap.add_argument('--bright', type=float, default=1.55, help='aclara los colores de la foto')
     ap.add_argument('--min-lum', type=int, default=30, help='ignora píxeles más oscuros que esto (fondo)')
     ap.add_argument('--alpha', action='store_true', help='fondo transparente → .mov ProRes 4444 para superponer en otros videos')
     ap.add_argument('--audio', help='pista de audio para mezclar')
@@ -164,7 +165,7 @@ def main():
     nfr = int(round(total * FPS))
 
     bg = hex_rgb(a.bg)
-    sz = max(1, int(round(gap * a.size)))
+    sz = max(1, a.size)
     pix = 'rgba' if a.alpha else 'rgb24'
     out_args = (['-c:v', 'prores_ks', '-profile:v', '4444', '-pix_fmt', 'yuva444p10le'] if a.alpha
                 else ['-c:v', 'libx264', '-crf', '18', '-preset', 'veryfast', '-pix_fmt', 'yuv420p'])
@@ -179,6 +180,7 @@ def main():
     home, col = homes[0]
     prev = None
     offs = [(dy, dx) for dy in range(sz) for dx in range(sz)]
+    halo = [(-1, dx, 0.35) for dx in range(sz)] + [(sz, dx, 0.35) for dx in range(sz)] + [(dy, -1, 0.35) for dy in range(sz)] + [(dy, sz, 0.35) for dy in range(sz)]
     for f in range(nfr):
         t = f / FPS
         # en qué efecto estamos
@@ -209,7 +211,11 @@ def main():
         else:
             rgb[:] = bg; alpha[:] = 0
         xi, yi = np.round(pos[:, 0]).astype(np.int32), np.round(pos[:, 1]).astype(np.int32)
-        for dy, dx in offs:
+        for dy, dx, k in halo:  # halo suave alrededor (se mezcla con lo que hay)
+            x, y = xi + dx, yi + dy
+            ok = (x >= 0) & (x < W) & (y >= 0) & (y < H)
+            rgb[y[ok], x[ok]] = rgb[y[ok], x[ok]] * (1 - k) + c[ok] * k; alpha[y[ok], x[ok]] = np.maximum(alpha[y[ok], x[ok]], k)
+        for dy, dx in offs:  # núcleo
             x, y = xi + dx, yi + dy
             ok = (x >= 0) & (x < W) & (y >= 0) & (y < H)
             rgb[y[ok], x[ok]] = c[ok]; alpha[y[ok], x[ok]] = 1.0
