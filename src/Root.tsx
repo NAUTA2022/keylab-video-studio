@@ -9,6 +9,7 @@ import { CancionRilian, RILIAN_DUR } from './historia/CancionRilian';
 import { OpeningKeyLab, OPENING_DUR } from './historia/OpeningKeyLab';
 import { ChrysosTokenizacion, CHRYSOS_DUR } from './historia/ChrysosTokenizacion';
 import { SenadorIsrael, SENADOR_DUR } from './historia/SenadorIsrael';
+import { SenadorIsraelVertical, SENADOR_V_DUR } from './historia/SenadorIsraelVertical';
 import { PersonajePrueba } from './historia/Pintado';
 import { SebastianVivo, UlisesVivo } from './historia/Retrato';
 import React from 'react';
@@ -41,6 +42,7 @@ export const Root: React.FC = () => (
     <Composition id="OpeningKeyLab" component={OpeningKeyLab} durationInFrames={OPENING_DUR * 30} fps={30} width={1920} height={1080} />
     <Composition id="ChrysosTokenizacion" component={ChrysosTokenizacion} durationInFrames={Math.round(CHRYSOS_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="SenadorIsrael" component={SenadorIsrael} durationInFrames={Math.round(SENADOR_DUR * 30)} fps={30} width={1920} height={1080} />
+    <Composition id="SenadorIsraelVertical" component={SenadorIsraelVertical} durationInFrames={Math.round(SENADOR_V_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="FiguraHorno" component={FiguraHorno} durationInFrames={75} fps={FPS} width={HORNO_W} height={HORNO_H} defaultProps={{ yaw: Math.PI, seed: "frente" }} />
     <Composition id="NoticiaHackeos" component={NoticiaHackeos} durationInFrames={HACKEOS_DUR * FPS} fps={FPS} width={1080} height={1920} />
     <Composition id="HistoriaVertical" component={HistoriaVertical} durationInFrames={HISTORIA_DUR * FPS} fps={FPS} width={1080} height={1920} />
