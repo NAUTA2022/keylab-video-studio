@@ -134,7 +134,7 @@ open(f'{S}/subs.ass', 'w').write(ass + '\n'.join(ev) + '\n')
 # ---------- unir + subtítulos ----------
 os.makedirs('out', exist_ok=True)
 run(['ffmpeg', '-y', '-loglevel', 'error', '-i', f'{S}/s1.mkv', '-i', f'{S}/s2.mkv', '-i', f'{S}/s3.mkv', '-i', 'public/media/senador-israel/mezcla.wav', '-filter_complex',
-     f"[0:v][0:a][1:v][1:a][2:v][2:a]concat=n=3:v=1:a=1[v][a];[v]subtitles={S}/subs.ass:fontsdir={FONTS}[vs];"
+     f"[0:v][0:a][1:v][1:a][2:v][2:a]concat=n=3:v=1:a=1[v][a0];[a0]anullsink;[v]subtitles={S}/subs.ass:fontsdir={FONTS}[vs];"
      f"[3:a]loudnorm=I=-14:TP=-1.5:LRA=11[ao]",
      '-map', '[vs]', '-map', '[ao]', '-shortest', '-c:v', 'libx264', '-crf', '18', '-preset', 'medium', '-pix_fmt', 'yuv420p',
      '-c:a', 'aac', '-b:a', '192k', '-ar', '48000', '-movflags', '+faststart', OUT])
