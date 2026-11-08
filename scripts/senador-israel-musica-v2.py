@@ -41,17 +41,31 @@ def photo_clip(key, d, out, rev=False):
     run(['ffmpeg', '-y', '-loglevel', 'error', '-loop', '1', '-t', str(d), '-i', f"{A}/{P[key][0]}-image.jpg",
          '-vf', photo_filter(key, d, rev), '-t', str(d), '-c:v', 'libx264', '-crf', '16', '-preset', 'fast', out])
 
-# ---------- 1 · Pleno con la bandera (vertical sobre fondo desenfocado) 0–43 s ----------
+# ---------- 1 · Pleno: él 0–4.5 s → fotos con su voz → él de nuevo 37.7–43 (amigos y aliados) ----------
 D1 = 43.0
-run(['ffmpeg', '-y', '-loglevel', 'error', '-t', str(D1), '-i', V2, '-filter_complex',
+P0, P1 = 4.5, 37.7
+fotos1 = ['p14', 'n1', 'p6', 'p3', 'p13', 'p9', 'p19', 'p11']
+XF = 0.5
+d1 = ((P1 - P0) + XF * (len(fotos1) - 1)) / len(fotos1)
+for i, k in enumerate(fotos1):
+    photo_clip(k, round(d1, 3), f'{S}/g{i:02d}.mkv', rev=bool(i % 2))
+inp = sum([['-i', f'{S}/g{i:02d}.mkv'] for i in range(len(fotos1))], [])
+fc, prev = '', '[0:v]'
+for i in range(1, len(fotos1)):
+    fc += f"{prev}[{i}:v]xfade=transition=fade:duration={XF}:offset={round(i * (d1 - XF), 3)}[x{i}];"; prev = f'[x{i}]'
+run(['ffmpeg', '-y', '-loglevel', 'error', *inp, '-filter_complex', fc[:-1].rsplit('[', 1)[0] + '[m]', '-map', '[m]',
+     '-t', str(P1 - P0), '-c:v', 'libx264', '-crf', '16', '-preset', 'fast', f'{S}/montaje1.mkv'])
+run(['ffmpeg', '-y', '-loglevel', 'error', '-t', str(D1), '-i', V2, '-i', f'{S}/montaje1.mkv', '-filter_complex',
      f"[0:v]split[a][b];[a]scale={W}:{H}:force_original_aspect_ratio=increase,crop={W}:{H},boxblur=30:3,eq=brightness=-0.12[bg];"
-     f"[b]scale=-2:{H}[fg];[bg][fg]overlay=(W-w)/2:0,fps=30,format=yuv420p[v];[0:a]aresample=48000,afade=t=out:st={D1-0.4}:d=0.4[a]",
+     f"[b]scale=-2:{H}[fg];[bg][fg]overlay=(W-w)/2:0,fps=30,format=yuv420p,split[p1][p2];"
+     f"[p1]trim=0:{P0},setpts=PTS-STARTPTS[x];[p2]trim={P1}:{D1},setpts=PTS-STARTPTS[z];[1:v]setpts=PTS-STARTPTS[y];"
+     f"[x][y][z]concat=n=3:v=1:a=0[v];[0:a]aresample=48000,afade=t=out:st={D1-0.4}:d=0.4[a]",
      '-map', '[v]', '-map', '[a]', '-c:v', 'libx264', '-crf', '16', '-preset', 'fast', '-c:a', 'pcm_s16le', f'{S}/s1.mkv'])
 
 # ---------- 2 · Senado: él → fotos del evento con su voz → él  ----------
 T0, T1 = 119.4, 180.9          # tramo del discurso
 F0, F1 = 121.9, 180.9          # fotos: solo 2.5 s de él sentado y luego fotos hasta el final, con su voz
-fotos = ['n1', 'p7', 'n2', 'p4', 'n4', 'p1', 'p18', 'p16', 'n3', 'p12', 'p8', 'p17', 'p15', 'p11', 'p9', 'p19']
+fotos = ['p7', 'n2', 'p4', 'p1', 'p18', 'p16', 'n4', 'p12', 'p8', 'p17', 'n3', 'p15', 'p2', 'p14']
 XF = 0.5
 d = ((F1 - F0) + XF * (len(fotos) - 1)) / len(fotos)
 for i, k in enumerate(fotos):
@@ -126,9 +140,11 @@ for a, b, t in subs1:
 for a, b, t in subs2:
     ev.append(f"Dialogue: 1,{ts(a - T0 + O2)},{ts(b - T0 + O2)},Sub,,0,0,0,,{{\\fad(120,120)}}{t}")
 # rótulo del senador (en el pleno con la bandera)
-ev.append(f"Dialogue: 2,{ts(0.6)},{ts(8.5)},LTName,,0,0,0,,{{\\fad(300,300)\\move(60,830,90,830)}}SENATOR JOSUÉ ALIRIO BARRERA")
-ev.append(f"Dialogue: 2,{ts(0.9)},{ts(8.5)},LTSub,,0,0,0,,{{\\fad(300,300)\\move(62,866,92,866)}}SENATE OF THE REPUBLIC OF COLOMBIA")
+ev.append(f"Dialogue: 2,{ts(0.6)},{ts(4.4)},LTName,,0,0,0,,{{\\fad(300,300)\\move(60,830,90,830)}}SENATOR JOSUÉ ALIRIO BARRERA")
+ev.append(f"Dialogue: 2,{ts(0.9)},{ts(4.4)},LTSub,,0,0,0,,{{\\fad(300,300)\\move(62,866,92,866)}}SENATE OF THE REPUBLIC OF COLOMBIA")
 # rótulo del evento sobre las fotos
+ev.append(f"Dialogue: 2,{ts(4.8)},{ts(10.0)},LTName,,0,0,0,,{{\\fad(300,300)}}CASANARE BLESSES ISRAEL")
+ev.append(f"Dialogue: 2,{ts(5.1)},{ts(10.0)},LTSub,,0,0,0,,{{\\fad(300,300)}}CASANARE, COLOMBIA")
 ev.append(f"Dialogue: 2,{ts(F0 - T0 + O2 + 0.3)},{ts(F0 - T0 + O2 + 5.5)},LTName,,0,0,0,,{{\\fad(300,300)}}CASANARE BLESSES ISRAEL")
 ev.append(f"Dialogue: 2,{ts(F0 - T0 + O2 + 0.6)},{ts(F0 - T0 + O2 + 5.5)},LTSub,,0,0,0,,{{\\fad(300,300)}}CASANARE, COLOMBIA")
 # cierre
