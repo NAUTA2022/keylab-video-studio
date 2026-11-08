@@ -2,7 +2,7 @@ import React from 'react';
 import { AbsoluteFill, Audio, Easing, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
 import { ensureFonts } from '../brand/fonts';
 
-// Senador Josué Alirio Barrera · versión PRO vertical 1080x1920 · 131.7 s (estructura v3: él poco en cámara, fotos detrás de su voz).
+// v4: el gobernador abre (6–22.2), luego el pleno (22.2–65.2). Senador Josué Alirio Barrera · versión PRO vertical 1080x1920 · 131.7 s (estructura v3: él poco en cámara, fotos detrás de su voz).
 // 0–6 apertura en partículas · 6–49 pleno (él 4.5 s → fotos con frases → él 5.3 s) · 49–65.2 gobernador "amigos en todo tiempo" ·
 // 65.2–67.7 Senado → fotos con frases y LOVE/RESPECT/SUPPORT/BLESS hasta 126.7 · 126.7–131.7 cierre en partículas.
 ensureFonts();
@@ -17,7 +17,7 @@ const useT = () => useCurrentFrame() / FPS;
 const pin = (t: number, a: number, d = 0.6) => interpolate(t, [a, a + d], [0, 1], { ...clamp, easing: ease });
 const out = (t: number, b: number, d = 0.4) => interpolate(t, [b - d, b], [1, 0], clamp);
 
-const PL = 6, PL_F0 = PL + 4.5, PL_F1 = PL + 37.7, GOB = 49, SEN = 65.2, SEN_F = SEN + 2.5, FIN = 126.7;
+const GOB = 6, PL = 22.2, PL_F0 = PL + 4.5, PL_F1 = PL + 37.7, SEN = 65.2, SEN_F = SEN + 2.5, FIN = 126.7;
 const sen = (o: number) => o - 119.4 + SEN;
 const gob = (o: number) => o - 35.8 + GOB;
 
@@ -182,11 +182,11 @@ export const SenadorIsraelVertical: React.FC = () => {
   const tp = pin(t, 4.3, 0.9);
   return (
     <AbsoluteFill style={{ background: '#04060C', overflow: 'hidden' }}>
-      <Audio src={staticFile(`${M}audio-pro-v3.mp3`)} />
+      <Audio src={staticFile(`${M}audio-pro-v4.mp3`)} />
 
       {/* 1 · APERTURA */}
-      {t < PL + 0.3 ? (
-        <AbsoluteFill style={{ opacity: out(t, PL + 0.3, 0.3) }}>
+      {t < GOB + 0.3 ? (
+        <AbsoluteFill style={{ opacity: out(t, GOB + 0.3, 0.3) }}>
           <AbsoluteFill style={{ background: 'radial-gradient(ellipse 80% 50% at 50% 42%, #0B1F4D 0%, #04060C 72%)' }} />
           <AbsoluteFill style={{ mixBlendMode: 'screen' }}><OffthreadVideo src={staticFile(`${M}apertura-particulas-v.mp4`)} muted /></AbsoluteFill>
           {t >= 4.3 ? (
@@ -201,8 +201,8 @@ export const SenadorIsraelVertical: React.FC = () => {
       ) : null}
 
       {/* 2 · PLENO: él → fotos con frases → él */}
-      {t >= PL && t < GOB + 0.3 ? (
-        <AbsoluteFill style={{ opacity: out(t, GOB + 0.3, 0.3) }}>
+      {t >= PL && t < SEN + 0.3 ? (
+        <AbsoluteFill style={{ opacity: Math.min(pin(t, PL, 0.3), out(t, SEN + 0.3, 0.3)) }}>
           <Sequence from={Math.round(PL * FPS)}><OffthreadVideo src={staticFile(`${M}pleno.mp4`)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></Sequence>
           {t >= PL_F0 && t < PL_F1 + 0.4 ? (
             <AbsoluteFill style={{ opacity: out(t, PL_F1 + 0.4, 0.4) }}>
@@ -217,16 +217,16 @@ export const SenadorIsraelVertical: React.FC = () => {
             </AbsoluteFill>
           ) : null}
           <Rotulo a={PL + 0.6} b={PL_F0 - 0.1} />
-          <Frase a={PL_F1 + 0.3} b={GOB} kicker="ALWAYS" text="Friends and allies" size={130} color={SKY} y={150} />
+          <Frase a={PL_F1 + 0.3} b={SEN} kicker="ALWAYS" text="Friends and allies" size={130} color={SKY} y={150} />
           {SUBS_PLENO.map(([a, b, s], i) => <Sub key={i} a={a + PL} b={b + PL} text={s} />)}
         </AbsoluteFill>
       ) : null}
 
       {/* 3 · GOBERNADOR: amigos en todo tiempo */}
-      <Horizontal src={`${M}gob.mp4`} from={GOB} a={GOB} b={SEN + 0.3} />
-      {t >= GOB && t < SEN ? <Polvo o={0.5} /> : null}
+      <Horizontal src={`${M}gob.mp4`} from={GOB} a={GOB} b={PL + 0.3} />
+      {t >= GOB && t < PL ? <Polvo o={0.5} /> : null}
       <Frase a={GOB + 0.4} b={gob(46.5)} kicker="CASANARE" text="Friends are not just within four walls" size={96} y={170} />
-      <Frase a={gob(46.7)} b={SEN} kicker="IN GOOD TIMES AND IN BAD" text="Casanare is a friend of Israel" size={104} color={GOLD} y={170} />
+      <Frase a={gob(46.7)} b={PL} kicker="IN GOOD TIMES AND IN BAD" text="Casanare is a friend of Israel" size={104} color={GOLD} y={170} />
       {SUBS_GOB.map(([a, b, s], i) => <Sub key={i} a={gob(a)} b={gob(b)} text={s} />)}
 
       {/* 4 · SENADO 2.5 s → fotos */}
