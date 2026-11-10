@@ -26,3 +26,5 @@ public/media/frutos/*.wav
 out/frutos/
 public/media/momento/*.wav
 out/momento/
+public/media/posicion/*.wav
+out/posicion/

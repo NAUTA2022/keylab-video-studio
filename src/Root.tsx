@@ -12,6 +12,7 @@ import { SenadorIsrael, SENADOR_DUR } from './historia/SenadorIsrael';
 import { SenadorIsraelVertical, SENADOR_V_DUR } from './historia/SenadorIsraelVertical';
 import { Frutos, FRUTOS_DUR } from './historia/Frutos';
 import { Momento, MOMENTO_DUR } from './historia/Momento';
+import { Posicion, POSICION_DUR } from './historia/Posicion';
 import { PersonajePrueba } from './historia/Pintado';
 import { SebastianVivo, UlisesVivo } from './historia/Retrato';
 import React from 'react';
@@ -47,6 +48,7 @@ export const Root: React.FC = () => (
     <Composition id="SenadorIsraelVertical" component={SenadorIsraelVertical} durationInFrames={Math.round(SENADOR_V_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Frutos" component={Frutos} durationInFrames={Math.round(FRUTOS_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Momento" component={Momento} durationInFrames={Math.round(MOMENTO_DUR * 30)} fps={30} width={1080} height={1920} />
+    <Composition id="Posicion" component={Posicion} durationInFrames={Math.round(POSICION_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="FiguraHorno" component={FiguraHorno} durationInFrames={75} fps={FPS} width={HORNO_W} height={HORNO_H} defaultProps={{ yaw: Math.PI, seed: "frente" }} />
     <Composition id="NoticiaHackeos" component={NoticiaHackeos} durationInFrames={HACKEOS_DUR * FPS} fps={FPS} width={1080} height={1920} />
     <Composition id="HistoriaVertical" component={HistoriaVertical} durationInFrames={HISTORIA_DUR * FPS} fps={FPS} width={1080} height={1920} />

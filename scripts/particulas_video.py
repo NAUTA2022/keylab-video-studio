@@ -204,9 +204,10 @@ def main():
             nxt = homes[(img_i + 1) % len(homes)][0] if cur == 'morph' else None
             pos, mix = fx_pos(cur, np.float32(u), home, imgs[img_i % len(imgs)][3], sc, nxt)
         # al terminar un morph, la imagen siguiente pasa a ser la de casa
-        if cur != 'morph' and prev_name_is_morph(plan, t, FPS):
+        if prev_name_is_morph(plan, t, FPS):   # también entre dos morph seguidos (A→B→C)
             img_i = (img_i + 1) % len(homes); home, col = homes[img_i]
-            pos = home if cur is None else fx_pos(cur, np.float32(u), home, imgs[img_i][3], sc, None)[0]
+            if cur is None: pos, mix = home, None
+            else: pos, mix = fx_pos(cur, np.float32(u), home, imgs[img_i][3], sc, homes[(img_i + 1) % len(homes)][0] if cur == 'morph' else None)
         if a.live > 0:  # vaivén suave: nunca queda quieto
             pos = pos + a.live * np.stack([np.sin(t * live_w[:, 0] + live_ph[:, 0]), np.cos(t * live_w[:, 1] + live_ph[:, 1])], 1) * live_amp[:, None]
         c = col if mix is None else col + (homes[(img_i + 1) % len(homes)][1] - col) * mix[:, None]
