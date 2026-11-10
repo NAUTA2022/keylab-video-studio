@@ -132,44 +132,69 @@ const Muro: React.FC<{ a: number; slam: number; b: number }> = ({ a, slam, b }) 
   );
 };
 
-/* Marca blanca: el nombre en la plataforma cambia */
-const MarcaBlanca: React.FC<{ a: number; b: number }> = ({ a, b }) => {
-  const t = useT();
-  if (!vis(t, a, b)) return null;
-  const names = ['TU MARCA', 'AGRO·TOKEN', 'INMO+', 'MOTOR FRACCIÓN', 'TU MARCA'];
-  const k = Math.min(names.length - 1, Math.floor((t - a) / 0.75));
-  const p = pin(t, a, 0.7);
+/* Marco de navegador con la captura real de la tokenizadora */
+const Navegador: React.FC<{ children: React.ReactNode; o: number; s: number; url?: string }> = ({ children, o, s, url = 'tu-tokenizadora.com' }) => (
+  <div style={{ position: 'absolute', left: 50, top: 640, width: 980, height: 760, opacity: o, transform: `scale(${s})` }}>
+    <div style={{ position: 'absolute', inset: 0, borderRadius: 26, overflow: 'hidden', background: '#F6F7FA', border: '2px solid rgba(140,160,255,0.55)', boxShadow: '0 40px 120px rgba(45,82,255,0.45)' }}>
+      <div style={{ position: 'relative', zIndex: 2, height: 46, background: '#151A2A', display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 22 }}>{['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 14, height: 14, borderRadius: 7, background: c }} />)}<div style={{ marginLeft: 20, fontFamily: BODY, fontWeight: 700, fontSize: 20, color: MUTED }}>{url}</div></div>
+      <div style={{ position: 'absolute', left: 0, top: 46, width: 980, height: 714, overflow: 'hidden' }}>{children}</div>
+    </div>
+  </div>
+);
+const IMG_W = 1600, IMG_H = 926, VW = 980, VH = 714;
+/* Cámara sobre la captura: foco (x,y) en píxeles de la imagen y zoom */
+const Captura: React.FC<{ fx: number; fy: number; z: number; brand?: string; brandK?: number }> = ({ fx, fy, z, brand, brandK = 0 }) => {
+  const tx = VW / 2 - fx * z, ty = VH / 2 - fy * z;
   return (
-    <div style={{ position: 'absolute', left: 140, top: 760, width: 800, height: 520, opacity: out(t, b) * p, transform: `translateY(${(1 - p) * 60}px)` }}>
-      <div style={{ position: 'absolute', inset: 0, borderRadius: 30, background: '#0E1220', border: '2px solid rgba(140,160,255,0.45)', boxShadow: '0 30px 90px rgba(45,82,255,0.35)' }} />
-      <div style={{ position: 'absolute', left: 30, top: 26, display: 'flex', gap: 10 }}>{['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 18, height: 18, borderRadius: 9, background: c }} />)}</div>
-      <div style={{ position: 'absolute', left: 0, top: 150, width: '100%', textAlign: 'center', fontFamily: DISPLAY, fontSize: 96, color: k % 2 ? GOLD : INK, transform: `translateY(${(1 - pin(t, a + k * 0.75, 0.3)) * 30}px)` }}>{names[k]}</div>
-      <div style={{ position: 'absolute', left: 0, top: 290, width: '100%', textAlign: 'center', fontFamily: BODY, fontWeight: 800, fontSize: 30, color: MUTED, letterSpacing: 4 }}>TU TOKENIZADORA · TU NOMBRE</div>
-      <div style={{ position: 'absolute', left: 200, top: 380, width: 400, height: 70, borderRadius: 35, background: ACCENT, color: INK, fontFamily: BODY, fontWeight: 900, fontSize: 30, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>Ver activos</div>
+    <div style={{ position: 'absolute', left: 0, top: 0, width: IMG_W, height: IMG_H, transform: `translate(${tx}px, ${ty}px) scale(${z})`, transformOrigin: '0 0' }}>
+      <Img src={staticFile(`${M}plataforma.png`)} style={{ width: IMG_W, height: IMG_H, display: 'block' }} />
+      {brand ? (
+        <div style={{ position: 'absolute', left: 8, top: 12, width: 175, height: 48, background: '#FFFFFF', display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 8 }}>
+          <div style={{ width: 30, height: 30, borderRadius: 8, background: brandK % 2 ? GOLD : '#111', color: '#fff', fontFamily: BODY, fontWeight: 900, fontSize: 18, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{brand[0]}</div>
+          <span style={{ fontFamily: BODY, fontWeight: 900, fontSize: 19, color: '#111', whiteSpace: 'nowrap' }}>{brand}</span>
+        </div>
+      ) : null}
     </div>
   );
 };
 
-/* Capturas reales de la plataforma en un marco de navegador */
-const Plataforma: React.FC<{ a: number; b: number }> = ({ a, b }) => {
+/* Marca blanca: la misma tokenizadora con el nombre de cada cliente */
+const MarcaBlanca: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
-  const shots = ['p014-013', 'p013-012', 'p011-010', 'p012-011', 'p015-014', 'p016-015'];
-  const d = (b - a) / shots.length;
+  const names = ['KEYLAB', 'TU MARCA', 'AGROTOKEN', 'INMO+', 'TU MARCA'];
+  const k = Math.min(names.length - 1, Math.floor((t - a) / 0.75));
   const p = pin(t, a, 0.7);
+  const z = interpolate(t, [a, a + 0.8, b], [0.8, 1.55, 1.7], { ...clamp, easing: ease });
+  const fx = interpolate(t, [a, a + 0.8], [800, 230], { ...clamp, easing: ease });
+  const fy = interpolate(t, [a, a + 0.8], [463, 230], { ...clamp, easing: ease });
+  const pop = pin(t, a + k * 0.75, 0.25);
   return (
-    <div style={{ position: 'absolute', left: 50, top: 640, width: 980, height: 760, opacity: out(t, b) * p, transform: `scale(${0.92 + 0.08 * p})` }}>
-      <div style={{ position: 'absolute', inset: 0, borderRadius: 26, overflow: 'hidden', background: '#0B0E18', border: '2px solid rgba(140,160,255,0.5)', boxShadow: '0 40px 120px rgba(45,82,255,0.4)' }}>
-        <div style={{ height: 46, background: '#151A2A', display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 22 }}>{['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 14, height: 14, borderRadius: 7, background: c }} />)}<div style={{ marginLeft: 20, fontFamily: BODY, fontWeight: 700, fontSize: 20, color: MUTED }}>tu-tokenizadora.com</div></div>
-        {shots.map((s, i) => {
-          const sa = a + i * d;
-          if (t < sa - 0.01 || t > sa + d + 0.5) return null;
-          const o = pin(t, sa, 0.45);
-          const z = 1.04 + (t - sa) * 0.025;
-          return <Img key={s} src={staticFile(`media/historia-keylab/plataforma/${s}.png`)} style={{ position: 'absolute', left: 0, top: 46, width: 980, height: 714, objectFit: 'cover', objectPosition: 'top', opacity: o, transform: `scale(${z})`, transformOrigin: 'top center' }} />;
-        })}
-      </div>
-    </div>
+    <Navegador o={out(t, b) * p} s={0.92 + 0.08 * p} url={`${names[k].toLowerCase().replace(/[^a-z]/g, '') || 'tumarca'}.com`}>
+      <Captura fx={fx} fy={fy} z={z} brand={names[k]} brandK={k} />
+      <div style={{ position: 'absolute', right: 30, bottom: 30, padding: '10px 22px', borderRadius: 999, background: ACCENT, fontFamily: BODY, fontWeight: 900, fontSize: 26, color: INK, transform: `scale(${0.85 + 0.15 * pop})` }}>Tu nombre aquí</div>
+    </Navegador>
+  );
+};
+
+/* Recorrido por la tokenizadora (captura real) */
+const Plataforma: React.FC<{ a: number; b: number; keys: number[] }> = ({ a, b, keys }) => {
+  const t = useT();
+  if (!vis(t, a, b)) return null;
+  const p = pin(t, a, 0.7);
+  const F = { fx: 800, fy: 463, z: 0.62 }, H = { fx: 920, fy: 230, z: 1.15 }, C = { fx: 920, fy: 700, z: 1.0 }, F2 = { fx: 800, fy: 463, z: 0.66 };
+  const KF = [
+    { t: a, ...F }, { t: keys[1] - 0.3, ...F },
+    { t: keys[1] + 0.5, ...H }, { t: keys[2] - 0.3, ...H },
+    { t: keys[2] + 0.5, ...C }, { t: keys[3] - 0.3, ...C },
+    { t: keys[3] + 0.5, ...F2 },
+  ];
+  const at = (k: 'fx' | 'fy' | 'z') => interpolate(t, KF.map((q, i) => (i === 0 ? q.t : q.t)), KF.map((q) => q[k]), { ...clamp, easing: Easing.inOut(Easing.cubic) });
+  const drift = (t - a) * 6;
+  return (
+    <Navegador o={out(t, b) * p} s={0.92 + 0.08 * p}>
+      <Captura fx={at('fx') + drift} fy={at('fy')} z={at('z')} />
+    </Navegador>
   );
 };
 
@@ -337,7 +362,7 @@ export const Frutos: React.FC = () => {
         <T a={21.81} b={29.7} kicker="TU PROPIA TOKENIZADORA" text="por solo" size={64} y={200} font="b" />
         <Monto a={21.81} b={23.5} from={30000} to={5000} dur={0.45} y={330} color={GOLD} size={250} />
         {t >= 23.5 && t < 29.7 ? <div style={{ position: 'absolute', top: 300, width: 1080, textAlign: 'center', fontFamily: DISPLAY, fontSize: 170, color: GOLD, opacity: out(t, 29.7) }}>US$5.000</div> : null}
-        <Plataforma a={23.4} b={29.7} />
+        <Plataforma a={23.4} b={29.7} keys={[23.4, 25.35, 26.8, 28.25]} />
         <Chip a={23.6} b={25.3} text="Plataforma completa" y={1450} />
         <Chip a={25.35} b={26.75} text="Experiencia visual premium" y={1450} />
         <Chip a={26.8} b={28.2} text="Funcionalidades competitivas" y={1450} />
