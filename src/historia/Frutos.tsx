@@ -340,7 +340,7 @@ export const Frutos: React.FC = () => {
         <Fondo />
 
         {/* 1 · HOOK: semilla → árbol en partículas */}
-        {t < EY + 0.1 ? <AbsoluteFill style={{ mixBlendMode: 'screen', opacity: out(t, EY + 0.1, 0.2) }}><OffthreadVideo src={staticFile(`${M}arbol-particulas.mp4`)} muted /></AbsoluteFill> : null}
+        {t < EY + 0.1 ? <AbsoluteFill style={{ mixBlendMode: 'screen', opacity: out(t, EY + 0.1, 0.2) }}><OffthreadVideo src={staticFile(`${M}naranjo-particulas.mp4`)} muted /></AbsoluteFill> : null}
         <T a={0.0} b={EY} text="Así tu idea de tokenizar" size={92} y={170} />
         <T a={1.55} b={EY} text="da frutos" size={170} y={300} color={GOLD} />
         <T a={1.95} b={EY} text="sin gastar una fortuna para comenzar" size={56} y={1500} font="b" color={INK} />
