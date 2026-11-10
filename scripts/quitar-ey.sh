@@ -9,4 +9,4 @@ ffmpeg -y -loglevel error -i "$IN" -filter_complex "
 [v0][v1]concat=n=2:v=1:a=0,format=yuv420p[v];
 [0:a]atrim=0:$AA,asetpts=PTS-STARTPTS,afade=t=out:st=$(python3 -c "print($AA-0.03)"):d=0.03[a0];
 [0:a]atrim=start=$AB,asetpts=PTS-STARTPTS,afade=t=in:d=0.03[a1];
-[a0][a1]concat=n=2:v=0:a=1[a]" -map "[v]" -map "[a]" -c:v libx264 -preset medium -crf 16 -r 30 -c:a aac -b:a 192k -movflags +faststart "$OUT"
+[a0][a1]concat=n=2:v=0:a=1[a]" -map "[v]" -map "[a]" -c:v libx264 -preset fast -crf 16 -r 30 -c:a aac -b:a 192k -movflags +faststart "$OUT"
