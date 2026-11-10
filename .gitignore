@@ -24,3 +24,5 @@ out/senador/
 public/media/senador-israel/gob.wav
 public/media/frutos/*.wav
 out/frutos/
+public/media/momento/*.wav
+out/momento/

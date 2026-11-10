@@ -23,7 +23,7 @@ const vis = (t: number, a: number, b: number) => t >= a && t <= b;
 const EY = 4.35, EY_END = 5.2;
 
 /* Texto que entra por palabras con máscara */
-const T: React.FC<{ a: number; b: number; text: string; size: number; y: number; color?: string; font?: 'd' | 'b'; kicker?: string; kc?: string }> = ({ a, b, text, size, y, color = INK, font = 'd', kicker, kc = GOLD }) => {
+export const T: React.FC<{ a: number; b: number; text: string; size: number; y: number; color?: string; font?: 'd' | 'b'; kicker?: string; kc?: string }> = ({ a, b, text, size, y, color = INK, font = 'd', kicker, kc = GOLD }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const o = out(t, b);
@@ -78,7 +78,7 @@ const Captions: React.FC<{ hideFrom?: number; hideTo?: number }> = ({ hideFrom =
 };
 
 /* Contador de dinero */
-const Monto: React.FC<{ a: number; b: number; from: number; to: number; dur?: number; y: number; color: string; size?: number; strikeAt?: number }> = ({ a, b, from, to, dur = 0.6, y, color, size = 230, strikeAt }) => {
+export const Monto: React.FC<{ a: number; b: number; from: number; to: number; dur?: number; y: number; color: string; size?: number; strikeAt?: number }> = ({ a, b, from, to, dur = 0.6, y, color, size = 230, strikeAt }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const v = interpolate(t, [a, a + dur], [from, to], { ...clamp, easing: Easing.out(Easing.cubic) });
@@ -133,7 +133,7 @@ const Muro: React.FC<{ a: number; slam: number; b: number }> = ({ a, slam, b }) 
 };
 
 /* Marco de navegador con la captura real de la tokenizadora */
-const Navegador: React.FC<{ children: React.ReactNode; o: number; s: number; url?: string }> = ({ children, o, s, url = 'tu-tokenizadora.com' }) => (
+export const Navegador: React.FC<{ children: React.ReactNode; o: number; s: number; url?: string }> = ({ children, o, s, url = 'tu-tokenizadora.com' }) => (
   <div style={{ position: 'absolute', left: 50, top: 640, width: 980, height: 760, opacity: o, transform: `scale(${s})` }}>
     <div style={{ position: 'absolute', inset: 0, borderRadius: 26, overflow: 'hidden', background: '#F6F7FA', border: '2px solid rgba(140,160,255,0.55)', boxShadow: '0 40px 120px rgba(45,82,255,0.45)' }}>
       <div style={{ position: 'relative', zIndex: 2, height: 46, background: '#151A2A', display: 'flex', alignItems: 'center', gap: 10, paddingLeft: 22 }}>{['#FF5F57', '#FEBC2E', '#28C840'].map((c) => <div key={c} style={{ width: 14, height: 14, borderRadius: 7, background: c }} />)}<div style={{ marginLeft: 20, fontFamily: BODY, fontWeight: 700, fontSize: 20, color: MUTED }}>{url}</div></div>
@@ -143,7 +143,7 @@ const Navegador: React.FC<{ children: React.ReactNode; o: number; s: number; url
 );
 const IMG_W = 1600, IMG_H = 926, VW = 980, VH = 714;
 /* Cámara sobre la captura: foco (x,y) en píxeles de la imagen y zoom */
-const Captura: React.FC<{ fx: number; fy: number; z: number; brand?: string; brandK?: number }> = ({ fx, fy, z, brand, brandK = 0 }) => {
+export const Captura: React.FC<{ fx: number; fy: number; z: number; brand?: string; brandK?: number }> = ({ fx, fy, z, brand, brandK = 0 }) => {
   const tx = VW / 2 - fx * z, ty = VH / 2 - fy * z;
   return (
     <div style={{ position: 'absolute', left: 0, top: 0, width: IMG_W, height: IMG_H, transform: `translate(${tx}px, ${ty}px) scale(${z})`, transformOrigin: '0 0' }}>
@@ -159,7 +159,7 @@ const Captura: React.FC<{ fx: number; fy: number; z: number; brand?: string; bra
 };
 
 /* Marca blanca: la misma tokenizadora con el nombre de cada cliente */
-const MarcaBlanca: React.FC<{ a: number; b: number }> = ({ a, b }) => {
+export const MarcaBlanca: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const names = ['KEYLAB', 'TU MARCA', 'AGROTOKEN', 'INMO+', 'TU MARCA'];
@@ -199,7 +199,7 @@ const Plataforma: React.FC<{ a: number; b: number; keys: number[] }> = ({ a, b, 
 };
 
 /* Chip que aparece */
-const Chip: React.FC<{ a: number; b: number; text: string; y: number; color?: string }> = ({ a, b, text, y, color = ACCENT }) => {
+export const Chip: React.FC<{ a: number; b: number; text: string; y: number; color?: string }> = ({ a, b, text, y, color = ACCENT }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const p = pin(t, a, 0.45);
@@ -299,7 +299,7 @@ const Urgencia: React.FC<{ a: number; d7: number; d10: number; d4: number; b: nu
 };
 
 /* Ey. */
-const Ey: React.FC<{ at: number; until: number }> = ({ at, until }) => {
+export const Ey: React.FC<{ at: number; until: number }> = ({ at, until }) => {
   const t = useT();
   if (t < at || t >= until) return null;
   const s = interpolate(t, [at, at + 0.2], [1.6, 1], { ...clamp, easing: Easing.out(Easing.back(1.6)) });
