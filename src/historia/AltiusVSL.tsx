@@ -615,6 +615,35 @@ const S_Final: React.FC = () => {
   );
 };
 
+/* ---------------- Subtítulos de lectura (todo lo que dice, donde no hay subtítulo estilizado) ---------------- */
+const SUBS: [number, number, string][] = [
+  [7.95, 9.3, 'From their phone,'], [9.3, 11.95, 'in London, Riyadh or Mumbai.'],
+  [12.45, 14.95, 'Hello everyone, my name is Diana Rondón,'], [14.95, 16.75, "I'm co-founder of Altius."],
+  [17.05, 19.3, "I'm Colombian, but at this moment"], [19.3, 23.3, "I'm living between Doha, Qatar and Dubai."],
+  [23.5, 24.4, 'Here,'],
+  [29.65, 31.7, 'The first: sky-high prices.'], [31.7, 34.5, 'Or cheap, but looks so cheap.'], [34.5, 35.3, "It's incredible."],
+  [40.0, 44.6, 'With one team: product design, branding, marketing,'], [44.6, 48.4, 'custom platforms, built in-house,'], [48.4, 51.95, 'artificial intelligence and tokenization.'],
+  [52.05, 54.9, 'Our production team works from Latin America,'], [54.9, 56.5, 'with senior talent.'], [56.5, 57.6, "That's how we deliver"],
+  [61.45, 63.4, 'And if you are in'],
+  [66.25, 68.8, 'We build your sales platform,'], [68.8, 72.0, 'your brand, your CRM and 3D.'], [72.0, 75.0, 'Your client picks their unit without visiting the site.'],
+  [76.0, 80.7, 'Your own platform to split a property into tokens'], [80.7, 83.5, 'and open it to more investors,'],
+  [83.5, 86.6, 'under your brand. And you bring the license.'], [86.6, 88.55, 'We bring the technology.'],
+  [103.4, 104.9, 'Book a meeting with me'], [104.9, 107.7, 'or message us on WhatsApp, right below,'],
+];
+const Subs: React.FC = () => {
+  const t = useT();
+  const c = SUBS.find(([a, b]) => t >= a && t < b);
+  if (!c) return null;
+  const [a, b, txt] = c;
+  const o = Math.min(interpolate(t, [a, a + 0.12], [0, 1], clamp), interpolate(t, [b - 0.12, b], [1, 0], clamp));
+  const y = vis(t, 103.4, 108.2) ? 735 : 975;
+  return (
+    <div style={{ position: 'absolute', left: 0, width: W, top: y, display: 'flex', justifyContent: 'center', opacity: o }}>
+      <div style={{ maxWidth: 1500, padding: '10px 26px 12px', borderRadius: 16, background: 'rgba(8,10,16,0.62)', fontFamily: F, fontWeight: 600, fontSize: 44, lineHeight: 1.2, color: WHITE, textAlign: 'center' }}>{txt}</div>
+    </div>
+  );
+};
+
 export const AltiusVSL: React.FC = () => {
   const t = useT();
   return (
@@ -683,6 +712,7 @@ export const AltiusVSL: React.FC = () => {
       <Caption a={108.2} b={110.2} lines={[[{ w: "LET'S BUILD", t: 108.24, big: true, c: GOLD }], [{ w: 'your plan', t: 108.9 }]]} />
       <Caption a={110.4} b={113.1} lines={[[{ w: "I'm", t: 110.22 }, { w: 'DIANA', t: 110.54, big: true }], [{ w: 'and this is', t: 110.84 }, { w: 'ALTIUS', t: 111.48, big: true, c: GOLD }]]} />
       <S_Final />
+      <Subs />
       {t < 0 ? null : null}
     </AbsoluteFill>
   );
