@@ -4,9 +4,10 @@ import { PiBuildings, PiCreditCard, PiGlobeHemisphereWest, PiMegaphone, PiMoney,
 import { ensureFonts } from '../brand/fonts';
 import { EY_FOX, OUTRO_MUEJEJE, OneGag } from '../components/Gags';
 import PAL from './frutos-palabras.json';
+import { ArbolCircuito } from './ArbolCircuito';
 
 // Key Lab · "Así tu idea de tokenizar da frutos" · vertical 1080x1920 · 61.8 s.
-// Psicológico: semilla→árbol en partículas, Ey, latido y muro del problema, impacto del 5.000, el capital que se libera,
+// Psicológico: árbol-circuito vectorial, Ey, latido y muro del problema, impacto del 5.000, el capital que se libera,
 // urgencia de 7 días, el isotipo que se arma en partículas y el CTA con el muejeje.
 ensureFonts();
 export const FRUTOS_DUR = 61.8;
@@ -340,7 +341,7 @@ export const Frutos: React.FC = () => {
         <Fondo />
 
         {/* 1 · HOOK: semilla → árbol en partículas */}
-        {t < EY + 0.1 ? <AbsoluteFill style={{ mixBlendMode: 'screen', opacity: out(t, EY + 0.1, 0.2) }}><OffthreadVideo src={staticFile(`${M}naranjo-particulas.mp4`)} muted /></AbsoluteFill> : null}
+        {t < EY + 0.1 ? <ArbolCircuito t={t} fruto={1.55} fin={EY + 0.1} gold={GOLD} /> : null}
         <T a={0.0} b={EY} text="Así tu idea de tokenizar" size={92} y={170} />
         <T a={1.55} b={EY} text="da frutos" size={170} y={300} color={GOLD} />
         <T a={1.95} b={EY} text="sin gastar una fortuna para comenzar" size={56} y={1500} font="b" color={INK} />
