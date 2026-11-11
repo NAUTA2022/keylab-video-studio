@@ -1,5 +1,5 @@
 import React from 'react';
-import { AbsoluteFill, Easing, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Easing, Img, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
 import {
   PiAddressBook, PiArrowDown, PiBrain, PiBuildings, PiCalendarCheck, PiCertificate, PiChatCircleDots, PiCheckCircle, PiCode,
   PiCoins, PiCpu, PiCube, PiDeviceMobile, PiHouseLine, PiMapPin, PiMegaphone, PiPaintBrush, PiPenNib, PiTrendUp, PiUsersThree, PiWhatsappLogo,
@@ -15,7 +15,7 @@ const FPS = 30;
 const M = 'media/altius/';
 const W = 1920, H = 1080;
 const NAVY = '#0A1020', PANEL = '#121A2E', IVORY = '#F4F1EB', INK = '#111318', WHITE = '#FFFFFF', GREY = '#8A93A6', LIGHTGREY = '#C9C5BD',
-  GOLD = '#D2A85A', RED = '#E5484D', GREEN = '#2FBF71', BLUE = '#3B6BFF';
+  GOLD = '#FFC81E', PINK = '#E8389E', RED = '#E5484D', GREEN = '#2FBF71', BLUE = '#3B6BFF';
 const F = 'Figtree';
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const ease = Easing.bezier(0.16, 1, 0.3, 1);
@@ -314,7 +314,7 @@ const S_Gancho: React.FC = () => (
   <Panel a={0} b={4.2} light>
     <Karaoke y={330} size={112} maxW={1560} words={[
       { w: 'What', t: 0.0 }, { w: 'if', t: 0.44 }, { w: 'your', t: 0.84 }, { w: 'buyers', t: 1.14 }, { w: 'could', t: 1.62 },
-      { w: 'WALK', t: 2.32, big: true, c: GOLD }, { w: 'THROUGH', t: 2.68, big: true, c: GOLD }, { w: 'your', t: 3.22 }, { w: 'building', t: 3.7 },
+      { w: 'WALK', t: 2.32, big: true, c: PINK }, { w: 'THROUGH', t: 2.68, big: true, c: PINK }, { w: 'your', t: 3.22 }, { w: 'building', t: 3.7 },
     ]} />
   </Panel>
 );
@@ -360,7 +360,7 @@ const NameCard: React.FC = () => {
       <div style={{ marginLeft: 30, overflow: 'hidden' }}>
         <div style={{ fontWeight: 900, fontSize: 74, color: WHITE, letterSpacing: -1, transform: `translateY(${(1 - p) * 100}%)`, textShadow: '0 4px 24px rgba(0,0,0,0.5)' }}>DIANA RONDÓN</div>
       </div>
-      <div style={{ marginLeft: 30, marginTop: 6, opacity: q, transform: `translateY(${(1 - q) * 10}px)`, fontWeight: 600, fontSize: 34, color: WHITE, textShadow: '0 4px 18px rgba(0,0,0,0.5)' }}>Co-founder · <span style={{ fontWeight: 900, color: GOLD, letterSpacing: 3 }}>ALTIUS</span></div>
+      <div style={{ marginLeft: 30, marginTop: 6, opacity: q, transform: `translateY(${(1 - q) * 10}px)`, fontWeight: 600, fontSize: 34, color: WHITE, textShadow: '0 4px 18px rgba(0,0,0,0.5)' }}>Co-founder · <Img src={staticFile(`${M}logo-color.png`)} style={{ height: 40, verticalAlign: -6, margin: '0 6px 0 4px' }} /><span style={{ fontWeight: 900, color: GOLD, letterSpacing: 3 }}>ALTIUS</span></div>
     </div>
   );
 };
@@ -616,11 +616,12 @@ const S_Final: React.FC = () => {
   const t = useT();
   return (
     <Panel a={113.0} b={ALTIUS_DUR + 1}>
-      <div style={{ position: 'absolute', left: 0, top: 330, width: W, textAlign: 'center', fontFamily: F }}>
-        <div style={{ fontWeight: 900, fontSize: 170, color: WHITE, letterSpacing: interpolate(t, [113.0, 115.0], [40, 28], { ...clamp, easing: ease }), lineHeight: 1 }}>ALTIUS</div>
+      <div style={{ position: 'absolute', left: 0, top: 120, width: W, textAlign: 'center', fontFamily: F }}>
+        <Img src={staticFile(`${M}logo-color.png`)} style={{ height: 300, transform: `scale(${pop(t, 113.15)}) translateY(${Math.sin(t * 2) * 4}px)`, filter: 'drop-shadow(0 20px 60px rgba(255,120,200,0.35))' }} />
+        <div style={{ fontWeight: 900, fontSize: 130, color: WHITE, letterSpacing: interpolate(t, [113.0, 115.0], [40, 26], { ...clamp, easing: ease }), lineHeight: 1, marginTop: 10, opacity: pin(t, 113.35, 0.4) }}>ALTIUS</div>
         <div style={{ width: 120 * pin(t, 113.4, 0.6), height: 4, background: GOLD, margin: '28px auto' }} />
         <div style={{ fontWeight: 700, fontSize: 40, color: GOLD, letterSpacing: 10, opacity: pin(t, 113.6, 0.5) }}>DUBAI · QATAR</div>
-        <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 70, opacity: pin(t, 114.0, 0.5) }}>
+        <div style={{ display: 'flex', justifyContent: 'center', gap: 24, marginTop: 44, opacity: pin(t, 114.0, 0.5) }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: WHITE, color: INK, borderRadius: 999, padding: '14px 28px', fontWeight: 800, fontSize: 28 }}><PiCalendarCheck size={34} />Book a meeting</div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, background: '#25D366', color: WHITE, borderRadius: 999, padding: '14px 28px', fontWeight: 800, fontSize: 28 }}><PiWhatsappLogo size={34} />Chat on WhatsApp</div>
         </div>
@@ -644,6 +645,12 @@ const SUBS: [number, number, string][] = [
   [83.5, 86.6, 'under your brand. And you bring the license.'], [86.6, 88.55, 'We bring the technology.'],
   [103.4, 104.9, 'Book a meeting with me'], [104.9, 107.7, 'or message us on WhatsApp, right below,'],
 ];
+const LogoPop: React.FC<{ a: number; b: number; x: number; y: number; h: number }> = ({ a, b, x, y, h }) => {
+  const t = useT();
+  if (!vis(t, a, b)) return null;
+  const o = fadeOut(t, b, 0.25);
+  return <Img src={staticFile(`${M}logo-color.png`)} style={{ position: 'absolute', left: x, top: y + Math.sin((t - a) * 2.2) * 4, height: h, opacity: o, transform: `scale(${pop(t, a)}) rotate(${interpolate(t, [a, a + 0.35], [-6, 0], clamp)}deg)`, filter: 'drop-shadow(0 20px 50px rgba(0,0,0,0.45))' }} />;
+};
 const Subs: React.FC = () => {
   const t = useT();
   const c = SUBS.find(([a, b]) => t >= a && t < b);
@@ -725,6 +732,8 @@ export const AltiusVSL: React.FC = () => {
       <Cta />
       <Caption a={108.2} b={110.2} lines={[[{ w: "LET'S BUILD", t: 108.24, big: true, c: GOLD }], [{ w: 'your plan', t: 108.9 }]]} />
       <Caption a={110.4} b={113.1} lines={[[{ w: "I'm", t: 110.22 }, { w: 'DIANA', t: 110.54, big: true }], [{ w: 'and this is', t: 110.84 }, { w: 'ALTIUS', t: 111.48, big: true, c: GOLD }]]} />
+      <LogoPop a={111.48} b={113.1} x={1360} y={300} h={300} />
+      <LogoPop a={37.98} b={40.0} x={1380} y={280} h={260} />
       <S_Final />
       <Subs />
       {t < 0 ? null : null}

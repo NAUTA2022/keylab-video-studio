@@ -64,10 +64,12 @@ def ostinato(t0,t1,prog,v0,v1,step):
 
 
 # ---------- GANCHO 0–11.9 (intriga) ----------
-n('trem','F#3',0.0,11.6,34); r('trem',0.0,11.6,25,80); n('cb','F#1',0.3,11.3,48); r('cb',0.3,11.3,30,70)
+n('trem','F#3',0.0,11.6,52); r('trem',0.0,11.6,45,100); n('cb','F#1',0.3,11.3,60); r('cb',0.3,11.3,50,95); n('chelo','F#2',0.3,7.3,48); r('chelo',0.3,7.3,40,90)
+for k,(t,p) in enumerate([(4.18,'C#5'),(5.14,'F#5'),(5.86,'E5'),(7.6,'C#5'),(8.44,'F#4'),(9.4,'A4'),(10.3,'C#5'),(11.38,'F#5')]): n('piano',p,t,1.2,54)
 for k,t in enumerate([0.0,1.14,2.32,3.7]): n('celesta',['C#6','F#5','A5','C#6'][k],t,0.9,46)
 for k,t in enumerate([5.86,6.3,6.84,7.2,7.6]): n('celesta',['F#5','A#5','C#6','F#6','A#6'][k],t,0.7,50+3*k); n('arpa',['F#4','A#4','C#5','F#5','A#5'][k],t,1.1,52)
-pad('cuerdas',7.6,11.8,[('F#2',['F#','A#','C#']),('B1',['B','D#','F#'])],36,3); r('cuerdas',7.6,11.6,20,95)
+pad('cuerdas',4.1,11.8,[('F#2',['F#','A','C#']),('D2',['D','F#','A']),('B1',['B','D#','F#'])],44,3); r('cuerdas',4.1,11.6,35,110)
+roll(10.6,1.2,'C#2',30,90,14)
 for t,p in [(9.4,'C#5'),(10.3,'F#5'),(11.38,'A#5')]: n('pizz',p,t,0.2,62); n('celesta',N(p)+12,t,0.6,52)
 # ---------- AUTORIDAD 12.4–17 (piano firme, bajo discreto, tensión que sube) ----------
 for k,t in enumerate(np.arange(12.45,17.0,Q)):
@@ -80,7 +82,9 @@ for t,d,(rt,ch) in chords(17.1,23.3,MAY):
 n('piano','A#5',20.58,1.0,50); n('piano','C#6',22.82,1.2,50)          # Doha · Dubái
 # ---------- DOLOR 23.5–34.5 (piano solo, menor, oscuro) ----------
 for t,d,(rt,ch) in chords(23.5,34.4,MIN):
-    n('piano',N(rt)+12,t,d,44); n('piano',N(ch[1]+'3'),t+Q,d-Q,36); n('piano',N(ch[2]+'4'),t+2*Q,Q*1.5,34)
+    n('piano',N(rt)+12,t,d,58); n('piano',N(ch[1]+'3'),t+Q,d-Q,50); n('piano',N(ch[2]+'4'),t+2*Q,Q*1.5,48)
+    n('chelo',N(rt)+12,t,d,50); n('cb',rt,t,d,46)
+pad('trem',23.5,34.4,MIN,30,4); r('trem',23.5,34.4,40,85)
 n('piano','A4',30.6,1.4,46); n('piano','F#4',32.08,1.0,40); n('piano','D4',34.04,1.0,38)
 # ---------- DIFERENCIA 34.5–37.3 (entran las cuerdas) ----------
 pad('cuerdas',34.6,37.4,[('D2',['D','F#','A']),('C#2',['C#','E#','G#'])],40,3); r('cuerdas',34.6,36.4,30,105)

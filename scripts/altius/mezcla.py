@@ -11,14 +11,14 @@ n=int(END*SR)
 def fit(x): return np.pad(x,((0,0),(0,max(0,n-x.shape[1]))))[:,:n].astype(np.float32)
 v=fit(load(D+'voz.wav')); m=fit(load(D+'partitura.wav'))
 v=Pedalboard([HighpassFilter(80),PeakFilter(250,-2,1.0),PeakFilter(3000,2.5,1.0),HighShelfFilter(9000,2),Compressor(threshold_db=-24,ratio=3,attack_ms=5,release_ms=120),Gain(4)])(v,SR)
-m=Pedalboard([HighpassFilter(100),PeakFilter(3000,-6,0.8),PeakFilter(900,-2,1.0)])(m,SR)
+m=Pedalboard([HighpassFilter(55),PeakFilter(3000,-3.5,0.8),PeakFilter(250,-1.5,1.0)])(m,SR)
 def rms(x): return np.sqrt((x**2).mean()+1e-12)
 vact=v[:,np.abs(v[0])>1e-3]
-v*=0.14/rms(vact); m*=(0.14*10**(-15/20))/rms(m)
+v*=0.14/rms(vact); m*=(0.14*10**(-5/20))/rms(m)
 # ducking: la música sube 3–4 dB en vacíos sin voz
 e=np.abs(v[0]); win=int(0.08*SR); env=np.convolve(e,np.ones(win)/win,'same'); env=np.convolve(env,np.ones(int(0.4*SR))/int(0.4*SR),'same')
 act=np.clip(env/(np.percentile(env[env>1e-4],50)+1e-9),0,1)
-g=10**((-3.5*act)/20)*10**(3.5/20)*10**(-3.5/20)   # 0 dB en vacíos, −3.5 dB con voz
+g=10**((-6.0*act)/20)   # 0 dB en vacíos, −6 dB bajo la voz
 t=np.arange(n)/SR
 lift=np.interp(t,[0,11.8,12.0,93.3,93.5,94.2,94.6,113.0,113.4,END],[0,0,-2,-2,-6,-6,0,0,4,4])
 m*=g*10**(lift/20)
