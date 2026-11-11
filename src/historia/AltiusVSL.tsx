@@ -1,10 +1,11 @@
 import React from 'react';
-import { AbsoluteFill, Easing, interpolate, OffthreadVideo, staticFile, useCurrentFrame } from 'remotion';
+import { AbsoluteFill, Easing, interpolate, OffthreadVideo, Sequence, staticFile, useCurrentFrame } from 'remotion';
 import {
   PiAddressBook, PiArrowDown, PiBrain, PiBuildings, PiCalendarCheck, PiCertificate, PiChatCircleDots, PiCheckCircle, PiCode,
   PiCoins, PiCpu, PiCube, PiDeviceMobile, PiHouseLine, PiMapPin, PiMegaphone, PiPaintBrush, PiPenNib, PiTrendUp, PiUsersThree, PiWhatsappLogo,
 } from 'react-icons/pi';
 import { ensureFonts } from '../brand/fonts';
+import MAPA from './altius-map.json';
 
 // Altius · VSL horizontal 1920x1080 · 30 fps. Estilo VSL: sujeto ↔ pantalla gráfica, subtítulos solo de frases clave,
 // tarjetas karaoke, UI estilo Apple, íconos en cuadrados tipo iOS, transformaciones cara → tarjeta → portátil.
@@ -62,6 +63,19 @@ const subjRect = (t: number): Rect => {
   return lerpR(SCREEN, FULL, interpolate(t, [61.2, 61.6], [0, 1], { ...clamp, easing: inout }));
 };
 const SUBJ_HIDDEN: [number, number][] = [[0.45, 7.75], [29.95, 34.35], [52.45, 55.45], [66.55, 71.75], [75.35, 80.45], [88.95, 92.75], [94.25, 97.05], [113.6, 200]];
+// Video original sin comprimir: cada tramo del corte se toma del archivo completo (mismos puntos de corte que la versión de WhatsApp).
+const Toma: React.FC = () => (
+  <>
+    {(MAPA as number[][]).map(([s0, e0, o], i) => {
+      const from = Math.round(o * FPS), next = i + 1 < MAPA.length ? Math.round((MAPA[i + 1] as number[])[2] * FPS) : from + Math.round((e0 - s0) * FPS) + 60;
+      return (
+        <Sequence key={i} from={from} durationInFrames={Math.max(1, next - from)} layout="none">
+          <OffthreadVideo src={staticFile(`${M}sujeto-pro.mp4`)} startFrom={Math.round(s0 * FPS)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+        </Sequence>
+      );
+    })}
+  </>
+);
 const Sujeto: React.FC = () => {
   const t = useT();
   if (SUBJ_HIDDEN.some(([a, b]) => t > a && t < b)) return null;
@@ -71,7 +85,7 @@ const Sujeto: React.FC = () => {
   return (
     <div style={{ position: 'absolute', left: r.x, top: r.y, width: r.w, height: r.h, borderRadius: r.r, overflow: 'hidden', boxShadow: r.r > 1 ? '0 40px 120px rgba(0,0,0,0.55)' : undefined }}>
       <div style={{ position: 'absolute', left: (r.w - Math.max(r.w, (r.h * 16) / 9)) / 2, top: 0, width: Math.max(r.w, (r.h * 16) / 9), height: Math.max(r.h, (r.w * 9) / 16), transform: `scale(${z})`, transformOrigin: '46% 38%' }}>
-        {vis(t, 57.75, 61.15) ? null : <OffthreadVideo src={staticFile(`${M}sujeto.mp4`)} muted style={{ width: '100%', height: '100%', objectFit: 'cover' }} />}
+        {vis(t, 57.75, 61.15) ? null : <Toma />}
       </div>
       {inScreen ? <AbsoluteFill style={{ opacity: interpolate(t, [57.2, 57.6], [0, 1], clamp) }}><Webs t={t} a={57.4} /></AbsoluteFill> : null}
     </div>
