@@ -58,7 +58,7 @@ const Captions: React.FC = () => {
 };
 
 /* Ey. */
-const Ey: React.FC = () => {
+export const Ey: React.FC = () => {
   const t = useT();
   if (t < EY || t >= EY_END) return null;
   return (
@@ -70,7 +70,7 @@ const Ey: React.FC = () => {
 };
 
 /* Fondo vivo */
-const Fondo: React.FC = () => {
+export const Fondo: React.FC = () => {
   const t = useT();
   const tint = t < 9.3 ? 'rgba(255,77,94,0.2)' : t < 26.9 ? 'rgba(45,82,255,0.24)' : t < 34.2 ? 'rgba(255,77,94,0.18)' : 'rgba(242,193,78,0.18)';
   return (
@@ -157,7 +157,7 @@ const Cuotas: React.FC<{ a: number; at: number; stamp: number; b: number }> = ({
     </div>
   );
 };
-const Fecha: React.FC<{ a: number; b: number }> = ({ a, b }) => {
+export const Fecha: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const p = pop(t, a);
@@ -170,7 +170,7 @@ const Fecha: React.FC<{ a: number; b: number }> = ({ a, b }) => {
 };
 
 /* 5 · Oferta 2: pago único 4.000, ahorras mil */
-const Ahorro: React.FC<{ a: number; b: number }> = ({ a, b }) => {
+export const Ahorro: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   return (
