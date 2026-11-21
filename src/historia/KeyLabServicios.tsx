@@ -167,8 +167,9 @@ const WALL: [Ic, string][] = [
   [PiCube, 'Webs 3D'], [PiSparkle, 'Animaciones'], [PiStorefront, 'Ecommerce'], [PiCreditCard, 'Pasarelas de pago'], [PiDeviceMobile, 'Apps'], [PiWallet, 'Apps de pago'],
   [PiUsersThree, 'Apps sociales'], [PiLink, 'dApps'], [PiCoins, 'Tokenizadoras RWA'], [PiShieldCheck, 'Smart contracts'], [PiBrain, 'Agentes de IA'], [PiGameController, 'Videojuegos'],
 ];
-const Muro: React.FC<{ a: number; at: number; b: number }> = ({ a, at, b }) => {
+const Muro: React.FC<{ a: number; at: number; b: number; sweep?: number }> = ({ a, at, b, sweep }) => {
   const t = useT();
+  const cur = sweep !== undefined && t >= sweep ? Math.floor((t - sweep) / 0.17) : -1;
   if (!vis(t, a, b)) return null;
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b, 0.3) }}>
@@ -176,9 +177,10 @@ const Muro: React.FC<{ a: number; at: number; b: number }> = ({ a, at, b }) => {
       <div style={{ position: 'absolute', left: 150, top: 300, width: 1620, display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', rowGap: 34 }}>
         {WALL.map(([I, l], i) => {
           const p = pop(t, at + (i % 6) * 0.045 + Math.floor(i / 6) * 0.08);
+          const lit = cur >= i && cur < 18 ? interpolate(t, [sweep! + i * 0.17, sweep! + i * 0.17 + 0.15, sweep! + i * 0.17 + 0.5], [0, 1, 0.35], clamp) : 0;
           return (
-            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, transform: `scale(${p})` }}>
-              <AppIcon I={I} size={118} bg={i === 14 ? GOLD : '#1A2140'} color={i === 14 ? '#1A1200' : INK} />
+            <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 12, transform: `scale(${p * (1 + 0.1 * lit)})` }}>
+              <AppIcon I={I} size={118} bg={i === 14 ? GOLD : lit > 0.5 ? ACCENT : '#1A2140'} color={i === 14 ? '#1A1200' : INK} />
               <div style={{ fontFamily: BODY, fontWeight: 800, fontSize: 24, color: INK }}>{l}</div>
             </div>
           );
@@ -564,3 +566,13 @@ export const KeyLabServicios: React.FC = () => {
     </AbsoluteFill>
   );
 };
+
+// Tramo extra (3,5 s) que se inserta en 36,4 s para que el muro de servicios se pueda leer.
+export const KLMuroHold: React.FC = () => (
+  <AbsoluteFill style={{ background: '#05070D', overflow: 'hidden' }}>
+    <Sequence from={-Math.round(36.4 * FPS)}>
+      <Fondo />
+      <Muro a={33.05} at={35.95} b={999} sweep={36.6} />
+    </Sequence>
+  </AbsoluteFill>
+);
