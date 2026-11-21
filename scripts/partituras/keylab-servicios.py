@@ -4,11 +4,17 @@ blockchain golpe y orquesta en tokenizadoras · "y además" ligero · cierre ins
 import os, sys, subprocess, numpy as np, pretty_midi as pm
 from pedalboard import Pedalboard, Reverb, Delay, Compressor, Limiter, Gain, HighpassFilter, PeakFilter, HighShelfFilter
 from pedalboard.io import AudioFile
-OUT=sys.argv[1] if len(sys.argv)>1 else 'public/media/kl/partitura.wav'
-TMP='/tmp/part-kl'; os.makedirs(TMP,exist_ok=True)
-SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=187.5
-T0=36.4; S=3.5  # pausa para leer el muro de servicios
-def W(t): return t if t<T0 else t+S
+VAR=sys.argv[1] if len(sys.argv)>1 else None  # p. ej. anyelo → usa src/historia/kl-var-anyelo.json
+import json
+VJ=json.load(open(f'src/historia/kl-var-{VAR}.json')) if VAR else None
+OUT=f'public/media/kl/{VAR}/partitura.wav' if VAR else 'public/media/kl/partitura.wav'
+TMP=f'/tmp/part-kl-{VAR}'; os.makedirs(TMP,exist_ok=True)
+SF='/usr/share/sounds/sf3/MuseScore_General_Full.sf3'; SR=44100; END=VJ['dur'] if VJ else 184.0
+AN=VJ['anchors'] if VJ else [[0,0],[400,400]]
+def W(t):  # tiempo del guion original → tiempo de la voz nueva
+    xs=[a for a,b in AN]; ys=[b for a,b in AN]
+    return float(np.interp(t,xs,ys)) if xs[0]<=t<=xs[-1] else t+(ys[-1]-xs[-1] if t>xs[-1] else 0)
+MURO=VJ['muro'] if VJ else None
 N=pm.note_name_to_number; stems={}
 def inst(k,prog):
     if k not in stems: stems[k]=pm.Instrument(program=prog,name=k)
@@ -115,17 +121,19 @@ n('timbal','F#2',174.55,0.9,124); n('taiko','C2',174.55,0.9,114)
 for x in ['F#3','A#3','C#4','F#4']: n('cuerdas',x,174.55,4.0,94); n('coro',x,174.55,4.0,80); n('organo',N(x)-12,174.55,4.0,48)
 n('cb','F#1',174.55,4.0,82); n('chelo','F#2',174.55,4.0,78); n('celesta','F#6',174.7,1.4,58); n('celesta','C#7',175.2,1.6,54)
 for k in ['cuerdas','coro','organo','cb','chelo']: r(k,177.0,179.5,110,0)
-SUBS=[(a if a<T0 else a+S,b,c) for a,b,c in [(3.38,1.2,0.24),(36.1,1.2,0.2),(125.71,1.2,0.2),(174.55,3.0,0.22)]]
+SUBS=[(W(a),b,c) for a,b,c in [(3.38,1.2,0.24),(36.1,1.2,0.2),(125.71,1.2,0.2),(174.55,3.0,0.22)]]
 ESC=['F#5','A#5','C#6','F#6','A#6','C#7']
-for k in range(18):
-    tt=36.6+k*0.17; inst('celesta',8).notes.append(pm.Note(velocity=50+k,pitch=N(ESC[k%6])+(12 if k>=12 else 0)*0,start=tt,end=tt+0.5))
-    if k%3==0: inst('pizz',45).notes.append(pm.Note(velocity=58,pitch=N(ESC[k%6])-12,start=tt,end=tt+0.1))
-for x in ['F#3','A#3','C#4']: inst('cuerdas',49).notes.append(pm.Note(velocity=60,pitch=N(x),start=36.9,end=39.9))
-for k in range(14): inst('timbal',47).notes.append(pm.Note(velocity=40+k*5,pitch=N('C#2'),start=39.0+(1-(1-k/14)**1.7)*0.85,end=39.0+(1-(1-k/14)**1.7)*0.85+0.1))
+if MURO:
+    m0,m1=MURO
+    for k in range(18):
+        tt=m0+0.9+k*0.17; inst('celesta',8).notes.append(pm.Note(velocity=50+k,pitch=N(ESC[k%6]),start=tt,end=tt+0.5))
+        if k%3==0: inst('pizz',45).notes.append(pm.Note(velocity=58,pitch=N(ESC[k%6])-12,start=tt,end=tt+0.1))
+    for x in ['F#3','A#3','C#4']: inst('cuerdas',49).notes.append(pm.Note(velocity=60,pitch=N(x),start=m0+0.3,end=m1))
+    for k in range(14): tt=m1-0.9+(1-(1-k/14)**1.7)*0.85; inst('timbal',47).notes.append(pm.Note(velocity=40+k*5,pitch=N('C#2'),start=tt,end=tt+0.1))
 
 def bus_fx(x):
     x=x.copy(); f=int(0.05*SR)
-    for a,b,g in [(3.28,3.38,0.06),(179.5+S,187.5,1.0)]:
+    for a,b,g in [(W(3.28),W(3.38),0.06),(W(179.5),END,1.0)]:
         v0=int(a*SR); x[:,v0:v0+f]*=np.linspace(1,g,f); x[:,v0+f:int(b*SR)]*=g
     return x
 

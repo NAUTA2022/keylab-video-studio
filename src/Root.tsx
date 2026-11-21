@@ -16,7 +16,7 @@ import { Posicion, POSICION_DUR } from './historia/Posicion';
 import { AltiusVSL, ALTIUS_DUR } from './historia/AltiusVSL';
 import { Oferta, OFERTA_DUR } from './historia/Oferta';
 import { Corto, CORTO_DUR } from './historia/Corto';
-import { KeyLabServicios, KL_DUR, KLMuroHold } from './historia/KeyLabServicios';
+import { KeyLabServicios, KL_DUR, KLMuroHold, KeyLabLina, KL_LINA } from './historia/KeyLabServicios';
 import { PersonajePrueba } from './historia/Pintado';
 import { SebastianVivo, UlisesVivo } from './historia/Retrato';
 import React from 'react';
@@ -53,6 +53,7 @@ export const Root: React.FC = () => (
     <Composition id="Frutos" component={Frutos} durationInFrames={Math.round(FRUTOS_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Momento" component={Momento} durationInFrames={Math.round(MOMENTO_DUR * 30)} fps={30} width={1080} height={1920} />
     <Composition id="Posicion" component={Posicion} durationInFrames={Math.round(POSICION_DUR * 30)} fps={30} width={1080} height={1920} />
+    <Composition id="KeyLabLina" component={KeyLabLina} durationInFrames={Math.round(KL_LINA.dur * 30)} fps={30} width={1920} height={1080} />
     <Composition id="KLMuroHold" component={KLMuroHold} durationInFrames={105} fps={30} width={1920} height={1080} />
     <Composition id="KeyLabServicios" component={KeyLabServicios} durationInFrames={Math.round(KL_DUR * 30)} fps={30} width={1920} height={1080} />
     <Composition id="Corto" component={Corto} durationInFrames={Math.round(CORTO_DUR * 30)} fps={30} width={1080} height={1920} />

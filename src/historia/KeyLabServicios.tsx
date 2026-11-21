@@ -22,7 +22,19 @@ const DISPLAY = 'Anton', BODY = 'Figtree';
 const clamp = { extrapolateLeft: 'clamp', extrapolateRight: 'clamp' } as const;
 const ease = Easing.bezier(0.16, 1, 0.3, 1);
 const inout = Easing.bezier(0.65, 0, 0.35, 1);
-const useT = () => useCurrentFrame() / FPS;
+// Variante de voz: mapa de tiempos (guion original → voz nueva) para resincronizar todo sin tocar las escenas.
+export type KLVar = { anchors: [number, number][]; dur: number; words: [string, number, number][]; muro: [number, number] | null; audio: string };
+const ID: KLVar = { anchors: [[0, 0], [400, 400]], dur: 184, words: PAL as [string, number, number][], muro: null, audio: 'voz-musica.mp3' };
+const KLCtx = React.createContext<KLVar>(ID);
+const lerpMap = (pts: [number, number][], x: number, i: 0 | 1) => {
+  const j = 1 - i;
+  if (x <= pts[0][i]) return pts[0][j] + (x - pts[0][i]);
+  for (let k = 1; k < pts.length; k++) if (x <= pts[k][i]) { const [p, q] = [pts[k - 1], pts[k]]; return p[j] + ((x - p[i]) / (q[i] - p[i] || 1)) * (q[j] - p[j]); }
+  const l = pts[pts.length - 1]; return l[j] + (x - l[i]);
+};
+const useTN = () => useCurrentFrame() / FPS;               // tiempo real del video
+const useT = () => lerpMap(React.useContext(KLCtx).anchors, useTN(), 1); // tiempo del guion original
+const useTW = () => { const v = React.useContext(KLCtx); return (o: number) => lerpMap(v.anchors, o, 0); };
 const pin = (t: number, a: number, d = 0.5) => interpolate(t, [a, a + d], [0, 1], { ...clamp, easing: ease });
 const fade = (t: number, a: number, b: number, d = 0.3) => Math.min(interpolate(t, [a, a + d], [0, 1], clamp), interpolate(t, [b - d, b], [1, 0], clamp));
 const vis = (t: number, a: number, b: number) => t >= a && t < b;
@@ -32,8 +44,7 @@ const EY = 3.38, EY_END = 4.38;
 type Ic = React.ComponentType<{ size?: number; color?: string }>;
 
 /* ---------- subtítulos ---------- */
-const CHUNKS = (() => {
-  const W2 = PAL as [string, number, number][];
+const mkChunks = (W2: [string, number, number][]) => {
   const res: { a: number; b: number; w: [string, number, number][] }[] = [];
   let cur: [string, number, number][] = [];
   W2.forEach((w, i) => {
@@ -41,11 +52,13 @@ const CHUNKS = (() => {
     if (/[.,?!:]$/.test(w[0]) || cur.length >= 6 || i === W2.length - 1) { res.push({ a: cur[0][1], b: cur[cur.length - 1][2], w: cur }); cur = []; }
   });
   return res.map((c, i) => ({ ...c, b: Math.min(res[i + 1]?.a ?? c.b + 0.5, c.b + 0.4) }));
-})();
+};
 const fix = (s: string) => s.replace(/toquen/gi, (m) => (m[0] === 'T' ? 'Token' : 'token')).replace('sentosa', 'sentó a').replace('KeyLab', 'Key Lab').replace(/^meta$/, 'Meta').replace('Yates', 'yates').replace('Blockchain.', 'blockchain.').replace('vídeo', 'video');
 const Captions: React.FC = () => {
-  const t = useT();
-  if (t < EY_END || t > 175.6) return null;
+  const v = React.useContext(KLCtx); const TW = useTW();
+  const CHUNKS = React.useMemo(() => mkChunks(v.words), [v]);
+  const t = useTN();
+  if (t < TW(EY_END) || t > v.words[v.words.length - 1][2] + 0.2) return null;
   const c = CHUNKS.find((k) => t >= k.a - 0.05 && t < k.b);
   if (!c) return null;
   return (
@@ -75,12 +88,12 @@ const Fondo: React.FC = () => {
 /* ---------- clip de video: a pantalla completa o dentro de un navegador limpio ---------- */
 type Cut = { a: number; b: number; src: string; from: number; rate?: number; crop?: number; z0?: number; z1?: number; ox?: string };
 const ClipLayer: React.FC<{ c: Cut; framed?: boolean; box?: { x: number; y: number; w: number; h: number }; url?: string }> = ({ c, framed, box, url }) => {
-  const t = useT();
+  const t = useT(); const TW = useTW();
   if (!vis(t, c.a - 0.01, c.b + 0.01)) return null;
   const z = interpolate(t, [c.a, c.b], [c.z0 ?? 1.0, c.z1 ?? 1.06], clamp);
   const crop = c.crop ?? 0; // px recortados arriba (barra de pestañas del navegador)
   const video = (
-    <Sequence from={Math.round(c.a * FPS)} layout="none">
+    <Sequence from={Math.round(TW(c.a) * FPS)} layout="none">
       <OffthreadVideo src={staticFile(`${M}${c.src}.mp4`)} startFrom={Math.round(c.from * FPS)} playbackRate={c.rate ?? 1} muted style={{ position: 'absolute', left: 0, top: -crop, width: '100%', height: `calc(100% + ${crop}px)`, objectFit: 'cover' }} />
     </Sequence>
   );
@@ -110,7 +123,7 @@ const Clips: React.FC<{ cuts: Cut[]; framed?: boolean; box?: { x: number; y: num
 };
 
 /* ---------- textos ---------- */
-const Title: React.FC<{ a: number; b: number; n?: string; text: string; sub?: string; x?: number; y?: number; size?: number; align?: 'left' | 'center' }> = ({ a, b, n, text, sub, x = 120, y = 90, size = 92, align = 'left' }) => {
+const Title: React.FC<{ a: number; b: number; n?: string; text: string; sub?: string; x?: number; y?: number; size?: number; align?: 'left' | 'center' }> = ({ a, b, n, text, sub, x = 120, y = 90, size = 92, align = 'center' }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const p = pin(t, a, 0.5);
@@ -126,15 +139,16 @@ const AppIcon: React.FC<{ I: Ic; size?: number; bg?: string; color?: string }> =
   <div style={{ width: size, height: size, borderRadius: size * 0.26, background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 16px 40px rgba(0,0,0,0.4)' }}><I size={size * 0.52} color={color} /></div>
 );
 // Etiqueta que entra con rebote junto al clip
-const Tag: React.FC<{ a: number; b: number; I: Ic; text: string; x: number; y: number; c?: string }> = ({ a, b, I, text, x, y, c = ACCENT }) => {
+const Tag: React.FC<{ a: number; b: number; I: Ic; text: string; x: number; y: number; c?: string; center?: boolean }> = ({ a, b, I, text, x, y, c = ACCENT, center }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
-  return (
-    <div style={{ position: 'absolute', left: x, top: y + Math.sin((t - a) * 2.4) * 4, display: 'flex', alignItems: 'center', gap: 16, background: 'rgba(255,255,255,0.96)', borderRadius: 22, padding: '12px 26px 12px 12px', transform: `scale(${pop(t, a)})`, opacity: fade(t, a, b, 0.2), boxShadow: '0 24px 60px rgba(0,0,0,0.45)' }}>
+  const pill = (
+    <div style={{ position: center ? 'relative' : 'absolute', left: center ? 0 : x, top: center ? 0 : y + Math.sin((t - a) * 2.4) * 4, display: 'flex', alignItems: 'center', gap: 16, background: 'rgba(255,255,255,0.96)', borderRadius: 22, padding: '12px 26px 12px 12px', transform: `scale(${pop(t, a)})`, opacity: fade(t, a, b, 0.2), boxShadow: '0 24px 60px rgba(0,0,0,0.45)' }}>
       <AppIcon I={I} size={64} bg={c} />
       <span style={{ fontFamily: BODY, fontWeight: 900, fontSize: 34, color: '#0B0F1C' }}>{text}</span>
     </div>
   );
+  return center ? <div style={{ position: 'absolute', left: 0, width: W, top: y + Math.sin((t - a) * 2.4) * 4, display: 'flex', justifyContent: 'center' }}>{pill}</div> : pill;
 };
 
 /* ---------- 0 · gancho ---------- */
@@ -151,12 +165,12 @@ const Gancho: React.FC = () => {
   );
 };
 const Ey: React.FC = () => {
-  const t = useT();
+  const t = useT(); const TW = useTW();
   if (t < EY || t >= EY_END) return null;
   return (
     <AbsoluteFill style={{ background: ACCENT, alignItems: 'center', justifyContent: 'center' }}>
       <div style={{ fontFamily: DISPLAY, fontSize: 300, color: INK, transform: `scale(${slam(t, EY, 1.6)})`, lineHeight: 1, marginLeft: -420 }}>Ey.</div>
-      <OneGag g={{ ...EY_FOX, at: EY, dur: EY_END - EY, x: 0.68, y: 0.6, size: 0.55 }} />
+      <OneGag g={{ ...EY_FOX, at: TW(EY), dur: TW(EY_END) - TW(EY), x: 0.68, y: 0.6, size: 0.55 }} />
     </AbsoluteFill>
   );
 };
@@ -167,13 +181,13 @@ const WALL: [Ic, string][] = [
   [PiCube, 'Webs 3D'], [PiSparkle, 'Animaciones'], [PiStorefront, 'Ecommerce'], [PiCreditCard, 'Pasarelas de pago'], [PiDeviceMobile, 'Apps'], [PiWallet, 'Apps de pago'],
   [PiUsersThree, 'Apps sociales'], [PiLink, 'dApps'], [PiCoins, 'Tokenizadoras RWA'], [PiShieldCheck, 'Smart contracts'], [PiBrain, 'Agentes de IA'], [PiGameController, 'Videojuegos'],
 ];
-const Muro: React.FC<{ a: number; at: number; b: number; sweep?: number }> = ({ a, at, b, sweep }) => {
-  const t = useT();
+const Muro: React.FC<{ a: number; at: number; b: number; sweep?: number; real?: boolean }> = ({ a, at, b, sweep, real }) => {
+  const to = useT(); const tn = useTN(); const t = real ? tn : to;
   const cur = sweep !== undefined && t >= sweep ? Math.floor((t - sweep) / 0.17) : -1;
   if (!vis(t, a, b)) return null;
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b, 0.3) }}>
-      <Title a={at - 0.15} b={b} text="Mucho más que tokenización" align="center" y={90} size={104} />
+      <div style={{ position: 'absolute', left: 0, width: W, top: 90, textAlign: 'center', fontFamily: DISPLAY, fontSize: 104, color: INK, textTransform: 'uppercase', opacity: pin(t, at - 0.15, 0.4) }}>Mucho más que tokenización</div>
       <div style={{ position: 'absolute', left: 150, top: 300, width: 1620, display: 'grid', gridTemplateColumns: 'repeat(6, 1fr)', rowGap: 34 }}>
         {WALL.map(([I, l], i) => {
           const p = pop(t, at + (i % 6) * 0.045 + Math.floor(i / 6) * 0.08);
@@ -195,11 +209,11 @@ const Pauta: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
   const k = interpolate(t, [a + 0.4, a + 3.4], [0, 1], { ...clamp, easing: Easing.out(Easing.cubic) });
-  const pts = Array.from({ length: 24 }, (_, i) => [i * 40, 230 - (Math.pow(i / 23, 1.6) * 170 + Math.sin(i * 1.3) * 12)]);
+  const pts = Array.from({ length: 24 }, (_, i) => [8 + i * 52.5, 230 - (Math.pow(i / 23, 1.6) * 170 + Math.sin(i * 1.3) * 12)]);
   const shown = Math.max(2, Math.round(k * pts.length));
   return (
     <div style={{ position: 'absolute', left: 300, top: 200, width: 1320, height: 700, borderRadius: 30, background: PANEL, border: '2px solid rgba(255,255,255,0.08)', padding: 44, opacity: fade(t, a, b), transform: `scale(${0.95 + pin(t, a, 0.5) * 0.05})` }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 22 }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 22 }}>
         <div style={{ transform: `scale(${pop(t, a + 1.8)})` }}><AppIcon I={SiMeta as Ic} size={74} bg="#0866FF" /></div>
         <div style={{ transform: `scale(${pop(t, a + 2.5)})` }}><AppIcon I={SiGoogleads as Ic} size={74} bg="#FFFFFF" color="#1A73E8" /></div>
         <div style={{ fontFamily: BODY, fontWeight: 900, fontSize: 40, color: INK, marginLeft: 10 }}>Campañas activas</div>
@@ -212,11 +226,10 @@ const Pauta: React.FC<{ a: number; b: number }> = ({ a, b }) => {
           </div>
         ))}
       </div>
-      <svg width={960} height={260} style={{ marginTop: 26 }}>
+      <svg width={1232} height={260} style={{ marginTop: 26, display: 'block' }}>
         <polyline points={pts.slice(0, shown).map((p) => p.join(',')).join(' ')} fill="none" stroke={ACCENT} strokeWidth={6} strokeLinecap="round" strokeLinejoin="round" />
         <circle cx={pts[shown - 1][0]} cy={pts[shown - 1][1]} r={11} fill={GOLD} />
       </svg>
-      <div style={{ position: 'absolute', right: 44, bottom: 48, transform: `scale(${pop(t, a + 3.0)})` }}><PiChartLineUp size={150} color={GREEN} /></div>
     </div>
   );
 };
@@ -224,22 +237,22 @@ const Pauta: React.FC<{ a: number; b: number }> = ({ a, b }) => {
 const Marca: React.FC<{ a: number; b: number; logos: number; ident: number; manual: number }> = ({ a, b, logos, ident, manual }) => {
   const t = useT();
   if (!vis(t, a, b)) return null;
-  const cols = ['#2D52FF', '#F2C14E', '#0B0F1C', '#F4F1EB', '#3DDC84'];
+  const cols = ['#2D52FF', '#F2C14E', '#1A2140', '#F4F1EB', '#3DDC84'];
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b) }}>
-      <div style={{ position: 'absolute', left: 180, top: 230, width: 460, height: 460, borderRadius: 40, background: PANEL, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${pop(t, logos)}) rotate(${interpolate(t, [logos, logos + 0.4], [-6, 0], clamp)}deg)` }}>
+      <div style={{ position: 'absolute', left: 179, top: 300, width: 460, height: 460, borderRadius: 40, background: PANEL, display: 'flex', alignItems: 'center', justifyContent: 'center', transform: `scale(${pop(t, logos)}) rotate(${interpolate(t, [logos, logos + 0.4], [-6, 0], clamp)}deg)` }}>
         <Img src={staticFile('brand/isotipo-cromo.png')} style={{ width: 300 }} />
       </div>
-      <div style={{ position: 'absolute', left: 720, top: 230, display: 'flex', gap: 18 }}>
-        {cols.map((c, i) => <div key={c} style={{ width: 190, height: 230, borderRadius: 26, background: c, transform: `scale(${pop(t, ident + i * 0.08)})`, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }} />)}
+      <div style={{ position: 'absolute', left: 719, top: 300, display: 'flex', gap: 18 }}>
+        {cols.map((c, i) => <div key={c} style={{ width: 190, height: 230, borderRadius: 26, background: c, border: '2px solid rgba(255,255,255,0.18)', transform: `scale(${pop(t, ident + i * 0.08)})`, boxShadow: '0 20px 50px rgba(0,0,0,0.4)' }} />)}
       </div>
-      <div style={{ position: 'absolute', left: 720, top: 500, display: 'flex', gap: 40, alignItems: 'baseline', opacity: pin(t, ident + 0.4, 0.4) }}>
+      <div style={{ position: 'absolute', left: 719, top: 560, display: 'flex', gap: 40, alignItems: 'baseline', opacity: pin(t, ident + 0.4, 0.4) }}>
         <span style={{ fontFamily: DISPLAY, fontSize: 150, color: INK }}>Aa</span>
         <span style={{ fontFamily: BODY, fontWeight: 900, fontSize: 150, color: INK }}>Aa</span>
         <span style={{ fontFamily: BODY, fontWeight: 700, fontSize: 34, color: MUTED }}>Identidad visual</span>
       </div>
       {[0, 1, 2].map((i) => (
-        <div key={i} style={{ position: 'absolute', left: 1390 + i * 40, top: 520 + i * 20, width: 300, height: 200, borderRadius: 18, background: i === 2 ? '#F4F1EB' : '#1A2140', border: '2px solid rgba(255,255,255,0.15)', transform: `scale(${pop(t, manual + i * 0.12)}) rotate(${(i - 1) * 6}deg)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: BODY, fontWeight: 900, fontSize: 28, color: i === 2 ? '#0B0F1C' : INK }}>{i === 2 ? 'Manual de marca' : ''}</div>
+        <div key={i} style={{ position: 'absolute', left: 1380 + i * 30, top: 590 + i * 16, width: 300, height: 180, borderRadius: 18, background: i === 2 ? '#F4F1EB' : '#1A2140', border: '2px solid rgba(255,255,255,0.15)', transform: `scale(${pop(t, manual + i * 0.12)}) rotate(${(i - 1) * 6}deg)`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: BODY, fontWeight: 900, fontSize: 28, color: i === 2 ? '#0B0F1C' : INK }}>{i === 2 ? 'Manual de marca' : ''}</div>
       ))}
     </AbsoluteFill>
   );
@@ -250,7 +263,7 @@ const UX: React.FC<{ a: number; b: number; click: number }> = ({ a, b, click }) 
   if (!vis(t, a, b)) return null;
   const ui = interpolate(t, [a + 1.2, a + 2.6], [0, 1], { ...clamp, easing: inout });
   const blocks: [number, number, number, number, string][] = [[40, 40, 860, 70, ACCENT], [40, 140, 520, 260, '#F2C14E'], [590, 140, 310, 120, '#3DDC84'], [590, 280, 310, 120, '#E8389E'], [40, 430, 860, 60, '#1A2140'], [40, 510, 400, 60, '#1A2140']];
-  const bx = 900, by = 230;
+  const bx = 920, by = 290;
   const cx = interpolate(t, [a + 2.8, click - 0.1], [1500, bx + 640], { ...clamp, easing: inout }), cy = interpolate(t, [a + 2.8, click - 0.1], [900, by + 340], { ...clamp, easing: inout });
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b) }}>
@@ -260,7 +273,7 @@ const UX: React.FC<{ a: number; b: number; click: number }> = ({ a, b, click }) 
         ))}
         {t > click ? <div style={{ position: 'absolute', left: 520, top: 260, width: 160, height: 160, borderRadius: 80, border: `6px solid ${GOLD}`, transform: `scale(${interpolate(t, [click, click + 0.5], [0.3, 1.4], clamp)})`, opacity: interpolate(t, [click, click + 0.5], [1, 0], clamp) }} /> : null}
       </div>
-      <div style={{ position: 'absolute', left: 140, top: 300, width: 640 }}>
+      <div style={{ position: 'absolute', left: 120, top: 360, width: 640 }}>
         <div style={{ fontFamily: BODY, fontWeight: 900, fontSize: 28, letterSpacing: 6, color: SOFT }}>UX / UI</div>
         <div style={{ fontFamily: DISPLAY, fontSize: 96, color: INK, lineHeight: 1.02 }}>QUE SE ENTIENDA DESDE EL PRIMER CLIC</div>
       </div>
@@ -289,13 +302,13 @@ const Niveles: React.FC<{ a: number; b: number; ts: number[] }> = ({ a, b, ts })
 };
 /* ---------- teléfono con recorte de la app KeyPay ---------- */
 const Telefono: React.FC<{ a: number; b: number; cuts: Cut[] }> = ({ a, b, cuts }) => {
-  const t = useT();
+  const t = useT(); const TW = useTW();
   if (!vis(t, a, b)) return null;
   return (
-    <div style={{ position: 'absolute', left: 1130, top: 90, width: 470, height: 900, borderRadius: 64, background: '#0A0B0F', padding: 16, boxShadow: '0 50px 140px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.12)', opacity: fade(t, a, b), transform: `translateY(${(1 - pin(t, a, 0.6)) * 80}px) rotate(${Math.sin(t * 0.8) * 1.2}deg)` }}>
+    <div style={{ position: 'absolute', left: 420, top: 175, width: 470, height: 900, borderRadius: 64, background: '#0A0B0F', padding: 16, boxShadow: '0 50px 140px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.12)', opacity: fade(t, a, b), transformOrigin: 'top center', transform: `translateY(${(1 - pin(t, a, 0.6)) * 80}px) scale(0.86) rotate(${Math.sin(t * 0.8) * 1.2}deg)` }}>
       <div style={{ position: 'absolute', inset: 16, borderRadius: 50, overflow: 'hidden', background: '#000' }}>
         {cuts.map((c, i) => (vis(t, c.a, c.b) ? (
-          <Sequence key={i} from={Math.round(c.a * FPS)} layout="none">
+          <Sequence key={i} from={Math.round(TW(c.a) * FPS)} layout="none">
             <OffthreadVideo src={staticFile(`${M}${c.src}.mp4`)} startFrom={Math.round(c.from * FPS)} muted style={{ position: 'absolute', width: 1920 * 0.99, height: 1080 * 0.99, left: -742 * 0.99 + 4, top: -92 * 0.99 }} />
           </Sequence>
         ) : null))}
@@ -308,7 +321,7 @@ const Social: React.FC<{ a: number; b: number; perf: number; pubs: number; com: 
   const t = useT();
   if (!vis(t, a, b)) return null;
   return (
-    <div style={{ position: 'absolute', left: 1130, top: 90, width: 470, height: 900, borderRadius: 64, background: '#0A0B0F', padding: 16, boxShadow: '0 50px 140px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.12)', opacity: fade(t, a, b) }}>
+    <div style={{ position: 'absolute', left: 420, top: 175, width: 470, height: 900, borderRadius: 64, background: '#0A0B0F', padding: 16, boxShadow: '0 50px 140px rgba(0,0,0,0.6), 0 0 0 3px rgba(255,255,255,0.12)', opacity: fade(t, a, b), transformOrigin: 'top center', transform: 'scale(0.86)' }}>
       <div style={{ position: 'absolute', inset: 16, borderRadius: 50, overflow: 'hidden', background: '#F4F1EB', fontFamily: BODY }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '40px 24px 16px', transform: `scale(${pop(t, perf)})`, transformOrigin: 'left center' }}>
           <div style={{ width: 70, height: 70, borderRadius: 35, background: ACCENT }} />
@@ -380,10 +393,10 @@ const Contrato: React.FC<{ a: number; b: number }> = ({ a, b }) => {
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b) }}>
       <Title a={a} b={b} n="SMART CONTRACTS" text="Seguro y transparente" y={90} size={90} />
-      <div style={{ position: 'absolute', left: 140, top: 290, width: 1160, height: 600, borderRadius: 26, background: '#0B0F1C', border: '2px solid rgba(255,255,255,0.1)', padding: '36px 44px', fontFamily: 'monospace', fontSize: 34, color: '#C9D3FF', whiteSpace: 'pre', lineHeight: 1.45 }}>
+      <div style={{ position: 'absolute', left: 160, top: 290, width: 1160, height: 600, borderRadius: 26, background: '#0B0F1C', border: '2px solid rgba(255,255,255,0.1)', padding: '36px 44px', fontFamily: 'monospace', fontSize: 34, color: '#C9D3FF', whiteSpace: 'pre', lineHeight: 1.45 }}>
         {code.slice(0, n)}<span style={{ opacity: Math.sin(t * 10) > 0 ? 1 : 0, color: GOLD }}>▍</span>
       </div>
-      <div style={{ position: 'absolute', left: 1390, top: 380, transform: `scale(${pop(t, b - 1.6)})`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+      <div style={{ position: 'absolute', left: 1380, top: 380, width: 380, transform: `scale(${pop(t, b - 1.6)})`, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
         <PiShieldCheck size={260} color={GREEN} />
         <div style={{ fontFamily: BODY, fontWeight: 900, fontSize: 36, color: INK }}>Contrato verificado</div>
       </div>
@@ -423,7 +436,8 @@ const Paises: React.FC<{ a: number; b: number; ts: number[] }> = ({ a, b, ts }) 
   const order = [2, 1, 0];
   return (
     <AbsoluteFill style={{ opacity: fade(t, a, b) }}>
-      <Title a={a} b={b} n="TOKENIZADORAS CONSTRUIDAS EN" text="Tres países y contando" x={1080} y={300} size={86} />
+      <Title a={a} b={b} n="TOKENIZADORAS CONSTRUIDAS EN" text="Tres países y contando" y={60} size={86} />
+      <AbsoluteFill style={{ transform: 'translate(40px, 70px) scale(0.86)', transformOrigin: '880px 640px' }}>
       <svg width={W} height={H} style={{ position: 'absolute' }}>
         <path d="M720 300 L820 330 L900 420 L960 470 L1000 560 L1040 640 L1010 760 L980 880 L940 980 L900 940 L910 800 L860 700 L820 560 L780 470 L740 400 Z" fill="rgba(45,82,255,0.12)" stroke="rgba(140,160,255,0.45)" strokeWidth={3} />
       </svg>
@@ -437,6 +451,7 @@ const Paises: React.FC<{ a: number; b: number; ts: number[] }> = ({ a, b, ts }) 
           </div>
         );
       })}
+      </AbsoluteFill>
     </AbsoluteFill>
   );
 };
@@ -446,27 +461,28 @@ const Cierre: React.FC = () => {
   if (t < 171.9) return null;
   return (
     <AbsoluteFill style={{ alignItems: 'center', justifyContent: 'center' }}>
-      <div style={{ display: 'flex', gap: 40, fontFamily: DISPLAY, fontSize: 120, color: INK, position: 'absolute', top: 170 }}>
+      <div style={{ display: 'flex', gap: 40, fontFamily: DISPLAY, fontSize: 120, color: INK, position: 'absolute', top: 60 }}>
         <span style={{ opacity: pin(t, 172.06, 0.3), transform: `scale(${slam(t, 172.06, 1.3)})` }}>TU IDEA.</span>
         <span style={{ opacity: pin(t, 172.95, 0.3), color: GOLD, transform: `scale(${slam(t, 172.95, 1.3)})` }}>NUESTRA TECNOLOGÍA.</span>
       </div>
-      <div style={{ position: 'absolute', top: 400, transform: `scale(${pop(t, 174.55)})` }}><Img src={staticFile('brand/logo-horizontal.png')} style={{ width: 820 }} /></div>
-      <div style={{ position: 'absolute', top: 700, fontFamily: BODY, fontWeight: 800, fontSize: 46, letterSpacing: 4, color: SOFT, opacity: pin(t, 175.4, 0.5) }}>keylab.tech</div>
-      <div style={{ position: 'absolute', top: 790, fontFamily: BODY, fontWeight: 700, fontSize: 28, color: MUTED, opacity: pin(t, 176.0, 0.5) }}>Marketing · Diseño · Webs · 3D · Ecommerce · Apps · Blockchain · Tokenización · IA</div>
+      <div style={{ position: 'absolute', top: 255, transform: `scale(${pop(t, 174.55)})` }}><Img src={staticFile('brand/logo-horizontal.png')} style={{ width: 680 }} /></div>
+      <div style={{ position: 'absolute', top: 495, fontFamily: BODY, fontWeight: 800, fontSize: 44, letterSpacing: 4, color: SOFT, opacity: pin(t, 175.4, 0.5) }}>keylab.tech</div>
+      <div style={{ position: 'absolute', top: 562, fontFamily: BODY, fontWeight: 700, fontSize: 28, color: MUTED, opacity: pin(t, 176.0, 0.5) }}>Marketing · Diseño · Webs · 3D · Ecommerce · Apps · Blockchain · Tokenización · IA</div>
     </AbsoluteFill>
   );
 };
 
 const H_ = (a: number, b: number, from: number, z1 = 1.05): Cut => ({ a, b, src: 'historia', from, z0: 1.0, z1 });
 
-export const KeyLabServicios: React.FC = () => {
-  const t = useT();
-  const flash = [36.1, 125.71].reduce((m, a) => m + interpolate(t, [a, a + 0.03, a + 0.4], [0, 0.35, 0], clamp), 0);
+export const KeyLabServicios: React.FC = () => <KLBody />;
+const KLBody: React.FC = () => {
+  const t = useT(); const tn = useTN(); const TW = useTW(); const v = React.useContext(KLCtx);
+  const flash = [36.1, 125.71].reduce((m, a) => m + interpolate(tn, [TW(a), TW(a) + 0.03, TW(a) + 0.4], [0, 0.35, 0], clamp), 0);
   return (
     <AbsoluteFill style={{ background: '#05070D', overflow: 'hidden' }}>
-      <Audio src={staticFile(`${M}voz-musica.mp3`)} />
-      <Sequence from={Math.round(EY * FPS)} durationInFrames={60}><Audio src={staticFile('sfx/boom.mp3')} volume={0.5} /></Sequence>
-      <Sequence from={Math.round(177.0 * FPS)} durationInFrames={95}><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.55} /></Sequence>
+      <Audio src={staticFile(`${M}${v.audio}`)} />
+      <Sequence from={Math.round(TW(EY) * FPS)} durationInFrames={60}><Audio src={staticFile('sfx/boom.mp3')} volume={0.5} /></Sequence>
+      <Sequence from={Math.round(TW(177.0) * FPS)} durationInFrames={95}><Audio src={staticFile('sfx/muejeje-corto.mp3')} volume={0.55} /></Sequence>
       <Fondo />
 
       {/* 0 · GANCHO */}
@@ -480,7 +496,7 @@ export const KeyLabServicios: React.FC = () => {
       ]} />
 
       {/* 2 · PUENTE */}
-      <Muro a={33.05} at={35.95} b={36.75} />
+      {v.muro ? <Muro a={TW(35.8)} at={v.muro[0]} b={v.muro[1]} sweep={v.muro[0] + 0.9} real /> : <Muro a={33.05} at={35.95} b={36.75} />}
       <Title a={33.05} b={35.9} text="Hoy hacemos" align="center" y={420} size={150} />
 
       {/* 3 · MARKETING Y DISEÑO */}
@@ -531,21 +547,21 @@ export const KeyLabServicios: React.FC = () => {
       <Tag a={106.01} b={107.1} I={PiShoppingCart} text="Carrito y pago" x={1420} y={260} c={GREEN} />
 
       {/* 7 · APPS Y PAGOS */}
-      <Title a={109.6} b={123.6} n="05 · PLATAFORMAS Y APPS" text="Apps que se usan" y={110} size={92} />
+      <Title a={109.6} b={123.6} n="05 · PLATAFORMAS Y APPS" text="Apps que se usan" y={40} size={84} />
       <Telefono a={110.4} b={119.9} cuts={[
         { a: 110.4, b: 114.04, src: 'keypay', from: 1.0 }, { a: 114.04, b: 115.3, src: 'keypay', from: 6.0 }, { a: 115.3, b: 116.25, src: 'keypay', from: 30.0 },
         { a: 116.25, b: 117.95, src: 'keypay', from: 36.0 }, { a: 117.95, b: 119.9, src: 'keypay', from: 10.0 },
       ]} />
       <Social a={119.9} b={123.6} perf={120.0} pubs={120.4} com={121.5} />
       {[[PiWallet, 'Billetera', 114.04], [PiChartLineUp, 'Saldo e historial', 114.78], [PiIdentificationCard, 'Verificación de identidad', 116.28], [PiCreditCard, 'Pasarelas de pago', 117.99], [PiUsersThree, 'Apps sociales', 120.25]].map(([I, l, a], i) => (
-        <Tag key={i} a={a as number} b={123.6} I={I as Ic} text={l as string} x={140} y={360 + i * 112} c={i === 3 ? GREEN : ACCENT} />
+        <Tag key={i} a={a as number} b={123.6} I={I as Ic} text={l as string} x={1000} y={270 + i * 118} c={i === 3 ? GREEN : ACCENT} />
       ))}
 
       {/* 8 · BLOCKCHAIN */}
       <Title a={123.7} b={128.8} n="06 · BLOCKCHAIN" text="Donde nos sentimos en casa" y={110} size={92} />
       <Cadena a={124.9} b={132.4} />
-      <Tag a={126.74} b={128.8} I={PiLink} text="Aplicaciones descentralizadas" x={560} y={760} />
-      <Tag a={128.86} b={132.4} I={PiCheckCircle} text="Trazabilidad en blockchain" x={600} y={760} c={GREEN} />
+      <Tag a={126.74} b={128.8} I={PiLink} text="Aplicaciones descentralizadas" x={0} y={700} center />
+      <Tag a={128.86} b={132.4} I={PiCheckCircle} text="Trazabilidad en blockchain" x={0} y={700} c={GREEN} center />
       <Clips a={132.4} b={135.55} framed box={{ x: 260, y: 150, w: 1400, h: 790 }} url="colombiainvierte.co" cuts={[{ a: 132.4, b: 135.55, src: 'colombia-invierte', from: 1.0, crop: 80, z1: 1.08 }]} />
       <Clips a={135.55} b={140.3} cuts={[{ a: 135.55, b: 140.3, src: 'historia', from: 168.5, z1: 1.08 }]} />
       <Fragmentar a={140.3} b={145.6} ts={[142.71, 143.43, 143.99]} />
@@ -558,11 +574,11 @@ export const KeyLabServicios: React.FC = () => {
       <Paises a={160.4} b={165.8} ts={[162.12, 162.84, 163.42]} />
       <Clips a={165.8} b={171.9} cuts={[{ a: 165.8, b: 171.9, src: 'historia', from: 182.0, z1: 1.08 }]} />
       <Cierre />
-      <OneGag g={{ ...OUTRO_MUEJEJE, at: 177.0, dur: 7.0 }} />
+      <OneGag g={{ ...OUTRO_MUEJEJE, at: TW(177.0), dur: 7.0 }} />
 
       <Captions />
       <AbsoluteFill style={{ background: '#fff', opacity: flash, pointerEvents: 'none' }} />
-      <AbsoluteFill style={{ background: '#000', opacity: interpolate(t, [KL_DUR - 0.6, KL_DUR], [0, 1], clamp), pointerEvents: 'none' }} />
+      <AbsoluteFill style={{ background: '#000', opacity: interpolate(tn, [v.dur - 0.6, v.dur], [0, 1], clamp), pointerEvents: 'none' }} />
     </AbsoluteFill>
   );
 };
@@ -576,3 +592,8 @@ export const KLMuroHold: React.FC = () => (
     </Sequence>
   </AbsoluteFill>
 );
+
+import WL from './kl-var-lina.json';
+const mkVar = (j: any, audio: string): KLVar => ({ anchors: j.anchors, dur: j.dur, words: j.words, muro: j.muro, audio });
+export const KL_LINA = mkVar(WL, 'lina/voz-musica.mp3');
+export const KeyLabLina: React.FC = () => <KLCtx.Provider value={KL_LINA}><KLBody /></KLCtx.Provider>;

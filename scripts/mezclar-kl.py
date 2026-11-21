@@ -1,11 +1,13 @@
 import numpy as np, subprocess
 from pedalboard import Pedalboard, Compressor, HighpassFilter, PeakFilter, HighShelfFilter, Limiter
 from pedalboard.io import AudioFile
-SR=44100; D='public/media/kl/'
+import sys, json
+SR=44100; VAR=sys.argv[1]; D=f'public/media/kl/{VAR}/'; VJ=json.load(open(f'src/historia/kl-var-{VAR}.json'))
+AN=np.array(VJ['anchors']); W=lambda x: np.interp(x,AN[:,0],AN[:,1])
 def load(p):
     with AudioFile(p).resampled_to(SR) as f: a=f.read(f.frames)
     return np.vstack([a,a]) if a.shape[0]==1 else a
-v=load(D+'voz.mp3'); i0=int(36.4*SR); v=np.concatenate([v[:,:i0],np.zeros((2,int(3.5*SR)),v.dtype),v[:,i0:]],1); m=load(D+'partitura.wav')
+v=load(D+'voz.mp3'); m=load(D+'partitura.wav')
 n=max(v.shape[1],m.shape[1]); v=np.pad(v,((0,0),(0,n-v.shape[1]))); m=np.pad(m,((0,0),(0,n-m.shape[1])))
 v=Pedalboard([HighpassFilter(85),PeakFilter(3200,3,1.0),HighShelfFilter(8000,2),Compressor(threshold_db=-20,ratio=3,attack_ms=5,release_ms=120)])(v.astype(np.float32),SR)
 m=Pedalboard([HighpassFilter(45),PeakFilter(2400,-5.5,1.0),PeakFilter(900,-2,1.0)])(m.astype(np.float32),SR)
@@ -19,9 +21,9 @@ sm=np.zeros_like(duck); a_at=np.exp(-1/(0.03*SR)); a_rl=np.exp(-1/(0.35*SR)); y=
 for i in range(0,len(duck),32):
     x=duck[i]; c=a_at if x>y else a_rl**32; y=c*y+(1-c)*x if x>y else y*(a_rl**32)+(1-a_rl**32)*x; sm[i:i+32]=y
 t=np.arange(n)/SR
-depth=np.where((t>175.0),0.45,0.6)
+depth=np.where((t>W(171.5)),0.45,0.6)
 g=1-depth*sm
-lift=np.interp(t,[0,3.3,3.38,4.3,4.4,33,36.1,173.5,178.0,187.5],[6,6,9,9,4,4,6,6,9,9]); g=g*10**(lift/20)
+lift=np.interp(t,list(W(np.array([0,3.3,3.38,4.3,4.4,33,36.1,170,174.5])))+[VJ['dur']],[6,6,9,9,4,4,6,6,9,9]); g=g*10**(lift/20)
 out=v+m*g
 out=Pedalboard([Limiter(threshold_db=-1)])(out.astype(np.float32),SR)
 with AudioFile(D+'mezcla.wav','w',SR,2) as f: f.write(out)
